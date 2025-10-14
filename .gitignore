@@ -22,3 +22,27 @@ public/video/*.mov
 
 # If you use Turbo / monorepo
 **/.turbo
+
+# Build & deps
+node_modules/
+.next/
+out/
+dist/
+.vercel/
+**/.turbo
+
+# Env & logs
+.env
+.env*.local
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+
+# Keep only compressed videos in git
+public/video/*.mov
+
+!out/**
