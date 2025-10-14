@@ -1,48 +1,12 @@
-# Node / Next
+# dependencies
 node_modules/
+pnpm-lock.yaml
+
+# next build caches
 .next/
+# static export output (we deploy it separately, do not version it)
 out/
-dist/
-.vercel/
-.vscode/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
-# Env & local config
-.env
-.env*.local
-
-# OS junk
+# misc
 .DS_Store
-
-# Optional: raw source videos you don't want in git (keep compressed outputs only)
-public/video/*.mov
-
-# If you use Turbo / monorepo
-**/.turbo
-
-# Build & deps
-node_modules/
-.next/
-out/
-dist/
-.vercel/
-**/.turbo
-
-# Env & logs
 .env
-.env*.local
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# OS
-.DS_Store
-
-# Keep only compressed videos in git
-public/video/*.mov
-
-!out/**

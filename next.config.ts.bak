@@ -1,0 +1,18 @@
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  // static export
+  output: 'export',
+
+  // allow next/image in static export
+  images: { unoptimized: true },
+
+  // 🚫 skip ESLint during production build
+  eslint: { ignoreDuringBuilds: true },
+
+  // 🚫 (optional safety) skip TS type errors during build
+  // remove later when you want strict checks again
+  typescript: { ignoreBuildErrors: true },
+};
+
+export default nextConfig;

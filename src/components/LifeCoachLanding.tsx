@@ -278,39 +278,39 @@ export default function LifeCoachLanding() {
               <div className="flex items-center gap-2"><ShieldIcon className="h-5 w-5 text-[var(--brand-ink)]"/>{' '}{t.hero.ethics}</div>
             </div>
           </div>
-          {/* Right panel: autoplay intro video (centered) */} 
-          <div className="relative"> 
-            <div className="aspect-square rounded-3xl bg-gradient-to-tr from-[var(--tint-1)] via-[var(--surface)] to-[var(--accent)] p-2 shadow-xl"> 
-              <div className="relative h-full w-full overflow-hidden rounded-2xl grid place-items-center bg-[var(--surface)]"> 
-                <video 
-                  className="h-full w-full object-cover object-center" 
-                  playsInline 
-                  autoPlay 
-                  muted 
-                  loop 
+          {/* Right panel: autoplay intro video (centered) */}
+          <div className="relative">
+            <div className="aspect-square rounded-3xl bg-gradient-to-tr from-[var(--tint-1)] via-[var(--surface)] to-[var(--accent)] p-2 shadow-xl">
+              <div className="relative h-full w-full overflow-hidden rounded-2xl grid place-items-center bg-[var(--surface)]">
+                <video
+                  className="h-full w-full object-cover object-center"
+                  playsInline
+                  autoPlay
+                  muted
+                  loop
                   poster="/video/2video-poster.jpg"
-                  aria-label="Intro video from Luna Coaching" 
-                > 
-                  <source src="/video/2intro.webm" type="video/webm" /> 
-                  <source src="/video/2intro.mp4" type="video/mp4" /> 
-                  <track kind="captions" src="/video/intro-captions.vtt" srcLang="en" label="English captions" default /> 
-                  <track kind="captions" src="/video/intro-captions-ru.vtt" srcLang="ru" label="Русские субтитры" /> 
-                </video> 
-                {/* Soft info pill */} 
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3"> 
-                  <div className="mx-auto max-w-sm rounded-xl bg-[color:var(--surface)/0.75] backdrop-blur border border-[var(--border)] px-3 py-2 text-xs text-[var(--muted)]"> 
-                    {lang==='ru' ? '20 сек. интро · без звука · с субтитрами' : '20-sec intro · sound off · captions on'} 
-                  </div> 
-                </div> 
-              </div> 
-            </div> 
-          
-            <div className="absolute -bottom-6 -right-6 bg-[color:var(--surface)/0.9] backdrop-blur rounded-2xl shadow-md border border-[var(--border)] px-4 py-3"> 
-              <p className="text-sm"> 
-                <strong>{t.hero.cohort}</strong> {lang === 'ru' ? 'стартует' : 'starts'}{' '} 
-                <span className="text-[var(--brand-ink)]">{t.hero.cohortDate}</span> 
-              </p> 
-            </div> 
+                  aria-label="Intro video from Luna Coaching"
+                >
+                  <source src="/video/2intro.webm" type="video/webm" />
+                  <source src="/video/2intro.mp4" type="video/mp4" />
+                  <track kind="captions" src="/video/intro-captions.vtt" srcLang="en" label="English captions" default />
+                  <track kind="captions" src="/video/intro-captions-ru.vtt" srcLang="ru" label="Русские субтитры" />
+                </video>
+                {/* Soft info pill */}
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3">
+                  <div className="mx-auto max-w-sm rounded-xl bg-[color:var(--surface)/0.75] backdrop-blur border border-[var(--border)] px-3 py-2 text-xs text-[var(--muted)]">
+                    {lang==='ru' ? '20 сек. интро · без звука · с субтитрами' : '20-sec intro · sound off · captions on'}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute -bottom-6 -right-6 bg-[color:var(--surface)/0.9] backdrop-blur rounded-2xl shadow-md border border-[var(--border)] px-4 py-3">
+              <p className="text-sm">
+                <strong>{t.hero.cohort}</strong> {lang === 'ru' ? 'стартует' : 'starts'}{' '}
+                <span className="text-[var(--brand-ink)]">{t.hero.cohortDate}</span>
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -334,7 +334,7 @@ export default function LifeCoachLanding() {
           </div>
           <div className="mt-10 grid md:grid-cols-3 gap-6">
             {t.services.cards.map((c, i) => (
-              <ServiceCard key={i} title={c.title} price={c.price} bullet={c.bullets} badge={c.badge} chooseLabel={t.services.choose}/>
+              <ServiceCard key={i} title={c.title} price={c.price} bullet={c.bullets} badge={'badge' in c ? c.badge : undefined} chooseLabel={t.services.choose}/>
             ))}
           </div>
         </div>
@@ -358,23 +358,23 @@ export default function LifeCoachLanding() {
               <a href="#method" className="inline-flex items-center rounded-xl border px-6 py-3 font-medium border-[var(--border)] bg-[var(--surface)] hover:bg-[color:var(--surface)/0.9]">{t.about.cta2}</a>
             </div>
           </div>
-          <div className="relative"> 
-            <div className="aspect-[4/5] rounded-3xl bg-[var(--tint-1)] p-2 shadow-xl"> 
-              <div className="relative h-full w-full overflow-hidden rounded-2xl"> 
-                <Image 
-                  src="/img/luna.png"               
-                  alt={lang === 'ru' ? 'Луна, лайф-коуч' : 'Luna, life coach'} 
-                  fill 
-                  className="object-cover object-center" 
-                  priority 
-                  sizes="(min-width:1024px) 32rem, 100vw" 
-                /> 
-              </div> 
-            </div> 
-          
-            <div className="absolute -bottom-6 -left-6 bg-[color:var(--surface)/0.9] backdrop-blur rounded-2xl shadow-md border border-[var(--border)] px-4 py-3"> 
-              <p className="text-sm"><strong>{t.about.stat}</strong></p> 
-            </div> 
+          <div className="relative">
+            <div className="aspect-[4/5] rounded-3xl bg-[var(--tint-1)] p-2 shadow-xl">
+              <div className="relative h-full w-full overflow-hidden rounded-2xl">
+                <Image
+                  src="/img/luna.png"
+                  alt={lang === 'ru' ? 'Луна, лайф-коуч' : 'Luna, life coach'}
+                  fill
+                  className="object-cover object-center"
+                  priority
+                  sizes="(min-width:1024px) 32rem, 100vw"
+                />
+              </div>
+            </div>
+
+            <div className="absolute -bottom-6 -left-6 bg-[color:var(--surface)/0.9] backdrop-blur rounded-2xl shadow-md border border-[var(--border)] px-4 py-3">
+              <p className="text-sm"><strong>{t.about.stat}</strong></p>
+            </div>
           </div>
         </div>
       </section>
@@ -491,7 +491,7 @@ export default function LifeCoachLanding() {
 
 function ServiceCard({
   title, price, bullet, badge, chooseLabel = 'Choose',
-}: { title:string; price:string; bullet:string[]; badge?:string; chooseLabel?: string }) {
+}: { title:string; price:string; bullet: readonly string[]; badge?:string; chooseLabel?: string }) {
   return (
     <div className="relative rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm">
       {badge && (
