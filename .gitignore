@@ -5,7 +5,7 @@ pnpm-lock.yaml
 # next build caches
 .next/
 # static export output (we deploy it separately, do not version it)
-out/
+
 
 # misc
 .DS_Store
