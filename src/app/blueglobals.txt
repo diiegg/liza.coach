@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+/* === Pastel Beach Palette === */
+:root{
+  --bg: #DAECFF;             /* Ice Blue */
+  --surface: #FFFFFF;        /* Cards */
+  --text: #2A2A2A;           /* Main text */
+  --muted: #6B6B6B;          /* Secondary text */
+  --border: #E7EAF2;         /* Soft border */
+
+  --brand: #8FB2E0;          /* Periwinkle (primary) */
+  --brand-hover: #7AA2D6;    /* Darker periwinkle */
+  --brand-ink: #2B4B6A;      /* Ink on brand */
+
+  --accent: #F4C6B6;         /* Peach */
+  --tint-1: #FBE7C6;         /* Sand Cream */
+  --tint-2: #B6A7B8;         /* Lavender Gray */
+  --tint-3: #5B7F8A;         /* Sea Teal */
+
+  /* Optional: hero gradient endpoints (only used if you later switch the SVG to vars) */
+  --grad-start: var(--bg);
+  --grad-end: var(--accent);
+}
+
+html, body { background: var(--bg); color: var(--text); }
+
+/* === Remap existing Tailwind utilities used in your .tsx to the palette === */
+/* This lets you change only globals.css to reskin the site. */
+@layer utilities {
+  /* Primary actions / chips */
+  .bg-emerald-600 { background-color: var(--brand) !important; }
+  .hover\:bg-emerald-700:hover { background-color: var(--brand-hover) !important; }
+  .text-emerald-700 { color: var(--brand-ink) !important; }
+  .text-emerald-600 { color: var(--brand-ink) !important; }
+  .bg-emerald-50   { background-color: var(--tint-1) !important; }
+  .bg-emerald-100  { background-color: color-mix(in srgb, var(--tint-1) 80%, white) !important; }
+  .bg-emerald-200  { background-color: var(--tint-1) !important; }
+  .border-emerald-200 { border-color: var(--tint-2) !important; }
+
+  /* Warm accent (rose) -> Peach */
+  .bg-rose-50  { background-color: var(--accent) !important; }
+  .bg-rose-200 { background-color: var(--accent) !important; }
+
+  /* Neutral system (stone) -> our neutrals */
+  .bg-stone-50     { background-color: var(--bg) !important; }
+  .bg-white        { background-color: var(--surface) !important; }
+  .text-stone-900  { color: var(--text) !important; }
+  .text-stone-800  { color: var(--text) !important; }
+  .text-stone-700  { color: var(--muted) !important; }
+  .text-stone-600  { color: var(--muted) !important; }
+  .text-stone-500  { color: color-mix(in srgb, var(--muted) 85%, white) !important; }
+  .text-stone-400  { color: color-mix(in srgb, var(--muted) 70%, white) !important; }
+  .border-stone-200{ border-color: var(--border) !important; }
+  .border-stone-300{ border-color: var(--border) !important; }
+  .hover\:border-stone-300:hover { border-color: color-mix(in srgb, var(--border) 90%, black 10%) !important; }
+  .hover\:bg-stone-50:hover { background-color: color-mix(in srgb, var(--surface) 95%, var(--bg) 5%) !important; }
+
+  /* Dark chip in ServiceCard (“Choose”) */
+  .bg-stone-900 { background-color: var(--text) !important; }
+  .hover\:bg-stone-800:hover { background-color: color-mix(in srgb, var(--text) 92%, white 8%) !important; }
+
+  /* Focus rings that referenced emerald */
+  .focus\:ring-emerald-600\/40:focus { --tw-ring-color: color-mix(in srgb, var(--brand) 40%, transparent); }
+  .focus\:ring-emerald-600\/30:focus { --tw-ring-color: color-mix(in srgb, var(--brand) 30%, transparent); }
+}
+
+/* (Optional) small helpers if you want pastel section washes later
+.section-wash-1 { background-color: color-mix(in srgb, var(--tint-1) 40%, transparent); }
+.section-wash-2 { background-color: color-mix(in srgb, var(--tint-2) 20%, transparent); }
+*/
