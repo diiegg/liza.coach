@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
-    "start": "next start",
-    "lint": "eslint"
+    "build": "next build",
+    "start": "NODE_ENV=production node server.js",
+    "lint": "eslint",
+    "export": "next export -o out"
   },
   "dependencies": {
     "next": "15.5.4",

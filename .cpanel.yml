@@ -1,0 +1,11 @@
+---
+deployment:
+  tasks:
+    - export NODE_ENV=production
+    - export NEXT_TELEMETRY_DISABLED=1
+    # prefer pnpm; fallback to npm automatically
+    - /bin/bash -lc 'corepack enable && corepack prepare pnpm@10.18.2 --activate || true'
+    - /bin/bash -lc 'if command -v pnpm >/dev/null 2>&1; then pnpm i --frozen-lockfile; else npm ci; fi'
+    - /bin/bash -lc 'if command -v pnpm >/dev/null 2>&1; then pnpm run build; else npm run build; fi'
+    # signal Passenger to restart the Node app
+    - /bin/bash -lc 'mkdir -p tmp && touch tmp/restart.txt'
