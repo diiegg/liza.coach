@@ -64,7 +64,3 @@ html, body { background: var(--bg); color: var(--text); }
   .focus\:ring-emerald-600\/30:focus { --tw-ring-color: color-mix(in srgb, var(--brand) 30%, transparent); }
 }
 
-/* (Optional) small helpers if you want pastel section washes later
-.section-wash-1 { background-color: color-mix(in srgb, var(--tint-1) 40%, transparent); }
-.section-wash-2 { background-color: color-mix(in srgb, var(--tint-2) 20%, transparent); }
-*/
