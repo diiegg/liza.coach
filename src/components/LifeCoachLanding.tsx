@@ -7,7 +7,7 @@ type Lang = 'en' | 'ru';
 
 const copy = {
   en: {
-    brand: 'Luna Coaching',
+    brand: 'Liza Coaching',
     nav: { services: 'Services', about: 'About', method: 'Method', results: 'Results', contact: 'Contact', book: 'Book a Call' },
     hero: {
       chip: '1:1 & Group Coaching · Free Discovery Call',
@@ -41,7 +41,7 @@ const copy = {
       choose: 'Choose',
     },
     about: {
-      title: 'Meet Luna',
+      title: 'Meet Liza',
       body: 'Certified life coach, former product lead, and lifelong student of behavior change. I combine coaching, positive psychology, and practical systems to help you turn insight into action.',
       bullets: [
         'ICF-aligned training with 500+ coaching hours',
@@ -88,14 +88,14 @@ const copy = {
       send: 'Send message',
       policy: 'By sending, you agree to our privacy policy.',
       hours: 'Mon–Fri · 9:00–17:00',
-      site: 'lunacoaching.com',
+      site: 'lizacoaching.com',
     },
-    footer: { privacy: 'Privacy', terms: 'Terms', imprint: 'Imprint', rights: (y:number)=>`© ${y} Luna Coaching. All rights reserved.` },
+    footer: { privacy: 'Privacy', terms: 'Terms', imprint: 'Imprint', rights: (y:number)=>`© ${y} Liza Coaching. All rights reserved.` },
     langLabel: 'Language',
   },
 
   ru: {
-    brand: 'Luna Coaching',
+    brand: 'Liza Coaching',
     nav: { services: 'Услуги', about: 'Обо мне', method: 'Метод', results: 'Результаты', contact: 'Контакты', book: 'Записаться на звонок' },
     hero: {
       chip: 'Индивидуальный и групповой коучинг · Бесплатная ознакомительная встреча',
@@ -176,9 +176,9 @@ const copy = {
       send: 'Отправить сообщение',
       policy: 'Отправляя форму, вы соглашаетесь с политикой конфиденциальности.',
       hours: 'Пн–Пт · 9:00–17:00',
-      site: 'lunacoaching.com',
+      site: 'lizacoaching.com',
     },
-    footer: { privacy: 'Конфиденциальность', terms: 'Условия', imprint: 'Реквизиты', rights: (y:number)=>`© ${y} Luna Coaching. Все права защищены.` },
+    footer: { privacy: 'Конфиденциальность', terms: 'Условия', imprint: 'Реквизиты', rights: (y:number)=>`© ${y} Liza Coaching. Все права защищены.` },
     langLabel: 'Язык',
   },
 } as const;
@@ -289,7 +289,12 @@ export default function LifeCoachLanding() {
                   muted
                   loop
                   poster="/video/2video-poster.jpg"
-                  aria-label="Intro video from Luna Coaching"
+                  aria-label="Intro video from Liza Coaching"
+                  onEnded={(e) => {
+                    // Fallback to restart video if loop fails
+                    e.currentTarget.currentTime = 0;
+                    e.currentTarget.play();
+                  }}
                 >
                   <source src="/video/2intro.webm" type="video/webm" />
                   <source src="/video/2intro.mp4" type="video/mp4" />
@@ -363,7 +368,7 @@ export default function LifeCoachLanding() {
               <div className="relative h-full w-full overflow-hidden rounded-2xl">
                 <Image
                   src="/img/luna.png"
-                  alt={lang === 'ru' ? 'Луна, лайф-коуч' : 'Luna, life coach'}
+                  alt={lang === 'ru' ? 'Лиза, лайф-коуч' : 'Liza, life coach'}
                   fill
                   className="object-cover object-center"
                   priority
@@ -442,7 +447,7 @@ export default function LifeCoachLanding() {
             <h2 className="text-3xl font-semibold tracking-tight">{t.contact.title}</h2>
             <p className="mt-3 text-[var(--muted)]">{t.contact.sub}</p>
             <div className="mt-6 space-y-3 text-[var(--muted)]">
-              <div className="flex items-center gap-3"><MailIcon className="h-5 w-5 text-[var(--brand-ink)]"/> hello@lunacoaching.com</div>
+              <div className="flex items-center gap-3"><MailIcon className="h-5 w-5 text-[var(--brand-ink)]"/> hello@lizacoaching.com</div>
               <div className="flex items-center gap-3"><GlobeIcon className="h-5 w-5 text-[var(--brand-ink)]"/> {t.contact.site}</div>
               <div className="flex items-center gap-3"><CalendarIcon className="h-5 w-5 text-[var(--brand-ink)]"/> {t.contact.hours}</div>
             </div>
