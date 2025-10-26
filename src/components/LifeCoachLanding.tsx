@@ -288,15 +288,26 @@ export default function LifeCoachLanding() {
                   autoPlay
                   muted
                   loop
-                  poster="/video/2video-poster.jpg"
+                  preload="metadata"
+                  poster="/video/2video-poster.webp"
                   aria-label="Intro video from Liza Coaching"
                   onEnded={(e) => {
                     // Fallback to restart video if loop fails
                     e.currentTarget.currentTime = 0;
                     e.currentTarget.play();
                   }}
+                  onLoadStart={(e) => {
+                    // Optimize for performance - only load what's needed
+                    e.currentTarget.volume = 0;
+                  }}
                 >
+                  {/* Mobile-first: smaller video for mobile devices */}
+                  <source src="/video/2intro-480p.mp4" type="video/mp4" media="(max-width: 768px)" />
+                  {/* Desktop: higher quality */}
+                  <source src="/video/2intro-720p.mp4" type="video/mp4" media="(min-width: 769px)" />
+                  {/* Fallback WebM for browsers that support it */}
                   <source src="/video/2intro.webm" type="video/webm" />
+                  {/* Final fallback MP4 */}
                   <source src="/video/2intro.mp4" type="video/mp4" />
                   <track kind="captions" src="/video/intro-captions.vtt" srcLang="en" label="English captions" default />
                   <track kind="captions" src="/video/intro-captions-ru.vtt" srcLang="ru" label="Русские субтитры" />
@@ -367,12 +378,15 @@ export default function LifeCoachLanding() {
             <div className="aspect-[4/5] rounded-3xl bg-[var(--tint-1)] p-2 shadow-xl">
               <div className="relative h-full w-full overflow-hidden rounded-2xl">
                 <Image
-                  src="/img/luna.png"
+                  src="/img/luna.webp"
                   alt={lang === 'ru' ? 'Лиза, лайф-коуч' : 'Liza, life coach'}
                   fill
                   className="object-cover object-center"
-                  priority
-                  sizes="(min-width:1024px) 32rem, 100vw"
+                  priority={false}
+                  sizes="(min-width: 1024px) 32rem, (min-width: 768px) 50vw, 100vw"
+                  quality={85}
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                 />
               </div>
             </div>
