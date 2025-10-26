@@ -42,14 +42,15 @@ export function Header({ t, lang, onLangChange }: HeaderProps) {
                 {item.label}
               </a>
             ))}
-            <a
-              href="#booking"
-              className="inline-flex items-center gap-2 rounded-full bg-[var(--brand)] px-4 py-2 font-medium text-white shadow hover:bg-[var(--brand-hover)] focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.4] transition-colors"
-            >
-              {t.nav.book}
-            </a>
-
-            {/* Language dropdown */}
+          {/* Book a Call Button */}
+          <a
+            href="https://calendly.com/meitol0407/30min?month=2025-10"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-xl bg-[var(--brand)] px-4 py-2 text-white text-sm font-medium hover:bg-[var(--brand-hover)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--brand)] focus:ring-offset-2"
+          >
+            {t.nav.book}
+          </a>            {/* Language dropdown */}
             <div className="relative">
               <label className="sr-only" htmlFor="lang-select">
                 {t.langLabel}

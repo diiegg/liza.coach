@@ -10,23 +10,20 @@ interface ContactProps {
 }
 
 interface FormErrors {
-  firstName?: string;
-  lastName?: string;
+  name?: string;
   email?: string;
   message?: string;
 }
 
 interface FormData {
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   message: string;
 }
 
 export function Contact({ t, lang }: ContactProps) {
   const [formData, setFormData] = useState<FormData>({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
     message: '',
   });
@@ -42,12 +39,8 @@ export function Contact({ t, lang }: ContactProps) {
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = lang === 'ru' ? 'Обязательное поле' : 'Required field';
-    }
-
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = lang === 'ru' ? 'Обязательное поле' : 'Required field';
+    if (!formData.name.trim()) {
+      newErrors.name = lang === 'ru' ? 'Обязательное поле' : 'Required field';
     }
 
     if (!formData.email.trim()) {
@@ -84,7 +77,7 @@ export function Contact({ t, lang }: ContactProps) {
       console.log('Form submitted:', formData);
       
       setSubmitStatus('success');
-      setFormData({ firstName: '', lastName: '', email: '', message: '' });
+      setFormData({ name: '', email: '', message: '' });
       setErrors({});
       
       // Reset success message after 5 seconds
@@ -133,52 +126,30 @@ export function Contact({ t, lang }: ContactProps) {
         </div>
         
         <form onSubmit={handleSubmit} className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm" noValidate>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="space-y-4">
             <div>
-              <label htmlFor="firstName" className="text-sm font-medium block">
-                {t.contact.first} <span className="text-red-500">*</span>
+              <label htmlFor="name" className="text-sm font-medium block">
+                {lang === 'ru' ? 'Полное имя' : 'Full Name'} <span className="text-red-500">*</span>
               </label>
               <input
-                id="firstName"
+                id="name"
                 type="text"
-                value={formData.firstName}
-                onChange={(e) => handleChange('firstName', e.target.value)}
+                value={formData.name}
+                onChange={(e) => handleChange('name', e.target.value)}
                 className={`mt-1 w-full rounded-lg border ${
-                  errors.firstName ? 'border-red-500' : 'border-[var(--border)]'
+                  errors.name ? 'border-red-500' : 'border-[var(--border)]'
                 } px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3] transition-shadow`}
-                placeholder={lang === 'ru' ? 'Анна' : 'Jane'}
-                aria-invalid={!!errors.firstName}
-                aria-describedby={errors.firstName ? 'firstName-error' : undefined}
+                placeholder={lang === 'ru' ? 'Анна Иванова' : 'Jane Doe'}
+                aria-invalid={!!errors.name}
+                aria-describedby={errors.name ? 'name-error' : undefined}
               />
-              {errors.firstName && (
-                <p id="firstName-error" className="mt-1 text-xs text-red-500" role="alert">
-                  {errors.firstName}
+              {errors.name && (
+                <p id="name-error" className="mt-1 text-xs text-red-500" role="alert">
+                  {errors.name}
                 </p>
               )}
             </div>
             <div>
-              <label htmlFor="lastName" className="text-sm font-medium block">
-                {t.contact.last} <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="lastName"
-                type="text"
-                value={formData.lastName}
-                onChange={(e) => handleChange('lastName', e.target.value)}
-                className={`mt-1 w-full rounded-lg border ${
-                  errors.lastName ? 'border-red-500' : 'border-[var(--border)]'
-                } px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3] transition-shadow`}
-                placeholder={lang === 'ru' ? 'Иванова' : 'Doe'}
-                aria-invalid={!!errors.lastName}
-                aria-describedby={errors.lastName ? 'lastName-error' : undefined}
-              />
-              {errors.lastName && (
-                <p id="lastName-error" className="mt-1 text-xs text-red-500" role="alert">
-                  {errors.lastName}
-                </p>
-              )}
-            </div>
-            <div className="sm:col-span-2">
               <label htmlFor="email" className="text-sm font-medium block">
                 {t.contact.email} <span className="text-red-500">*</span>
               </label>
@@ -200,7 +171,7 @@ export function Contact({ t, lang }: ContactProps) {
                 </p>
               )}
             </div>
-            <div className="sm:col-span-2">
+            <div>
               <label htmlFor="message" className="text-sm font-medium block">
                 {t.contact.message} <span className="text-red-500">*</span>
               </label>

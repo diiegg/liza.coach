@@ -27,7 +27,9 @@ export function ServiceCard({ title, price, bullets, badge, chooseLabel }: Servi
         ))}
       </ul>
       <a 
-        href="#booking" 
+        href="https://calendly.com/meitol0407/30min?month=2025-10"
+        target="_blank"
+        rel="noopener noreferrer" 
         className="mt-5 inline-flex items-center rounded-xl bg-[var(--text)] px-4 py-2 text-white font-medium hover:bg-[color:var(--text)/0.9] transition-colors"
       >
         {chooseLabel}

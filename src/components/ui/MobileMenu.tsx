@@ -62,7 +62,9 @@ export function MobileMenu({ isOpen, onClose, navItems, bookLabel }: MobileMenuP
             </a>
           ))}
           <a
-            href="#booking"
+            href="https://calendly.com/meitol0407/30min?month=2025-10"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center rounded-xl bg-[var(--brand)] px-6 py-3 text-white font-medium shadow hover:bg-[var(--brand-hover)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--brand)] focus:ring-offset-2 mt-4"
             onClick={onClose}
           >

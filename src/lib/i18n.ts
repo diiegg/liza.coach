@@ -85,6 +85,7 @@ export const translations = {
     booking: {
       title: 'Ready to get unstuck?',
       sub: "Book a free 20-minute discovery call. We'll explore your goals and see if it's a fit. No pressure.",
+      urgency: '⚡ Limited Spots Available This Month',
       cta1: 'Request a call',
       cta2: 'See FAQs',
     },
@@ -215,6 +216,7 @@ export const translations = {
     booking: {
       title: 'Готовы выбраться из застоя?',
       sub: 'Запишитесь на бесплатную 20-минутную встречу-знакомство. Обсудим цели и поймём, подходим ли мы друг другу — без обязательств.',
+      urgency: '⚡ Ограниченное количество мест в этом месяце',
       cta1: 'Оставить заявку',
       cta2: 'Смотреть вопросы',
     },

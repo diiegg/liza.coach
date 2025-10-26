@@ -23,7 +23,9 @@ export function About({ t }: AboutProps) {
           </ul>
           <div className="mt-8 flex gap-3">
             <a 
-              href="#booking" 
+              href="https://calendly.com/meitol0407/30min?month=2025-10"
+              target="_blank"
+              rel="noopener noreferrer" 
               className="inline-flex items-center rounded-xl bg-[var(--brand)] px-6 py-3 text-white font-medium shadow hover:bg-[var(--brand-hover)] transition-colors"
             >
               {t.about.cta1}

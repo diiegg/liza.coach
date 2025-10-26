@@ -27,7 +27,9 @@ export function Hero({ t, lang }: HeroProps) {
           <p className="mt-4 text-[var(--muted)] text-lg">{t.hero.sub}</p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
-              href="#booking"
+              href="https://calendly.com/meitol0407/30min?month=2025-10"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-xl bg-[var(--brand)] px-6 py-3 text-white font-medium shadow hover:bg-[var(--brand-hover)] focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.4] transition-colors"
             >
               {t.hero.ctaPrimary}
