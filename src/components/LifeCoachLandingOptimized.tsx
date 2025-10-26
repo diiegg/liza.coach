@@ -33,17 +33,19 @@ export default function LifeCoachLandingOptimized() {
   const t = translations[lang];
 
   return (
-    <div className="bg-[var(--bg)] text-[var(--text)]">
+    <div className="min-h-screen" lang={lang}>
       <Header t={t} lang={lang} onLangChange={setLang} />
-      <Hero t={t} lang={lang} />
-      <SocialProof t={t} />
-      <Services t={t} />
-      <About t={t} />
-      <Method t={t} />
-      <Testimonials t={t} />
-      <Booking t={t} />
-      <Faq t={t} />
-      <Contact t={t} lang={lang} />
+      <main id="main-content" role="main">
+        <Hero t={t} lang={lang} />
+        <SocialProof t={t} />
+        <Services t={t} />
+        <About t={t} />
+        <Method t={t} />
+        <Testimonials t={t} />
+        <Booking t={t} />
+        <Faq t={t} />
+        <Contact t={t} lang={lang} />
+      </main>
       <Footer t={t} />
     </div>
   );
