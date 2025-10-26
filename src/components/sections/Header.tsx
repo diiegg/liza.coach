@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Lang, Translations } from '@/lib/i18n';
 import { HamburgerButton, MobileMenu } from '../ui/MobileMenu';
 
@@ -12,6 +12,22 @@ interface HeaderProps {
 
 export function Header({ t, lang, onLangChange }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showLanguageHint, setShowLanguageHint] = useState(false);
+
+  // Show hint for auto-detected language (only once per session)
+  useEffect(() => {
+    const hasSeenHint = sessionStorage.getItem('languageHintSeen');
+    const savedLang = localStorage.getItem('lang');
+    
+    // Show hint if language was auto-detected (not manually saved before)
+    if (!hasSeenHint && !savedLang && typeof window !== 'undefined') {
+      setShowLanguageHint(true);
+      sessionStorage.setItem('languageHintSeen', 'true');
+      
+      // Hide hint after 5 seconds
+      setTimeout(() => setShowLanguageHint(false), 5000);
+    }
+  }, []);
 
   const navItems = [
     { label: t.nav.services, href: '#services' },
@@ -61,9 +77,24 @@ export function Header({ t, lang, onLangChange }: HeaderProps) {
                 value={lang}
                 onChange={(e) => onLangChange(e.target.value as Lang)}
               >
-                <option value="en">English</option>
-                <option value="ru">Русский</option>
+                <option value="en">🇬🇧 English</option>
+                <option value="ru">🇷🇺 Русский</option>
               </select>
+              
+              {/* Auto-detection hint */}
+              {showLanguageHint && (
+                <div className="absolute top-full right-0 mt-2 w-48 bg-[var(--brand)] text-white text-xs rounded-lg shadow-lg p-2 z-50 animate-fade-in">
+                  <div className="flex items-start gap-2">
+                    <span className="text-base">🌐</span>
+                    <p>
+                      {lang === 'ru' 
+                        ? 'Язык определён автоматически' 
+                        : 'Language auto-detected'}
+                    </p>
+                  </div>
+                  <div className="absolute -top-1 right-4 w-2 h-2 bg-[var(--brand)] rotate-45"></div>
+                </div>
+              )}
             </div>
           </nav>
 
@@ -75,8 +106,8 @@ export function Header({ t, lang, onLangChange }: HeaderProps) {
               onChange={(e) => onLangChange(e.target.value as Lang)}
               aria-label={t.langLabel}
             >
-              <option value="en">EN</option>
-              <option value="ru">RU</option>
+              <option value="en">🇬🇧 EN</option>
+              <option value="ru">🇷🇺 RU</option>
             </select>
             <HamburgerButton
               isOpen={mobileMenuOpen}

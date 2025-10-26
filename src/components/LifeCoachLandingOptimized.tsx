@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Lang, translations } from '@/lib/i18n';
+import { detectUserLanguage, saveLanguagePreference } from '@/lib/languageDetection';
 import { Header } from './sections/Header';
 import { Hero } from './sections/Hero';
 import { SocialProof } from './sections/SocialProof';
@@ -16,25 +17,26 @@ import { Footer } from './sections/Footer';
 
 export default function LifeCoachLandingOptimized() {
   const [lang, setLang] = useState<Lang>('en');
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  // On first load, prefer saved choice or browser language
+  // Enhanced language detection on first load
   useEffect(() => {
-    const saved = (typeof window !== 'undefined' && window.localStorage.getItem('lang')) as Lang | null;
-    if (saved === 'en' || saved === 'ru') return setLang(saved);
-    const nav = typeof navigator !== 'undefined' ? navigator.language.toLowerCase() : '';
-    if (nav.startsWith('ru')) setLang('ru');
+    const detectedLang = detectUserLanguage();
+    setLang(detectedLang);
+    setIsInitialized(true);
   }, []);
 
-  // Persist choice
-  useEffect(() => {
-    if (typeof window !== 'undefined') window.localStorage.setItem('lang', lang);
-  }, [lang]);
+  // Persist language choice when user manually changes it
+  const handleLangChange = (newLang: Lang) => {
+    setLang(newLang);
+    saveLanguagePreference(newLang);
+  };
 
   const t = translations[lang];
 
   return (
     <div className="min-h-screen" lang={lang}>
-      <Header t={t} lang={lang} onLangChange={setLang} />
+      <Header t={t} lang={lang} onLangChange={handleLangChange} />
       <main id="main-content" role="main">
         <Hero t={t} lang={lang} />
         <SocialProof t={t} />
