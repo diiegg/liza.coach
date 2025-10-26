@@ -1,1 +1,5 @@
-export { default } from "./(site)/page";
+import LifeCoachLanding from "@/components/LifeCoachLanding";
+
+export default function Page() {
+  return <LifeCoachLanding />;
+}
