@@ -1,5 +1,5 @@
-import LifeCoachLanding from "@/components/LifeCoachLanding";
+import LifeCoachLandingOptimized from "@/components/LifeCoachLandingOptimized";
 
 export default function Page() {
-  return <LifeCoachLanding />;
+  return <LifeCoachLandingOptimized />;
 }
