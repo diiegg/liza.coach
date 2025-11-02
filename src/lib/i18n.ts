@@ -3,13 +3,13 @@ export type Lang = 'en' | 'ru';
 export const translations = {
   en: {
     brand: 'Liza Coaching',
-    nav: { 
-      services: 'Services', 
-      about: 'About', 
-      method: 'Method', 
-      results: 'Results', 
-      contact: 'Contact', 
-      book: 'Book a Call' 
+    nav: {
+      services: 'Services',
+      about: 'About',
+      method: 'Method',
+      results: 'Results',
+      contact: 'Contact',
+      book: 'Book a Call'
     },
     hero: {
       chip: '1:1 & Group Coaching · Free Discovery Call',
@@ -36,21 +36,21 @@ export const translations = {
       title: 'Coaching offers',
       sub: 'Flexible formats designed around your goals and schedule.',
       cards: [
-        { 
-          title: '1:1 Deep-Dive', 
-          price: '€149 / session', 
-          bullets: ['60-min on Zoom','Personal roadmap','Voxer support 5 days'], 
-          badge: 'Most popular' 
+        {
+          title: '1:1 Deep-Dive',
+          price: '€149 / session',
+          bullets: ['60-min on Zoom','Personal roadmap','Voxer support 5 days'],
+          badge: 'Most popular'
         },
-        { 
-          title: 'Momentum Pack', 
-          price: '€799 / 6 weeks', 
-          bullets: ['Weekly 50-min','Habit tracker','Accountability notes'] 
+        {
+          title: 'Momentum Pack',
+          price: '€799 / 6 weeks',
+          bullets: ['Weekly 50-min','Habit tracker','Accountability notes']
         },
-        { 
-          title: 'Clarity Day', 
-          price: '€950 / day', 
-          bullets: ['Half-day intensive','Values & vision map','90-day action plan'] 
+        {
+          title: 'Clarity Day',
+          price: '€950 / day',
+          bullets: ['Half-day intensive','Values & vision map','90-day action plan']
         },
       ],
       choose: 'Choose',
@@ -78,9 +78,9 @@ export const translations = {
         { k: 'M', t: 'Measure', d: 'Track progress, review, and adjust with support.' },
       ],
     },
-    testimonials: { 
-      title: 'Client results', 
-      sub: 'Real stories from coaching engagements.' 
+    testimonials: {
+      title: 'Client results',
+      sub: 'Real stories from coaching engagements.'
     },
     booking: {
       title: 'Ready to get unstuck?',
@@ -92,17 +92,17 @@ export const translations = {
     faq: {
       title: 'FAQs',
       items: [
-        { 
-          q: "What's your coaching style?", 
-          a: "Supportive yet direct. I'll ask powerful questions, reflect patterns, and co-design simple experiments that move you forward." 
+        {
+          q: "What's your coaching style?",
+          a: "Supportive yet direct. I'll ask powerful questions, reflect patterns, and co-design simple experiments that move you forward."
         },
-        { 
-          q: 'Do you offer remote sessions?', 
-          a: 'Yes — all sessions are online. I coach clients across time zones.' 
+        {
+          q: 'Do you offer remote sessions?',
+          a: 'Yes — all sessions are online. I coach clients across time zones.'
         },
-        { 
-          q: "What's the commitment?", 
-          a: 'Single sessions are available; most clients choose 6–12 weeks for momentum.' 
+        {
+          q: "What's the commitment?",
+          a: 'Single sessions are available; most clients choose 6–12 weeks for momentum.'
         },
       ],
     },
@@ -120,11 +120,11 @@ export const translations = {
       site: 'lizacoaching.com',
       emailAddress: 'hello@lizacoaching.com',
     },
-    footer: { 
-      privacy: 'Privacy', 
-      terms: 'Terms', 
-      imprint: 'Imprint', 
-      rights: (y: number) => `© ${y} Liza Coaching. All rights reserved.` 
+    footer: {
+      privacy: 'Privacy',
+      terms: 'Terms',
+      imprint: 'Imprint',
+      rights: (y: number) => `© ${y} Liza Coaching. All rights reserved.`
     },
     langLabel: 'Language',
     videoInfo: '20-sec intro · sound off · captions on',
@@ -134,19 +134,19 @@ export const translations = {
 
   ru: {
     brand: 'Liza Coaching',
-    nav: { 
-      services: 'Услуги', 
-      about: 'Обо мне', 
-      method: 'Метод', 
-      results: 'Результаты', 
-      contact: 'Контакты', 
-      book: 'Записаться на звонок' 
+    nav: {
+      services: 'Услуги',
+      about: 'Обо мне',
+      method: 'Метод',
+      results: 'Результаты',
+      contact: 'Контакты',
+      book: 'Записаться на звонок'
     },
     hero: {
       chip: 'Индивидуальный и групповой коучинг · Бесплатная ознакомительная встреча',
-      h1: 'Ясность. Уверенность. Системные действия.',
-      sub: 'Помогаю амбициозным людям выйти из застоя, поставить согласованные цели и выстроить привычки — без выгорания.',
-      ctaPrimary: 'Записаться на бесплатный звонок',
+      h1: 'Вера в себя. Поддержка в доверии. Системные действия.',
+      sub: 'Помогаю амбициозным преподавателям и помогающим практикам развиваться в своем деле в согласии со своими внутренними ценностями.',
+      ctaPrimary: 'Получить предварительную консультацию',
       ctaSecondary: 'Посмотреть программы',
       rating: '4.9/5 у 120+ клиентов',
       ethics: 'Этика в соответствии с ICF',
@@ -167,21 +167,21 @@ export const translations = {
       title: 'Коучинговые предложения',
       sub: 'Гибкие форматы, ориентированные на ваши цели и расписание.',
       cards: [
-        { 
-          title: 'Индивидуальная глубинная сессия', 
-          price: '€149 / сессия', 
-          bullets: ['60 минут в Zoom','Личный роадмап','Поддержка в Voxer 5 дней'], 
-          badge: 'Самое популярное' 
+        {
+          title: 'Индивидуальная глубинная сессия',
+          price: '€149 / сессия',
+          bullets: ['60 минут в Zoom','Личный роадмап','Поддержка в Voxer 5 дней'],
+          badge: 'Самое популярное'
         },
-        { 
-          title: 'Пакет «Импульс»', 
-          price: '€799 / 6 недель', 
-          bullets: ['Еженедельно по 50 минут','Трекер привычек','Заметки-подотчётность'] 
+        {
+          title: 'Пакет «Импульс»',
+          price: '€799 / 6 недель',
+          bullets: ['Еженедельно по 50 минут','Трекер привычек','Заметки-подотчётность']
         },
-        { 
-          title: 'День ясности', 
-          price: '€950 / день', 
-          bullets: ['Полудневный интенсив','Карта ценностей и видения','План действий на 90 дней'] 
+        {
+          title: 'День ясности',
+          price: '€950 / день',
+          bullets: ['Полудневный интенсив','Карта ценностей и видения','План действий на 90 дней']
         },
       ],
       choose: 'Выбрать',
@@ -209,9 +209,9 @@ export const translations = {
         { k: 'M', t: 'Measure', d: 'Отслеживать прогресс, делать обзоры и корректировки с поддержкой.' },
       ],
     },
-    testimonials: { 
-      title: 'Результаты клиентов', 
-      sub: 'Реальные истории сотрудничества.' 
+    testimonials: {
+      title: 'Результаты клиентов',
+      sub: 'Реальные истории сотрудничества.'
     },
     booking: {
       title: 'Готовы выбраться из застоя?',
@@ -223,17 +223,17 @@ export const translations = {
     faq: {
       title: 'Вопросы и ответы',
       items: [
-        { 
-          q: 'Какой у вас стиль коучинга?', 
-          a: 'Поддерживающий, но прямой. Я задаю сильные вопросы, отражаю паттерны и вместе с вами проектирую простые эксперименты, которые двигают вперёд.' 
+        {
+          q: 'Какой у вас стиль коучинга?',
+          a: 'Поддерживающий, но прямой. Я задаю сильные вопросы, отражаю паттерны и вместе с вами проектирую простые эксперименты, которые двигают вперёд.'
         },
-        { 
-          q: 'Проводите ли вы дистанционные сессии?', 
-          a: 'Да — все встречи проходят онлайн. Я работаю с клиентами из разных часовых поясов.' 
+        {
+          q: 'Проводите ли вы дистанционные сессии?',
+          a: 'Да — все встречи проходят онлайн. Я работаю с клиентами из разных часовых поясов.'
         },
-        { 
-          q: 'Какое обязательство по времени?', 
-          a: 'Можно разово; чаще всего выбирают 6–12 недель для набора импульса.' 
+        {
+          q: 'Какое обязательство по времени?',
+          a: 'Можно разово; чаще всего выбирают 6–12 недель для набора импульса.'
         },
       ],
     },
@@ -251,11 +251,11 @@ export const translations = {
       site: 'lizacoaching.com',
       emailAddress: 'hello@lizacoaching.com',
     },
-    footer: { 
-      privacy: 'Конфиденциальность', 
-      terms: 'Условия', 
-      imprint: 'Реквизиты', 
-      rights: (y: number) => `© ${y} Liza Coaching. Все права защищены.` 
+    footer: {
+      privacy: 'Конфиденциальность',
+      terms: 'Условия',
+      imprint: 'Реквизиты',
+      rights: (y: number) => `© ${y} Liza Coaching. Все права защищены.`
     },
     langLabel: 'Язык',
     videoInfo: '20 сек. интро · без звука · с субтитрами',
