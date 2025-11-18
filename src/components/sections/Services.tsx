@@ -13,7 +13,7 @@ export function Services({ t }: ServicesProps) {
           <h2 className="text-3xl font-semibold tracking-tight">{t.services.title}</h2>
           <p className="mt-2 text-[var(--muted)]">{t.services.sub}</p>
         </div>
-        <div className="mt-10 grid md:grid-cols-3 gap-6">
+        <div className="mt-10 grid md:grid-cols-3 gap-6 items-stretch">
           {t.services.cards.map((card, i) => (
             <ServiceCard
               key={i}
