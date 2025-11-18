@@ -1,6 +1,23 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
+Allow: /img/
+Allow: /video/
+Disallow: /api/
+Disallow: /_next/static/
+
+# Crawl-delay for polite bots
+Crawl-delay: 1
 
 # Sitemap location
 Sitemap: https://liza.coach/sitemap.xml
+
+# Yandex specific
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 1
+
+# Google specific
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5
