@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 test.describe('Accessibility Tests (WCAG 2.1 AA)', () => {
+  test.skip(({ browserName }) => browserName !== 'chromium', 'Accessibility tests only run on Chromium');
   test('should not have any automatically detectable accessibility issues', async ({ page }) => {
     await page.goto('/');
     

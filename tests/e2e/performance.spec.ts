@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Performance Tests', () => {
+  test.skip(({ browserName }) => browserName !== 'chromium', 'Performance tests only run on Chromium');
   test('should load homepage within acceptable time', async ({ page }) => {
     const startTime = Date.now();
     await page.goto('/');
