@@ -1,0 +1,16 @@
+/* TEAM */
+Coach: Liza
+Contact: @lizadirect [Telegram]
+Location: Moscow, Russia
+
+/* SITE */
+Last update: 2025/11/18
+Language: Russian / English
+Doctype: HTML5
+IDE: VS Code
+Technologies: Next.js 15, TypeScript, React, Tailwind CSS
+
+/* THANKS */
+To all the clients who trusted me with their journey
+To the ICF community for professional development
+To everyone pursuing their potential

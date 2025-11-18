@@ -6,3 +6,4 @@ export { MailIcon } from './MailIcon';
 export { GlobeIcon } from './GlobeIcon';
 export { CalendarIcon } from './CalendarIcon';
 export { QuoteIcon } from './QuoteIcon';
+export { TelegramIcon } from './TelegramIcon';
