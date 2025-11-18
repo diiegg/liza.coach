@@ -3,9 +3,9 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Liza Coaching – Certified Life & Career Coach | Transform Your Life',
-  description: 'Certified professional life coach specializing in personal growth, career development, and goal achievement. 15+ years of experience helping clients unlock their potential. Sessions in English and Russian.',
-  keywords: 'life coach, career coaching, personal development, goal setting, professional coach, certified coach, life transformation, career guidance, coaching sessions',
+  title: 'Liza Coaching – Сертифицированный Life-коуч ICF | Лайф-коучинг для предпринимателей',
+  description: 'Сертифицированный лайф-коуч с опытом 15+ лет. Помогаю предпринимателям и самозанятым выйти из застоя, найти фокус и начать зарабатывать от 50 000₽/месяц за 8 недель. Методика ОПОРА. 200+ клиентов. Сессии онлайн.',
+  keywords: 'лайф коуч, life coach, коуч ICF, коучинг для предпринимателей, карьерный коучинг, личностный рост, коуч для самозанятых, бизнес коучинг, онлайн коучинг, сертифицированный коуч, life coaching Moscow, career coach Russia',
   authors: [{ name: 'Liza' }],
   creator: 'Liza Coaching',
   publisher: 'Liza Coaching',
@@ -23,26 +23,26 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Liza Coaching – Certified Life & Career Coach',
-    description: 'Transform your life with certified professional coaching. Specializing in personal growth, career development, and achieving your goals. 15+ years of experience.',
+    title: 'Liza Coaching – Сертифицированный Life-коуч ICF',
+    description: 'Помогаю предпринимателям выйти из застоя и начать уверенно зарабатывать от 50 000₽/месяц. 200+ клиентов, 15+ лет опыта. Методика ОПОРА.',
     url: 'https://liza.coach',
     siteName: 'Liza Coaching',
-    locale: 'en_US',
-    alternateLocale: 'ru_RU',
+    locale: 'ru_RU',
+    alternateLocale: ['en_US'],
     type: 'website',
     images: [
       {
         url: '/img/luna.webp',
         width: 1200,
         height: 630,
-        alt: 'Liza - Certified Professional Life Coach',
+        alt: 'Лиза - Сертифицированный лайф-коуч ICF',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Liza Coaching – Certified Life & Career Coach',
-    description: 'Transform your life with certified professional coaching. Personal growth, career development, and goal achievement.',
+    title: 'Liza Coaching – Сертифицированный Life-коуч ICF',
+    description: 'Помогаю предпринимателям выйти из застоя и начать уверенно зарабатывать. 200+ клиентов, 15+ лет опыта.',
     images: ['/img/luna.webp'],
   },
   robots: {
@@ -69,8 +69,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <head>
+        <link rel="canonical" href="https://liza.coach" />
+        <link rel="author" href="/humans.txt" />
+        <meta name="geo.region" content="RU-MOW" />
+        <meta name="geo.placename" content="Москва" />
+        <meta name="geo.position" content="55.751244;37.618423" />
+        <meta name="ICBM" content="55.751244, 37.618423" />
+        
         {/* Google tag (gtag.js) */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-LG9ST0FWMZ"></script>
         <script
@@ -93,7 +100,8 @@ export default function RootLayout({
                 {
                   '@type': 'Person',
                   '@id': 'https://liza.coach/#person',
-                  name: 'Liza',
+                  name: 'Лиза',
+                  alternateName: 'Liza',
                   url: 'https://liza.coach',
                   image: {
                     '@type': 'ImageObject',
@@ -101,13 +109,13 @@ export default function RootLayout({
                     width: 1200,
                     height: 630,
                   },
-                  jobTitle: 'Certified Life & Career Coach',
-                  description: 'Certified professional life coach with 15+ years of experience specializing in personal growth, career development, and goal achievement.',
-                  knowsLanguage: ['en', 'ru'],
+                  jobTitle: 'Сертифицированный лайф-коуч ICF',
+                  description: 'Сертифицированный профессиональный лайф-коуч с опытом 15+ лет. Специализация: личностный рост, карьерное развитие, коучинг для предпринимателей и самозанятых.',
+                  knowsLanguage: ['ru', 'en'],
+                  alumniOf: 'ICF (International Coaching Federation)',
                   sameAs: [
-                    // Add your social media profiles when ready
-                    // 'https://linkedin.com/in/yourprofile',
-                    // 'https://instagram.com/yourprofile',
+                    'https://t.me/calmpro',
+                    'https://t.me/lizadirect',
                   ],
                 },
                 {
@@ -120,32 +128,86 @@ export default function RootLayout({
                     url: 'https://liza.coach/img/luna.webp',
                   },
                   image: 'https://liza.coach/img/luna.webp',
-                  description: 'Professional life coaching services specializing in personal growth, career development, and goal achievement. Certified coach with 15+ years of experience.',
-                  priceRange: '$$',
+                  description: 'Профессиональные услуги лайф-коучинга для предпринимателей и самозанятых. Методика ОПОРА. Помогаем найти фокус, вернуть энергию и начать уверенно зарабатывать от 50 000₽ в месяц.',
+                  priceRange: '5000₽ - 50000₽',
+                  telephone: '@lizadirect',
                   address: {
                     '@type': 'PostalAddress',
-                    addressCountry: 'Online',
+                    addressCountry: 'RU',
+                    addressLocality: 'Москва',
                   },
-                  areaServed: {
-                    '@type': 'Place',
-                    name: 'Worldwide',
-                  },
+                  areaServed: [
+                    {
+                      '@type': 'Country',
+                      name: 'Россия',
+                    },
+                    {
+                      '@type': 'Place',
+                      name: 'Онлайн по всему миру',
+                    },
+                  ],
                   availableLanguage: [
                     {
                       '@type': 'Language',
-                      name: 'English',
+                      name: 'Русский',
+                      alternateName: 'Russian',
                     },
                     {
                       '@type': 'Language',
-                      name: 'Russian',
+                      name: 'Английский',
+                      alternateName: 'English',
                     },
                   ],
                   serviceType: [
-                    'Life Coaching',
-                    'Career Coaching',
-                    'Personal Development',
-                    'Goal Setting',
+                    'Лайф-коучинг',
+                    'Карьерный коучинг',
+                    'Коучинг для предпринимателей',
+                    'Бизнес-коучинг',
+                    'Личностный рост',
                   ],
+                  hasOfferCatalog: {
+                    '@type': 'OfferCatalog',
+                    name: 'Программы коучинга',
+                    itemListElement: [
+                      {
+                        '@type': 'Offer',
+                        itemOffered: {
+                          '@type': 'Service',
+                          name: 'Разовая сессия',
+                          description: 'Одна 60-минутная коуч-сессия для решения конкретной задачи',
+                        },
+                        price: '5000',
+                        priceCurrency: 'RUB',
+                      },
+                      {
+                        '@type': 'Offer',
+                        itemOffered: {
+                          '@type': 'Service',
+                          name: 'Пакет "Фокус"',
+                          description: '4 сессии на 1 месяц. Поможем определить цель и сделать первые шаги.',
+                        },
+                        price: '18000',
+                        priceCurrency: 'RUB',
+                      },
+                      {
+                        '@type': 'Offer',
+                        itemOffered: {
+                          '@type': 'Service',
+                          name: 'Программа "Трансформация"',
+                          description: '8 недель интенсивной работы. От застоя к стабильному доходу 50 000₽+',
+                        },
+                        price: '50000',
+                        priceCurrency: 'RUB',
+                      },
+                    ],
+                  },
+                  aggregateRating: {
+                    '@type': 'AggregateRating',
+                    ratingValue: '4.9',
+                    ratingCount: '120',
+                    bestRating: '5',
+                    worstRating: '1',
+                  },
                   provider: {
                     '@id': 'https://liza.coach/#person',
                   },
@@ -155,11 +217,49 @@ export default function RootLayout({
                   '@id': 'https://liza.coach/#website',
                   url: 'https://liza.coach',
                   name: 'Liza Coaching',
-                  description: 'Professional life coaching services for personal growth and career development',
+                  description: 'Профессиональный лайф-коучинг для предпринимателей и самозанятых. Методика ОПОРА.',
                   publisher: {
                     '@id': 'https://liza.coach/#person',
                   },
-                  inLanguage: ['en', 'ru'],
+                  inLanguage: ['ru', 'en'],
+                  potentialAction: {
+                    '@type': 'SearchAction',
+                    target: {
+                      '@type': 'EntryPoint',
+                      urlTemplate: 'https://liza.coach/?q={search_term_string}',
+                    },
+                    'query-input': 'required name=search_term_string',
+                  },
+                },
+                {
+                  '@type': 'FAQPage',
+                  '@id': 'https://liza.coach/#faq',
+                  mainEntity: [
+                    {
+                      '@type': 'Question',
+                      name: 'Какой у вас стиль коучинга?',
+                      acceptedAnswer: {
+                        '@type': 'Answer',
+                        text: 'Поддерживающий, но прямой. Я задаю сильные вопросы, отражаю паттерны и вместе с вами проектирую простые эксперименты, которые двигают вперёд.',
+                      },
+                    },
+                    {
+                      '@type': 'Question',
+                      name: 'Проводите ли вы дистанционные сессии?',
+                      acceptedAnswer: {
+                        '@type': 'Answer',
+                        text: 'Да — все встречи проходят онлайн. Работаю с клиентами из разных часовых поясов.',
+                      },
+                    },
+                    {
+                      '@type': 'Question',
+                      name: 'Какие обязательства требуются?',
+                      acceptedAnswer: {
+                        '@type': 'Answer',
+                        text: 'Доступны разовые сессии; большинство клиентов выбирают программы на 4–8 недель для устойчивых результатов.',
+                      },
+                    },
+                  ],
                 },
               ],
             }),
