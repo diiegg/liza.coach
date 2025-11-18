@@ -43,7 +43,7 @@ export function Hero({ t, lang }: HeroProps) {
           </div>
           <div className="mt-8 flex items-center gap-6 text-sm text-[var(--muted)]">
             <div className="flex items-center gap-2">
-              <StarIcon className="h-5 w-5 text-[var(--brand-ink)]" /> {t.hero.rating}
+              <StarIcon className="h-5 w-5 text-yellow-500" /> {t.hero.rating}
             </div>
             <div className="flex items-center gap-2">
               <ShieldIcon className="h-5 w-5 text-[var(--brand-ink)]" /> {t.hero.ethics}

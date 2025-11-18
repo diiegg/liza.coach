@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { Lang, Translations } from '@/lib/i18n';
-import { MailIcon, GlobeIcon, CalendarIcon } from '../icons';
+import { MailIcon, GlobeIcon, CalendarIcon, TelegramIcon } from '../icons';
 
 interface ContactProps {
   t: Translations;
@@ -106,17 +106,26 @@ export function Contact({ t, lang }: ContactProps) {
           <p className="mt-3 text-[var(--muted)]">{t.contact.sub}</p>
           <div className="mt-6 space-y-3 text-[var(--muted)]">
             <div className="flex items-center gap-3">
-              <MailIcon className="h-5 w-5 text-[var(--brand-ink)] flex-shrink-0" />
+              <TelegramIcon className="h-5 w-5 text-[var(--brand-ink)] flex-shrink-0" />
               <a 
-                href={`mailto:${t.contact.emailAddress}`}
+                href={t.contact.emailAddress.includes('https://') ? t.contact.emailAddress.split(': ')[1] : `mailto:${t.contact.emailAddress}`}
+                target={t.contact.emailAddress.includes('https://') ? '_blank' : undefined}
+                rel={t.contact.emailAddress.includes('https://') ? 'noopener noreferrer' : undefined}
                 className="hover:text-[var(--brand-ink)] transition-colors"
               >
                 {t.contact.emailAddress}
               </a>
             </div>
             <div className="flex items-center gap-3">
-              <GlobeIcon className="h-5 w-5 text-[var(--brand-ink)] flex-shrink-0" />
-              {t.contact.site}
+              <TelegramIcon className="h-5 w-5 text-[var(--brand-ink)] flex-shrink-0" />
+              <a 
+                href={`https://t.me/${t.contact.site.split('@')[1]}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[var(--brand-ink)] transition-colors"
+              >
+                {t.contact.site}
+              </a>
             </div>
             <div className="flex items-center gap-3">
               <CalendarIcon className="h-5 w-5 text-[var(--brand-ink)] flex-shrink-0" />
