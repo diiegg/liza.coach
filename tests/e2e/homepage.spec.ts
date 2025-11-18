@@ -56,10 +56,29 @@ test.describe('Homepage E2E Tests', () => {
   test('should load images properly', async ({ page }) => {
     const images = page.locator('img');
     const count = await images.count();
-    
+
     for (let i = 0; i < count; i++) {
       const img = images.nth(i);
-      await expect(img).toHaveJSProperty('complete', true);
+      // Scroll image into view to trigger lazy loading
+      await img.scrollIntoViewIfNeeded();
+      // Wait for image to be visible first
+      await expect(img).toBeVisible();
+      // Wait for the image to actually load by waiting for naturalWidth > 0
+      await img.evaluate((el: HTMLImageElement) => {
+        return new Promise<void>((resolve, reject) => {
+          if (el.complete && el.naturalWidth > 0) {
+            resolve();
+          } else {
+            el.onload = () => resolve();
+            el.onerror = () => reject(new Error('Image failed to load'));
+            // Timeout after 10 seconds
+            setTimeout(() => reject(new Error('Image load timeout')), 10000);
+          }
+        });
+      });
+      // Verify the image loaded successfully
+      const naturalWidth = await img.evaluate((el: HTMLImageElement) => el.naturalWidth);
+      expect(naturalWidth).toBeGreaterThan(0);
     }
   });
 });
