@@ -2,6 +2,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { WebVitals } from '@/components/WebVitals';
+import { CookieConsent } from '@/components/CookieConsent';
+import { ConditionalAnalytics } from '@/components/ConditionalAnalytics';
 
 export const metadata: Metadata = {
   title: 'Liza Coaching – Сертифицированный Life-коуч ICF | Лайф-коучинг для предпринимателей',
@@ -79,21 +81,7 @@ export default function RootLayout({
         <meta name="geo.position" content="55.751244;37.618423" />
         <meta name="ICBM" content="55.751244, 37.618423" />
         
-        {/* Umami Analytics */}
-        <script defer src="https://cloud.umami.is/script.js" data-website-id="364b0838-3aa5-4e05-b188-973f850487c5"></script>
-        
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-LG9ST0FWMZ"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-LG9ST0FWMZ');
-            `,
-          }}
-        />
+        {/* Analytics loaded conditionally via ConditionalAnalytics component based on cookie consent */}
         
         <script
           type="application/ld+json"
@@ -271,11 +259,13 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <ConditionalAnalytics />
         <WebVitals />
         <a href="#main-content" className="skip-to-content">
           Skip to main content
         </a>
         {children}
+        <CookieConsent />
       </body>
     </html>
   );
