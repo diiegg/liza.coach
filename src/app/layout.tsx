@@ -1,6 +1,7 @@
 // src/app/layout.tsx (Server Component - no "use client")
 import './globals.css';
 import type { Metadata } from 'next';
+import { WebVitals } from '@/components/WebVitals';
 
 export const metadata: Metadata = {
   title: 'Liza Coaching – Certified Life & Career Coach | Transform Your Life',
@@ -167,6 +168,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <WebVitals />
         <a href="#main-content" className="skip-to-content">
           Skip to main content
         </a>

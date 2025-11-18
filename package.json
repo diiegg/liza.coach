@@ -7,7 +7,16 @@
     "build": "next build",
     "build:analyze": "ANALYZE=true next build",
     "start": "NODE_ENV=production node server.js",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
+    "test:accessibility": "playwright test tests/e2e/accessibility.spec.ts",
+    "test:performance": "playwright test tests/e2e/performance.spec.ts",
+    "test:all": "pnpm test && pnpm test:e2e"
   },
   "dependencies": {
     "next": "15.5.4",
@@ -15,19 +24,33 @@
     "react-dom": "19.1.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.0",
+    "@axe-core/react": "^4.11.0",
     "@eslint/eslintrc": "^3",
     "@next/bundle-analyzer": "^16.0.0",
+    "@playwright/test": "^1.56.1",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^5.1.1",
+    "@vitest/coverage-v8": "^4.0.10",
+    "@vitest/ui": "^4.0.10",
     "autoprefixer": "^10.4.21",
+    "axe-core": "^4.11.0",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
+    "jsdom": "^27.2.0",
+    "lighthouse": "^13.0.1",
     "postcss": "^8.5.6",
     "sharp": "^0.34.4",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.0.10",
+    "web-vitals": "^5.1.0"
   },
   "packageManager": "pnpm@10.18.3+sha512.bbd16e6d7286fd7e01f6b3c0b3c932cda2965c06a908328f74663f10a9aea51f1129eea615134bf992831b009eabe167ecb7008b597f40ff9bc75946aadfb08d"
 }
