@@ -6,6 +6,23 @@ This project implements comprehensive testing and quality assurance with:
 - **E2E Tests** (Playwright)
 - **Accessibility Tests** (Axe-core, WCAG 2.1 AA)
 - **Performance Monitoring** (Web Vitals)
+- **CI/CD Pipeline** (GitHub Actions + Coveralls)
+
+## CI/CD Pipeline
+
+All feature branches **must pass** the CI pipeline before merging to `dev`:
+
+### Automated Checks on Every PR:
+1. ✅ **Lint & Type Check** - ESLint + TypeScript compilation
+2. ✅ **Unit Tests** - All component tests with coverage
+3. ✅ **E2E Tests** - Chromium, Firefox, WebKit
+4. ✅ **Accessibility** - WCAG 2.1 AA compliance
+5. ✅ **Performance** - Core Web Vitals validation
+6. ✅ **Build** - Production build verification
+
+**Coverage Reports:** Automatically uploaded to [Coveralls](https://coveralls.io/github/diiegg/liza.coach)
+
+See [Branch Protection Setup](.github/BRANCH_PROTECTION.md) for configuration details.
 
 ## Test Structure
 
