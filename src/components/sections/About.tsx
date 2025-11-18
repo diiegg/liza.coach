@@ -30,6 +30,12 @@ export function About({ t }: AboutProps) {
             >
               {t.about.cta1}
             </a>
+            <a 
+              href="#method" 
+              className="inline-flex items-center rounded-xl border px-6 py-3 font-medium border-[var(--border)] bg-[var(--surface)] hover:bg-[color:var(--surface)/0.9] transition-colors"
+            >
+              {t.about.cta2}
+            </a>
           </div>
           {t.about.credentials && (
             <div className="mt-8 pt-6 border-t border-[var(--border)]">
