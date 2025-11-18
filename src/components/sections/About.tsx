@@ -30,13 +30,20 @@ export function About({ t }: AboutProps) {
             >
               {t.about.cta1}
             </a>
-            <a 
-              href="#method" 
-              className="inline-flex items-center rounded-xl border px-6 py-3 font-medium border-[var(--border)] bg-[var(--surface)] hover:bg-[color:var(--surface)/0.9] transition-colors"
-            >
-              {t.about.cta2}
-            </a>
           </div>
+          {t.about.credentials && (
+            <div className="mt-8 pt-6 border-t border-[var(--border)]">
+              <h3 className="text-sm font-semibold text-[var(--text)] mb-3">{t.about.credentialsTitle}</h3>
+              <ul className="space-y-2 text-sm text-[var(--muted)]">
+                {t.about.credentials.map((credential, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <CheckIcon className="mt-0.5 h-4 w-4 text-[var(--brand-ink)] flex-shrink-0" />
+                    {credential}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
         <div className="relative">
           <div className="aspect-[4/5] rounded-3xl bg-[var(--tint-1)] p-2 shadow-xl">
