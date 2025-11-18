@@ -1,3 +1,0 @@
-Contact: https://t.me/lizadirect
-Preferred-Languages: ru, en
-Canonical: https://liza.coach/.well-known/security.txt
