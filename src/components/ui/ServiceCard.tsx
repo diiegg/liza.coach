@@ -3,12 +3,13 @@ import { CheckIcon } from '../icons';
 interface ServiceCardProps {
   title: string;
   price: string;
+  duration?: string;
   bullets: readonly string[];
   badge?: string;
   chooseLabel: string;
 }
 
-export function ServiceCard({ title, price, bullets, badge, chooseLabel }: ServiceCardProps) {
+export function ServiceCard({ title, price, duration, bullets, badge, chooseLabel }: ServiceCardProps) {
   return (
     <div className="relative rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm">
       {badge && (
@@ -18,6 +19,7 @@ export function ServiceCard({ title, price, bullets, badge, chooseLabel }: Servi
       )}
       <h3 className="text-lg font-semibold">{title}</h3>
       <p className="mt-1 text-[var(--muted)]">{price}</p>
+      {duration && <p className="text-sm text-[var(--muted)]">{duration}</p>}
       <ul className="mt-4 space-y-2 text-sm text-[var(--muted)]">
         {bullets.map((bullet, i) => (
           <li key={i} className="flex items-start gap-2">

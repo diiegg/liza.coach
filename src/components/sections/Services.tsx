@@ -19,9 +19,10 @@ export function Services({ t }: ServicesProps) {
               key={i}
               title={card.title}
               price={card.price}
+              duration={'duration' in card ? card.duration : undefined}
               bullets={card.bullets}
               badge={'badge' in card ? card.badge : undefined}
-              chooseLabel={t.services.choose}
+              chooseLabel={'chooseLabel' in card ? card.chooseLabel : t.services.choose}
             />
           ))}
         </div>

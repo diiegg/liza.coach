@@ -18,7 +18,7 @@ export function Hero({ t, lang }: HeroProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28 grid lg:grid-cols-2 gap-10 items-center">
         <div>
           <p className="inline-flex items-center gap-2 rounded-full border border-[var(--tint-2)] bg-[var(--surface)] px-3 py-1 text-xs text-[var(--brand-ink)] mb-5 shadow-sm">
-            <span className="h-2 w-2 rounded-full bg-[var(--brand)] animate-pulse" />
+            <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
             {t.hero.chip}
           </p>
           <h1 className="text-4xl/tight md:text-5xl font-semibold tracking-tight">
@@ -43,7 +43,7 @@ export function Hero({ t, lang }: HeroProps) {
           </div>
           <div className="mt-8 flex items-center gap-6 text-sm text-[var(--muted)]">
             <div className="flex items-center gap-2">
-              <StarIcon className="h-5 w-5 text-[var(--brand-ink)]" /> {t.hero.rating}
+              <StarIcon className="h-5 w-5 text-yellow-500" /> {t.hero.rating}
             </div>
             <div className="flex items-center gap-2">
               <ShieldIcon className="h-5 w-5 text-[var(--brand-ink)]" /> {t.hero.ethics}
