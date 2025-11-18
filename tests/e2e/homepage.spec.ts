@@ -11,7 +11,7 @@ test.describe('Homepage E2E Tests', () => {
 
   test('should have hero section visible', async ({ page }) => {
     await expect(page.locator('h1')).toBeVisible();
-    await expect(page.locator('h1')).toContainText(/Превратите своё дело/);
+    await expect(page.locator('h1')).toContainText(/Clarity\. Confidence\. Consistent Action\./);
   });
 
   test('should navigate to services section', async ({ page }) => {
@@ -25,7 +25,7 @@ test.describe('Homepage E2E Tests', () => {
   });
 
   test('should have working CTA buttons', async ({ page }) => {
-    const ctaButton = page.locator('a:has-text("Связаться в Telegram")').first();
+    const ctaButton = page.locator('a:has-text("Book a free call")').first();
     await expect(ctaButton).toBeVisible();
     await expect(ctaButton).toHaveAttribute('href', /calendly/);
   });
@@ -42,10 +42,10 @@ test.describe('Homepage E2E Tests', () => {
     await expect(testimonials).toBeVisible();
   });
 
-  test('should have language consistent (Russian)', async ({ page }) => {
+  test('should have consistent English content by default', async ({ page }) => {
     const content = await page.textContent('body');
-    expect(content).toContain('Коучинговые предложения');
-    expect(content).toContain('Записаться');
+    expect(content).toContain('Coaching offers');
+    expect(content).toContain('Book a free call');
   });
 
   test('should have proper meta tags', async ({ page }) => {

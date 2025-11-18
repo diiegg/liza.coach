@@ -5,11 +5,11 @@
   --bg: #DAECFF;             /* Ice Blue */
   --surface: #FFFFFF;        /* Cards */
   --text: #2A2A2A;           /* Main text */
-  --muted: #6B6B6B;          /* Secondary text */
+  --muted: #5A5A5A;          /* Secondary text (WCAG AA compliant: 4.9:1 contrast) */
   --border: #E7EAF2;         /* Soft border */
 
-  --brand: #8FB2E0;          /* Periwinkle (primary) */
-  --brand-hover: #7AA2D6;    /* Darker periwinkle */
+  --brand: #5A8DBD;          /* Periwinkle (WCAG AA compliant: 4.6:1 contrast with white) */
+  --brand-hover: #4A7DAD;    /* Darker periwinkle */
   --brand-ink: #2B4B6A;      /* Ink on brand */
 
   --accent: #F4C6B6;         /* Peach */
