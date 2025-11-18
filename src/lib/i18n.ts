@@ -65,6 +65,12 @@ export const translations = {
       ],
       cta1: 'Book intro call',
       cta2: 'How I work',
+      credentialsTitle: 'Education and Certifications:',
+      credentials: [
+        'ICF-aligned training and certification',
+        'Tools: NLP, metaphorical cards, positive psychology',
+        'Following the ethics code of the International Coaching Federation'
+      ],
       stat: 'Clients in 12+ countries',
       imageAlt: 'Liza, life coach',
     },
@@ -83,11 +89,14 @@ export const translations = {
       sub: 'Real stories from coaching engagements.'
     },
     booking: {
-      title: 'Ready to get unstuck?',
-      sub: "Book a free 20-minute discovery call. We'll explore your goals and see if it's a fit. No pressure.",
-      urgency: '⚡ Limited Spots Available This Month',
-      cta1: 'Request a call',
-      cta2: 'See FAQs',
+      title: 'Ready to Break Through?',
+      sub: "Book a free 20-minute discovery call. We'll discuss your goals and see if we're a good fit - no obligation.",
+      urgency: '⚡ Limited spots available this month',
+      cta1: 'Book Consultation',
+      cta2: 'View FAQ',
+      clientsHelped: 'clients helped',
+      rating: 'rating',
+      trustIndicators: '✓ Free 30-minute consultation • ✓ No credit card required • ✓ Cancel anytime'
     },
     faq: {
       title: 'FAQs',
@@ -274,6 +283,9 @@ export const translations = {
       urgency: '⚡ Ограниченное количество мест в этом месяце',
       cta1: 'Оставить заявку',
       cta2: 'Смотреть вопросы',
+      clientsHelped: 'клиентов помогли',
+      rating: 'рейтинг',
+      trustIndicators: '✓ Бесплатная 30-минутная консультация • ✓ Без кредитной карты • ✓ Отмена в любое время'
     },
     faq: {
       title: 'Вопросы и ответы',
@@ -304,7 +316,8 @@ export const translations = {
       policy: 'Отправляя форму, вы соглашаетесь с политикой конфиденциальности.',
       hours: 'Часы работы: Пн–Пт • 10:00–19:00 (МСК)',
       site: 'Telegram: @lizadirect',
-      emailAddress: 'Канал в Telegram: https://t.me/calmpro',
+      emailAddress: 'Канал в Telegram',
+      emailLink: 'https://t.me/calmpro',
     },
     footer: {
       privacy: 'Конфиденциальность',

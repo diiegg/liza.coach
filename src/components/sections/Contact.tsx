@@ -108,9 +108,9 @@ export function Contact({ t, lang }: ContactProps) {
             <div className="flex items-center gap-3">
               <TelegramIcon className="h-5 w-5 text-[var(--brand-ink)] flex-shrink-0" />
               <a 
-                href={t.contact.emailAddress.includes('https://') ? t.contact.emailAddress.split(': ')[1] : `mailto:${t.contact.emailAddress}`}
-                target={t.contact.emailAddress.includes('https://') ? '_blank' : undefined}
-                rel={t.contact.emailAddress.includes('https://') ? 'noopener noreferrer' : undefined}
+                href={'emailLink' in t.contact ? t.contact.emailLink : `mailto:${t.contact.emailAddress}`}
+                target={'emailLink' in t.contact ? '_blank' : undefined}
+                rel={'emailLink' in t.contact ? 'noopener noreferrer' : undefined}
                 className="hover:text-[var(--brand-ink)] transition-colors"
               >
                 {t.contact.emailAddress}
