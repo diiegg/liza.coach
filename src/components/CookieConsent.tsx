@@ -70,8 +70,8 @@ export function CookieConsent() {
             <p>
               {t.message}
               {' '}
-              <a 
-                href="/privacy-policy" 
+              <a
+                href="/privacy-policy"
                 className="text-blue-600 hover:underline ml-1"
                 target="_blank"
                 rel="noopener noreferrer"
