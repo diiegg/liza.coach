@@ -278,9 +278,7 @@ export function Footer({ t }: FooterProps) {
                 {t.footer.legal}
               </h3>
               <nav className="flex flex-col space-y-4">
-                <a href="#" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
-                  {t.footer.acceptableUse}
-                </a>
+
                 <a href="/cookie-policy" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
                   {t.footer.cookiePolicy}
                 </a>
