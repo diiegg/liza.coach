@@ -281,10 +281,10 @@ export function Footer({ t }: FooterProps) {
                 <a href="#" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
                   {t.footer.acceptableUse}
                 </a>
-                <a href="#" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
+                <a href="/cookie-policy" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
                   {t.footer.cookiePolicy}
                 </a>
-                <a href="#" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
+                <a href="/privacy-policy" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
                   {t.footer.privacy}
                 </a>
                 <a href="#" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
