@@ -165,6 +165,8 @@ export const translations = {
       ctaSecondary: 'Посмотреть программы',
       rating: '4.9/5 у 200+ клиентов',
       ethics: 'Этика в соответствии с ICF',
+      cohort: 'Следующий поток',
+      cohortDate: '3 Ноября',
     },
     proof: {
       feat: 'Публикации',

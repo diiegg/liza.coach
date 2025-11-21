@@ -34,7 +34,7 @@ export function MethodStepCard({ k, t, subtitle, d }: MethodStepCardProps) {
 
   return (
     <div
-      className={`rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm flex flex-col transition-[height] duration-300 ease-in-out ${isExpanded ? 'h-[480px]' : 'h-[280px]'
+      className={`glass-card rounded-2xl p-6 flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 ${isExpanded ? 'h-[480px]' : 'h-[280px]'
         }`}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}

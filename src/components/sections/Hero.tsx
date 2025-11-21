@@ -11,11 +11,12 @@ interface HeroProps {
 export function Hero({ t, lang }: HeroProps) {
   return (
     <section className="relative overflow-clip">
+      <div className="noise-overlay" />
       <div className="absolute inset-0 -z-10">
-        <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[var(--tint-1)] blur-3xl opacity-60" />
-        <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[var(--accent)] blur-3xl opacity-60" />
+        <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[var(--tint-1)] blur-3xl opacity-60 animate-blob" />
+        <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[var(--accent)] blur-3xl opacity-60 animate-blob animation-delay-2000" />
       </div>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28 grid lg:grid-cols-2 gap-10 items-center">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28 grid lg:grid-cols-2 gap-10 items-center relative z-10">
         <div>
           <p className="inline-flex items-center gap-2 rounded-full border border-[var(--tint-2)] bg-[var(--surface)] px-3 py-1 text-xs text-[var(--brand-ink)] mb-5 shadow-sm">
             <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
@@ -50,10 +51,10 @@ export function Hero({ t, lang }: HeroProps) {
             </div>
           </div>
         </div>
-        
+
         {/* Right panel: autoplay intro video (centered) */}
         <div className="relative">
-          <div className="aspect-square rounded-3xl bg-gradient-to-tr from-[var(--tint-1)] via-[var(--surface)] to-[var(--accent)] p-2 shadow-xl">
+          <div className="aspect-square rounded-3xl bg-gradient-to-tr from-[var(--tint-1)] via-[var(--surface)] to-[var(--accent)] p-2 shadow-xl animate-blob animation-delay-4000">
             <div className="relative h-full w-full overflow-hidden rounded-2xl grid place-items-center bg-[var(--surface)]">
               <video
                 className="h-full w-full object-cover object-center"
@@ -70,26 +71,26 @@ export function Hero({ t, lang }: HeroProps) {
                   e.currentTarget.play();
                 }}
               >
-                <source 
-                  src="/video/2intro-720p.mp4" 
-                  type="video/mp4" 
+                <source
+                  src="/video/2intro-720p.mp4"
+                  type="video/mp4"
                   media="(min-width: 768px)"
                 />
-                <source 
-                  src="/video/2intro-480p.mp4" 
-                  type="video/mp4" 
+                <source
+                  src="/video/2intro-480p.mp4"
+                  type="video/mp4"
                 />
               </video>
               {/* Soft info pill */}
               <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3">
-                <div className="mx-auto max-w-sm rounded-xl bg-[color:var(--surface)/0.75] backdrop-blur border border-[var(--border)] px-3 py-2 text-xs text-[var(--muted)]">
+                <div className="glass-card mx-auto max-w-sm rounded-xl px-3 py-2 text-xs text-[var(--muted)]">
                   {t.videoInfo}
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="absolute -bottom-6 -right-6 bg-[color:var(--surface)/0.9] backdrop-blur rounded-2xl shadow-md border border-[var(--border)] px-4 py-3">
+          <div className="glass-card absolute -bottom-6 -right-6 rounded-2xl px-4 py-3">
             <p className="text-sm">
               <strong>{t.hero.cohort}</strong> {t.cohortStarts}{' '}
               <span className="text-[var(--brand-ink)]">{t.hero.cohortDate}</span>
