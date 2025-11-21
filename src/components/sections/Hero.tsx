@@ -54,7 +54,7 @@ export function Hero({ t, lang }: HeroProps) {
 
         {/* Right panel: autoplay intro video (centered) */}
         <div className="relative">
-          <div className="aspect-square rounded-3xl bg-gradient-to-tr from-[var(--tint-1)] via-[var(--surface)] to-[var(--accent)] p-2 shadow-xl animate-blob animation-delay-4000">
+          <div className="aspect-square rounded-3xl bg-gradient-to-tr from-[var(--tint-1)] via-[var(--surface)] to-[var(--accent)] p-2 shadow-xl">
             <div className="relative h-full w-full overflow-hidden rounded-2xl grid place-items-center bg-[var(--surface)]">
               <video
                 className="h-full w-full object-cover object-center"

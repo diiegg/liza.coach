@@ -33,4 +33,5 @@
 -   **Headings**: Should now be in a stylish Serif font.
 -   **Cards**: Should look like frosted glass with a blur effect on the background.
 -   **Background**: Blobs should be slowly moving and morphing.
+-   **Video**: The video container should be static (no breathing animation) for a more elegant look.
 -   **Texture**: A faint grain should be visible across the screen.
