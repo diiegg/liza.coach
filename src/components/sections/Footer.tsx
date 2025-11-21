@@ -285,7 +285,7 @@ export function Footer({ t }: FooterProps) {
                 <a href="/privacy-policy" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
                   {t.footer.privacy}
                 </a>
-                <a href="#" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
+                <a href="/terms" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
                   {t.footer.terms}
                 </a>
               </nav>
