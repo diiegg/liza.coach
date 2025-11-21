@@ -9,7 +9,7 @@ interface FooterProps {
 
 export function Footer({ t }: FooterProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
+  const [isHovering, setIsHovering] = useState(true); // Start with heart formed
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -37,52 +37,39 @@ export function Footer({ t }: FooterProps) {
       randomX: number;
       randomY: number;
 
-      constructor(startX: number, startY: number) {
-        // Start AT the heart position
-        this.x = startX;
-        this.y = startY;
-        this.randomX = startX + (Math.random() - 0.5) * 100;
-        this.randomY = startY + (Math.random() - 0.5) * 100;
+      constructor(canvasW: number, canvasH: number) {
+        // Start at random position (scattered) for the "fly in" effect
+        this.x = Math.random() * canvasW;
+        this.y = Math.random() * canvasH;
 
-        this.targetX = startX;
-        this.targetY = startY;
+        // But target the heart immediately
+        this.targetX = 0;
+        this.targetY = 0;
         this.vx = 0;
         this.vy = 0;
 
-        this.size = Math.random() * 2 + 4; // 4-6px
-        // Bright pink/red for visibility
-        const colors = ['255, 105, 180', '255, 20, 147', '220, 20, 60'];
+        this.size = Math.random() * 3 + 2;
+        // Elegant peach/pink palette
+        const colors = ['255, 182, 193', '255, 160, 122', '255, 105, 180'];
         const color = colors[Math.floor(Math.random() * colors.length)];
-        this.alpha = Math.random() * 0.2 + 0.8;
+        this.alpha = Math.random() * 0.5 + 0.5;
         this.color = `rgba(${color}, ${this.alpha})`;
+
+        // Store random pos for potential scatter effects later if needed
+        this.randomX = this.x;
+        this.randomY = this.y;
       }
 
       update(isHovering: boolean) {
-        // Determine target based on hover state
-        const destX = isHovering ? this.targetX : this.randomX;
-        const destY = isHovering ? this.targetY : this.randomY;
+        // Always form the heart (ignore hover state)
+        const dx = this.targetX - this.x;
+        const dy = this.targetY - this.y;
 
-        const dx = destX - this.x;
-        const dy = destY - this.y;
-
-        // Physics for smooth movement
-        if (isHovering) {
-          // Faster convergence when forming
-          this.vx += dx * 0.05; // Increased speed
-          this.vy += dy * 0.05;
-          this.vx *= 0.9; // Dampening
-          this.vy *= 0.9;
-        } else {
-          // Slower, floaty movement when scattered
-          this.vx += dx * 0.01;
-          this.vy += dy * 0.01;
-          this.vx *= 0.95;
-          this.vy *= 0.95;
-
-          // Add slight random drift when scattered
-          this.x += (Math.random() - 0.5) * 0.5;
-          this.y += (Math.random() - 0.5) * 0.5;
-        }
+        // Smooth convergence to heart shape
+        this.vx += dx * 0.08;
+        this.vy += dy * 0.08;
+        this.vx *= 0.88;
+        this.vy *= 0.88;
 
         this.x += this.vx;
         this.y += this.vy;
@@ -103,7 +90,7 @@ export function Footer({ t }: FooterProps) {
     // Create heart shape points
     const createHeartPoints = (centerX: number, centerY: number, size: number) => {
       const points: { x: number; y: number }[] = [];
-      for (let t = 0; t < Math.PI * 2; t += 0.1) { // Optimized step
+      for (let t = 0; t < Math.PI * 2; t += 0.1) {
         const x = size * 16 * Math.pow(Math.sin(t), 3);
         const y = -size * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
         points.push({
@@ -115,7 +102,7 @@ export function Footer({ t }: FooterProps) {
     };
 
     // Initialize particles
-    const particleCount = 150; // More particles
+    const particleCount = 200;
     const particles: Particle[] = [];
     const heartSize = 4.5;
 
@@ -124,7 +111,6 @@ export function Footer({ t }: FooterProps) {
       const targetP = document.getElementById('target-p');
       if (targetP && canvas) {
         const pRect = targetP.getBoundingClientRect();
-        // Use parent for canvas rect to be safe
         const parent = canvas.parentElement;
         const canvasRect = parent ? parent.getBoundingClientRect() : canvas.getBoundingClientRect();
 
@@ -136,21 +122,10 @@ export function Footer({ t }: FooterProps) {
       return { x: canvasWidth / 2, y: canvasHeight / 2 };
     };
 
-    // Will initialize particles after first resize
-    const initParticles = () => {
-      if (particles.length > 0) return; // Already initialized
-
-      const pos = getTargetPosition();
-      const initialHeartPoints = createHeartPoints(pos.x, pos.y, heartSize);
-
-      for (let i = 0; i < particleCount; i++) {
-        const pointIndex = Math.floor((i / particleCount) * initialHeartPoints.length);
-        const pt = initialHeartPoints[pointIndex] || { x: pos.x, y: pos.y };
-        particles.push(new Particle(pt.x, pt.y));
-      }
-
-      updateHeartPosition();
-    };
+    // Initial population - random positions
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle(canvasWidth, canvasHeight));
+    }
 
     const updateHeartPosition = () => {
       const pos = getTargetPosition();
@@ -162,11 +137,15 @@ export function Footer({ t }: FooterProps) {
           particle.targetX = heartPoints[pointIndex].x;
           particle.targetY = heartPoints[pointIndex].y;
         }
+
+        // CRITICAL FIX: Re-distribute random targets to fill the NEW canvas size
+        // We want them scattered across the whole footer
+        particle.randomX = Math.random() * canvasWidth;
+        particle.randomY = Math.random() * canvasHeight;
       });
     };
 
     const resizeCanvas = () => {
-      // Use parent element (footer) dimensions to ensure full coverage
       const parent = canvas.parentElement;
       if (!parent) return;
 
@@ -175,19 +154,14 @@ export function Footer({ t }: FooterProps) {
       canvasWidth = rect.width;
       canvasHeight = rect.height;
 
-      // Set canvas rendering size (NO DPR scaling - keeps coordinates simple)
       canvas.width = rect.width;
       canvas.height = rect.height;
 
       updateHeartPosition();
     };
 
-    // Initial resize and particle creation
+    // Initial resize
     resizeCanvas();
-    // Wait a tick for layout to settle
-    requestAnimationFrame(() => {
-      initParticles();
-    });
     window.addEventListener('resize', resizeCanvas);
 
     // Add ResizeObserver to watch for layout changes
@@ -203,12 +177,11 @@ export function Footer({ t }: FooterProps) {
     // Animation loop
     let animationId: number;
     const animate = () => {
-      if (particles.length === 0) {
-        animationId = requestAnimationFrame(animate);
-        return;
-      }
-
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+      // Global glow (optional, but per-particle glow is better)
+      // ctx.shadowBlur = 20;
+      // ctx.shadowColor = 'rgba(255, 182, 193, 0.6)';
 
       particles.forEach(particle => {
         particle.update(isHovering);
@@ -222,12 +195,11 @@ export function Footer({ t }: FooterProps) {
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationId);
-      // Cleanup observer if it exists (not strictly necessary in useEffect return but good practice)
       if (observer) {
         observer.disconnect();
       }
     };
-  }, []); // Removed isHovering dependency to run once
+  }, [isHovering]); // Need isHovering in deps so animation sees state changes
 
   return (
     <footer
