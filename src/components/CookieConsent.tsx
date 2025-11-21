@@ -30,17 +30,39 @@ export function CookieConsent() {
       setShowBanner(true);
     }
 
-    // Detect language from HTML lang attribute or browser
-    const htmlLang = document.documentElement.lang;
-    if (htmlLang === 'ru') {
-      setLanguage('ru');
-    } else if (htmlLang === 'en') {
-      setLanguage('en');
-    } else {
-      // Fallback to browser language
-      const browserLang = navigator.language.toLowerCase();
-      setLanguage(browserLang.startsWith('ru') ? 'ru' : 'en');
-    }
+    // Helper to set language
+    const updateLanguage = (preferredLang?: string | null) => {
+      if (preferredLang === 'ru' || preferredLang === 'en') {
+        setLanguage(preferredLang as 'ru' | 'en');
+        return;
+      }
+
+      // Fallback to HTML lang or browser
+      const htmlLang = document.documentElement.lang;
+      if (htmlLang === 'ru') {
+        setLanguage('ru');
+      } else if (htmlLang === 'en') {
+        setLanguage('en');
+      } else {
+        const browserLang = navigator.language.toLowerCase();
+        setLanguage(browserLang.startsWith('ru') ? 'ru' : 'en');
+      }
+    };
+
+    // Initial check (localStorage has priority)
+    const savedLang = localStorage.getItem('lang');
+    updateLanguage(savedLang);
+
+    // Listen for language changes
+    const handleLangChange = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      if (customEvent.detail) {
+        setLanguage(customEvent.detail);
+      }
+    };
+
+    window.addEventListener('languageChange', handleLangChange);
+    return () => window.removeEventListener('languageChange', handleLangChange);
   }, []);
 
   const handleAccept = () => {

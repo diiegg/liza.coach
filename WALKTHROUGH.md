@@ -36,5 +36,5 @@
 -   **Background**: Blobs should be slowly moving and morphing.
 -   **Video**: The video container should be static (no breathing animation) for a more elegant look.
 -   **Footer Particles**: Particles should only appear and form a heart when hovering over the footer. When not hovering, they should fade out and disperse.
--   **GDPR Banner**: Should be a floating glass card in the bottom-right corner with professional text (no "Umami" mention) and brand colors.
+-   **GDPR Banner**: Should be a floating glass card in the bottom-right corner with professional text (no "Umami" mention) and brand colors. It now automatically syncs with the site's language selection.
 -   **Texture**: A faint grain should be visible across the screen.
