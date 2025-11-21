@@ -5,6 +5,7 @@
 ### 1. Premium Typography
 -   **Fonts**: Added **Playfair Display** (Serif) for headings and **Inter** (Sans) for body text via `next/font/google`.
 -   **Implementation**: Configured in `layout.tsx` and applied via CSS variables in `globals.css`.
+-   **Tailwind Config**: Updated `tailwind.config.ts` to explicitly map `font-sans` to Inter and `font-serif` to Playfair Display, ensuring all Tailwind utilities use the correct fonts.
 -   **Impact**: Instantly elevates the brand perception, giving it a "Vogue" editorial feel while maintaining readability.
 
 ### 2. Glassmorphism 2.0
