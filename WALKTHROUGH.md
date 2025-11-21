@@ -35,4 +35,5 @@
 -   **Cards**: Should look like frosted glass with a blur effect on the background.
 -   **Background**: Blobs should be slowly moving and morphing.
 -   **Video**: The video container should be static (no breathing animation) for a more elegant look.
+-   **Footer Particles**: Particles should only appear and form a heart when hovering over the footer. When not hovering, they should fade out and disperse.
 -   **Texture**: A faint grain should be visible across the screen.

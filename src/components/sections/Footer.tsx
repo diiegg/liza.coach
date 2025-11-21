@@ -9,7 +9,7 @@ interface FooterProps {
 
 export function Footer({ t }: FooterProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isHovering, setIsHovering] = useState(true); // Start with heart formed
+  const [isHovering, setIsHovering] = useState(false); // Start with no effect
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -33,55 +33,64 @@ export function Footer({ t }: FooterProps) {
       vy: number;
       size: number;
       color: string;
-      alpha: number;
+      baseAlpha: number;
+      currentAlpha: number;
       randomX: number;
       randomY: number;
 
       constructor(canvasW: number, canvasH: number) {
-        // Start at random position (scattered) for the "fly in" effect
-        this.x = Math.random() * canvasW;
-        this.y = Math.random() * canvasH;
+        // Start at random position (scattered)
+        this.randomX = Math.random() * canvasW;
+        this.randomY = Math.random() * canvasH;
 
-        // But target the heart immediately
+        this.x = this.randomX;
+        this.y = this.randomY;
+
         this.targetX = 0;
         this.targetY = 0;
         this.vx = 0;
         this.vy = 0;
 
         this.size = Math.random() * 3 + 2;
-        // Elegant peach/pink palette
         const colors = ['255, 182, 193', '255, 160, 122', '255, 105, 180'];
         const color = colors[Math.floor(Math.random() * colors.length)];
-        this.alpha = Math.random() * 0.5 + 0.5;
-        this.color = `rgba(${color}, ${this.alpha})`;
-
-        // Store random pos for potential scatter effects later if needed
-        this.randomX = this.x;
-        this.randomY = this.y;
+        this.baseAlpha = Math.random() * 0.5 + 0.5;
+        this.currentAlpha = 0; // Start invisible
+        this.color = color;
       }
 
       update(isHovering: boolean) {
-        // Always form the heart (ignore hover state)
-        const dx = this.targetX - this.x;
-        const dy = this.targetY - this.y;
+        const target = isHovering ? { x: this.targetX, y: this.targetY } : { x: this.randomX, y: this.randomY };
 
-        // Smooth convergence to heart shape
-        this.vx += dx * 0.08;
-        this.vy += dy * 0.08;
-        this.vx *= 0.88;
-        this.vy *= 0.88;
+        const dx = target.x - this.x;
+        const dy = target.y - this.y;
+
+        // Smooth movement
+        this.vx += dx * 0.05;
+        this.vy += dy * 0.05;
+        this.vx *= 0.9;
+        this.vy *= 0.9;
 
         this.x += this.vx;
         this.y += this.vy;
+
+        // Fade in/out
+        if (isHovering) {
+          if (this.currentAlpha < this.baseAlpha) this.currentAlpha += 0.02;
+        } else {
+          if (this.currentAlpha > 0) this.currentAlpha -= 0.02;
+        }
       }
 
       draw(ctx: CanvasRenderingContext2D) {
+        if (this.currentAlpha <= 0) return;
+
         ctx.save();
         ctx.shadowBlur = 15;
-        ctx.shadowColor = this.color;
+        ctx.shadowColor = `rgba(${this.color}, ${this.currentAlpha})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = `rgba(${this.color}, ${this.currentAlpha})`;
         ctx.fill();
         ctx.restore();
       }
