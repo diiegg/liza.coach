@@ -151,6 +151,13 @@ export function Footer({ t }: FooterProps) {
         // We want them scattered across the whole footer
         particle.randomX = Math.random() * canvasWidth;
         particle.randomY = Math.random() * canvasHeight;
+
+        // If particle is at 0,0 (initial init), snap it to its random position
+        // so it doesn't fly in from the top-left corner
+        if (particle.x === 0 && particle.y === 0) {
+          particle.x = particle.randomX;
+          particle.y = particle.randomY;
+        }
       });
     };
 
