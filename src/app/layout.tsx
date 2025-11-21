@@ -5,6 +5,20 @@ import { WebVitals } from '@/components/WebVitals';
 import { CookieConsent } from '@/components/CookieConsent';
 import { ConditionalAnalytics } from '@/components/ConditionalAnalytics';
 
+import { Playfair_Display, Inter } from 'next/font/google';
+
+const playfair = Playfair_Display({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-playfair',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
   title: 'Liza Coaching – Сертифицированный Life-коуч ICF | Лайф-коучинг для предпринимателей',
   description: 'Сертифицированный лайф-коуч с опытом 15+ лет. Помогаю предпринимателям и самозанятым выйти из застоя, найти фокус и начать зарабатывать от 50 000₽/месяц за 8 недель. Методика ОПОРА. 200+ клиентов. Сессии онлайн.',
@@ -72,7 +86,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru">
+    <html lang="ru" className={`${playfair.variable} ${inter.variable}`}>
       <head>
         <link rel="canonical" href="https://liza.coach" />
         <link rel="author" href="/humans.txt" />
@@ -80,9 +94,9 @@ export default function RootLayout({
         <meta name="geo.placename" content="Москва" />
         <meta name="geo.position" content="55.751244;37.618423" />
         <meta name="ICBM" content="55.751244, 37.618423" />
-        
+
         {/* Analytics loaded conditionally via ConditionalAnalytics component based on cookie consent */}
-        
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
