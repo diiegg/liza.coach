@@ -4,16 +4,16 @@ import { useState, useEffect } from 'react';
 
 const translations = {
   ru: {
-    title: '🍪 Мы используем cookie',
-    message: 'Мы используем файлы cookie и аналогичные технологии для анализа трафика сайта и улучшения вашего опыта. Мы используем аналитику, ориентированную на конфиденциальность (Umami), которая не отслеживает личные данные.',
-    learnMore: 'Узнать больше',
+    title: '🍪 Мы ценим вашу конфиденциальность',
+    message: 'Мы используем файлы cookie для улучшения вашего опыта, анализа трафика и персонализации контента. Нажимая «Принять», вы соглашаетесь с нашей политикой использования данных.',
+    learnMore: 'Политика конфиденциальности',
     decline: 'Отклонить',
     accept: 'Принять',
   },
   en: {
-    title: '🍪 We use cookies',
-    message: 'We use cookies and similar technologies to analyze website traffic and improve your experience. We use privacy-focused analytics (Umami) that doesn\'t track personal data.',
-    learnMore: 'Learn more',
+    title: '🍪 We value your privacy',
+    message: 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept", you consent to our use of cookies.',
+    learnMore: 'Privacy Policy',
     decline: 'Decline',
     accept: 'Accept',
   },
@@ -60,36 +60,35 @@ export function CookieConsent() {
   const t = translations[language];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 shadow-lg z-50 p-4 md:p-6">
-      <div className="container mx-auto max-w-6xl">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex-1 text-sm md:text-base text-gray-700">
-            <p className="mb-2">
-              <strong>{t.title}</strong>
+    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md z-50 animate-fade-in">
+      <div className="glass-card rounded-2xl p-6 shadow-2xl border border-white/50 backdrop-blur-xl">
+        <div className="flex flex-col gap-4">
+          <div className="text-sm text-[var(--text)]">
+            <p className="mb-2 font-serif text-lg font-medium text-[var(--brand-ink)]">
+              {t.title}
             </p>
-            <p>
+            <p className="leading-relaxed text-[var(--muted)]">
               {t.message}
-              {' '}
-              <a
-                href="/privacy-policy"
-                className="text-blue-600 hover:underline ml-1"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t.learnMore}
-              </a>
             </p>
+            <a
+              href="/privacy-policy"
+              className="mt-2 inline-block text-xs font-medium text-[var(--brand)] hover:text-[var(--brand-hover)] underline underline-offset-2 transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.learnMore}
+            </a>
           </div>
-          <div className="flex gap-3 shrink-0">
+          <div className="flex gap-3 pt-2">
             <button
               onClick={handleDecline}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+              className="flex-1 px-4 py-2.5 text-sm font-medium text-[var(--muted)] bg-transparent border border-[var(--border)] hover:border-[var(--brand)] hover:text-[var(--brand)] rounded-xl transition-all duration-200"
             >
               {t.decline}
             </button>
             <button
               onClick={handleAccept}
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+              className="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-[var(--brand)] hover:bg-[var(--brand-hover)] shadow-lg shadow-[var(--brand)]/20 rounded-xl transition-all duration-200 transform hover:-translate-y-0.5"
             >
               {t.accept}
             </button>
