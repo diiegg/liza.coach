@@ -38,4 +38,5 @@
 -   **Footer Particles**: Particles should only appear and form a heart when hovering over the footer. When not hovering, they should fade out and disperse.
 -   **GDPR Banner**: Should be a floating glass card in the bottom-right corner with professional text (no "Umami" mention) and brand colors. It now automatically syncs with the site's language selection.
 -   **Privacy Policy**: A dedicated, bilingual `/privacy-policy` page with comprehensive legal text and premium styling.
+-   **Cookie Policy**: A dedicated, bilingual `/cookie-policy` page explaining cookie usage, types, and management, matching the site's premium design.
 -   **Texture**: A faint grain should be visible across the screen.
