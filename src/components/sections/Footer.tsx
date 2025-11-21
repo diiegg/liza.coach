@@ -29,62 +29,81 @@ export function Footer({ t }: FooterProps) {
       y: number;
       targetX: number;
       targetY: number;
-      originalX: number;
-      originalY: number;
       vx: number;
       vy: number;
       size: number;
       color: string;
       alpha: number;
+      randomX: number;
+      randomY: number;
 
-      constructor() {
-        this.x = Math.random() * canvasWidth;
-        this.y = Math.random() * canvasHeight;
-        this.originalX = this.x;
-        this.originalY = this.y;
-        this.targetX = this.x;
-        this.targetY = this.y;
+      constructor(startX: number, startY: number) {
+        // Start AT the heart position
+        this.x = startX;
+        this.y = startY;
+        this.randomX = startX + (Math.random() - 0.5) * 100;
+        this.randomY = startY + (Math.random() - 0.5) * 100;
+
+        this.targetX = startX;
+        this.targetY = startY;
         this.vx = 0;
         this.vy = 0;
-        this.size = Math.random() * 3 + 2; // Restored original size range
-        // Elegant peach/pink palette
-        const colors = ['244, 198, 182', '251, 231, 198', '255, 255, 255'];
+
+        this.size = Math.random() * 2 + 4; // 4-6px
+        // Bright pink/red for visibility
+        const colors = ['255, 105, 180', '255, 20, 147', '220, 20, 60'];
         const color = colors[Math.floor(Math.random() * colors.length)];
-        this.alpha = Math.random() * 0.5 + 0.3;
+        this.alpha = Math.random() * 0.2 + 0.8;
         this.color = `rgba(${color}, ${this.alpha})`;
       }
 
-      update(isForming: boolean) {
-        if (isForming) {
-          const dx = this.targetX - this.x;
-          const dy = this.targetY - this.y;
-          this.vx += dx * 0.05;
+      update(isHovering: boolean) {
+        // Determine target based on hover state
+        const destX = isHovering ? this.targetX : this.randomX;
+        const destY = isHovering ? this.targetY : this.randomY;
+
+        const dx = destX - this.x;
+        const dy = destY - this.y;
+
+        // Physics for smooth movement
+        if (isHovering) {
+          // Faster convergence when forming
+          this.vx += dx * 0.05; // Increased speed
           this.vy += dy * 0.05;
+          this.vx *= 0.9; // Dampening
+          this.vy *= 0.9;
         } else {
-          const dx = this.originalX - this.x;
-          const dy = this.originalY - this.y;
-          this.vx += dx * 0.02;
-          this.vy += dy * 0.02;
+          // Slower, floaty movement when scattered
+          this.vx += dx * 0.01;
+          this.vy += dy * 0.01;
+          this.vx *= 0.95;
+          this.vy *= 0.95;
+
+          // Add slight random drift when scattered
+          this.x += (Math.random() - 0.5) * 0.5;
+          this.y += (Math.random() - 0.5) * 0.5;
         }
 
-        this.vx *= 0.9;
-        this.vy *= 0.9;
         this.x += this.vx;
         this.y += this.vy;
       }
 
       draw(ctx: CanvasRenderingContext2D) {
+        ctx.save();
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = this.color;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
         ctx.fill();
+        ctx.restore();
       }
     }
 
     // Create heart shape points
     const createHeartPoints = (centerX: number, centerY: number, size: number) => {
       const points: { x: number; y: number }[] = [];
-      for (let t = 0; t < Math.PI * 2; t += 0.05) {
+      for (let t = 0; t < Math.PI * 2; t += 0.1) { // Optimized step
         const x = size * 16 * Math.pow(Math.sin(t), 3);
         const y = -size * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
         points.push({
@@ -96,40 +115,46 @@ export function Footer({ t }: FooterProps) {
     };
 
     // Initialize particles
-    const particleCount = 120;
+    const particleCount = 150; // More particles
     const particles: Particle[] = [];
     const heartSize = 4.5;
 
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-
-    const updateHeartPosition = () => {
-      let heartCenterX = canvasWidth * 0.75; // Default fallback
-      let heartCenterY = canvasHeight * 0.75;
-
-      // Try to find the target "P" element
+    // Helper to get target position
+    const getTargetPosition = () => {
       const targetP = document.getElementById('target-p');
       if (targetP && canvas) {
         const pRect = targetP.getBoundingClientRect();
-        const canvasRect = canvas.getBoundingClientRect();
+        // Use parent for canvas rect to be safe
+        const parent = canvas.parentElement;
+        const canvasRect = parent ? parent.getBoundingClientRect() : canvas.getBoundingClientRect();
 
-        // Center on the "P"
-        heartCenterX = (pRect.left - canvasRect.left) + (pRect.width / 2);
-        heartCenterY = (pRect.top - canvasRect.top) + (pRect.height / 2);
-      } else {
-        // Fallback to LIZA text if P is missing (shouldn't happen)
-        const lizaText = document.getElementById('liza-text');
-        if (lizaText && canvas) {
-          const lizaRect = lizaText.getBoundingClientRect();
-          const canvasRect = canvas.getBoundingClientRect();
-          const targetX = (lizaRect.right - canvasRect.left) + 60;
-          heartCenterX = Math.min(targetX, canvasWidth - 80);
-          heartCenterY = (lizaRect.top - canvasRect.top) + (lizaRect.height / 2);
-        }
+        return {
+          x: (pRect.left - canvasRect.left) + (pRect.width / 2),
+          y: (pRect.top - canvasRect.top) + (pRect.height / 2)
+        };
+      }
+      return { x: canvasWidth / 2, y: canvasHeight / 2 };
+    };
+
+    // Will initialize particles after first resize
+    const initParticles = () => {
+      if (particles.length > 0) return; // Already initialized
+
+      const pos = getTargetPosition();
+      const initialHeartPoints = createHeartPoints(pos.x, pos.y, heartSize);
+
+      for (let i = 0; i < particleCount; i++) {
+        const pointIndex = Math.floor((i / particleCount) * initialHeartPoints.length);
+        const pt = initialHeartPoints[pointIndex] || { x: pos.x, y: pos.y };
+        particles.push(new Particle(pt.x, pt.y));
       }
 
-      const heartPoints = createHeartPoints(heartCenterX, heartCenterY, heartSize);
+      updateHeartPosition();
+    };
+
+    const updateHeartPosition = () => {
+      const pos = getTargetPosition();
+      const heartPoints = createHeartPoints(pos.x, pos.y, heartSize);
 
       particles.forEach((particle, i) => {
         const pointIndex = Math.floor((i / particleCount) * heartPoints.length);
@@ -141,45 +166,52 @@ export function Footer({ t }: FooterProps) {
     };
 
     const resizeCanvas = () => {
-      const rect = canvas.getBoundingClientRect();
+      // Use parent element (footer) dimensions to ensure full coverage
+      const parent = canvas.parentElement;
+      if (!parent) return;
+
+      const rect = parent.getBoundingClientRect();
+
       canvasWidth = rect.width;
       canvasHeight = rect.height;
-      canvas.width = canvasWidth;
-      canvas.height = canvasHeight;
-      canvas.style.width = canvasWidth + 'px';
-      canvas.style.height = canvasHeight + 'px';
+
+      // Set canvas rendering size (NO DPR scaling - keeps coordinates simple)
+      canvas.width = rect.width;
+      canvas.height = rect.height;
 
       updateHeartPosition();
     };
 
-    // Initial resize
+    // Initial resize and particle creation
     resizeCanvas();
+    // Wait a tick for layout to settle
+    requestAnimationFrame(() => {
+      initParticles();
+    });
     window.addEventListener('resize', resizeCanvas);
 
-    // Add ResizeObserver to watch for text changes (font loading, layout shifts)
+    // Add ResizeObserver to watch for layout changes
     let observer: ResizeObserver | null = null;
-    const lizaText = document.getElementById('liza-text');
-    if (lizaText) {
+    const targetP = document.getElementById('target-p');
+    if (targetP) {
       observer = new ResizeObserver(() => {
         updateHeartPosition();
       });
-      observer.observe(lizaText);
+      observer.observe(targetP);
     }
 
     // Animation loop
     let animationId: number;
     const animate = () => {
+      if (particles.length === 0) {
+        animationId = requestAnimationFrame(animate);
+        return;
+      }
+
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-      // Always draw particles (removed isHovering check for visibility)
-      // Soft glow
-      ctx.shadowBlur = 15;
-      ctx.shadowColor = 'rgba(244, 198, 182, 0.5)'; // Increased glow opacity
-
       particles.forEach(particle => {
-        // Update with isHovering state to control animation behavior (forming vs scattering)
-        // But always draw them
-        particle.update(true); // Always forming/visible for now to ensure user sees it
+        particle.update(isHovering);
         particle.draw(ctx);
       });
 
@@ -203,25 +235,25 @@ export function Footer({ t }: FooterProps) {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {/* Canvas for particle effect */}
+      {/* Canvas for particle effect - High Z-index */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 pointer-events-none z-20"
+        className="absolute inset-0 pointer-events-none z-50"
       />
 
       {/* Main Footer Content */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-20 lg:py-24 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-8">
 
           {/* Brand Column (Wider) */}
-          <div className="lg:col-span-4 space-y-6">
+          <div className="lg:col-span-4 space-y-3">
             <div className="text-2xl font-bold tracking-tight text-[var(--text)]">
               LIZA
             </div>
             <p className="text-[var(--muted)] max-w-xs leading-relaxed">
               Empowering you to find clarity, build systems, and achieve your true potential through the CALM method.
             </p>
-            <div className="pt-2">
+            <div>
               <a href="mailto:hello@liza.coach" className="text-[var(--text)] font-medium hover:text-[var(--brand)] transition-colors">
                 hello@liza.coach
               </a>
@@ -296,17 +328,17 @@ export function Footer({ t }: FooterProps) {
         </div>
 
         {/* Giant LIZA Text Below with P anchor */}
-        <div className="flex items-baseline gap-32 md:gap-48 lg:gap-64">
+        <div className="flex items-baseline gap-32 md:gap-48 lg:gap-64 -mt-12 lg:-mt-20">
           <div
             id="liza-text"
             className="w-fit text-[clamp(5rem,20vw,18rem)] font-black leading-[0.8] tracking-tighter text-[var(--text)] opacity-10 select-none pointer-events-none"
           >
             LIZA
           </div>
-          {/* Anchor P element */}
+          {/* Anchor P element (Visible for verification) */}
           <div
             id="target-p"
-            className="text-[clamp(5rem,20vw,18rem)] font-black text-[var(--brand)] opacity-20 select-none pointer-events-none"
+            className="text-[clamp(5rem,20vw,18rem)] font-black text-[var(--brand)] opacity-30 select-none pointer-events-none"
           >
             P
           </div>
