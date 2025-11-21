@@ -33,8 +33,9 @@ export function MethodStepCard({ k, t, subtitle, d }: MethodStepCardProps) {
   const hideText = lang === 'en' ? 'Hide' : 'Скрыть';
 
   return (
-    <div 
-      className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm h-full flex flex-col"
+    <div
+      className={`rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm flex flex-col transition-[height] duration-300 ease-in-out ${isExpanded ? 'h-[480px]' : 'h-[280px]'
+        }`}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -45,19 +46,19 @@ export function MethodStepCard({ k, t, subtitle, d }: MethodStepCardProps) {
         <h3 className="mt-4 font-semibold">{t}</h3>
         <p className="mt-2 text-sm text-[var(--muted)]">{subtitle}</p>
       </div>
-      
+
       {/* Expandable content */}
       <div className="flex-shrink-0">
         {isExpanded && (
-          <div className="mt-3 animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="mt-3">
             <p className="text-sm text-[var(--muted)] leading-relaxed">{d}</p>
           </div>
         )}
       </div>
-      
+
       {/* Spacer */}
       <div className="flex-grow min-h-[1rem]"></div>
-      
+
       {/* Learn more button */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}

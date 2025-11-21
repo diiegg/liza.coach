@@ -13,14 +13,14 @@ export function Method({ t }: MethodProps) {
           <h2 className="text-3xl font-semibold tracking-tight">{t.method.title}</h2>
           <p className="mt-2 text-[var(--muted)]">{t.method.sub}</p>
         </div>
-        <div className="mt-10 grid md:grid-cols-3 lg:grid-cols-5 gap-6 auto-rows-fr">
+        <div className="mt-10 grid md:grid-cols-3 lg:grid-cols-5 gap-6 items-start">
           {t.method.steps.map((step, i) => (
-            <MethodStepCard 
-              key={i} 
-              k={step.k} 
-              t={step.t} 
-              subtitle={step.subtitle} 
-              d={step.d} 
+            <MethodStepCard
+              key={i}
+              k={step.k}
+              t={step.t}
+              subtitle={step.subtitle}
+              d={step.d}
             />
           ))}
         </div>
