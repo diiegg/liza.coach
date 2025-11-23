@@ -291,23 +291,19 @@ export function Footer({ t }: FooterProps) {
               </nav>
             </div>
 
-            {/* Connect (New) */}
+            {/* Connect */}
             <div>
               <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text)] mb-6">
                 Connect
               </h3>
               <nav className="flex flex-col space-y-4">
-                <a href="#" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors flex items-center gap-2">
-                  <span>Instagram</span>
+                <a href="https://t.me/lizadirect" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors flex items-center gap-2">
+                  <span>Telegram</span>
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </a>
-                <a href="#" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors flex items-center gap-2">
-                  <span>LinkedIn</span>
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                </a>
-                <a href="#contact" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
-                  {t.footer.contact}
-                </a>
+                <div className="text-sm text-[var(--muted)]">
+                  @lizadirect
+                </div>
               </nav>
             </div>
           </div>
@@ -324,7 +320,7 @@ export function Footer({ t }: FooterProps) {
           {/* Anchor P element (Visible for verification) */}
           <div
             id="target-p"
-            className="text-[clamp(5rem,20vw,18rem)] font-black text-[var(--brand)] opacity-30 select-none pointer-events-none"
+            className="text-[clamp(5rem,20vw,18rem)] font-black text-[var(--brand)] opacity-0 select-none pointer-events-none"
           >
             P
           </div>
