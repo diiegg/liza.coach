@@ -25,7 +25,7 @@ const testimonials = [
 
 export function Testimonials({ t }: TestimonialsProps) {
   // Use localized testimonials if available, otherwise fallback to English defaults
-  const testimonials = 'items' in t.testimonials ? t.testimonials.items : [
+  const items = 'items' in t.testimonials ? t.testimonials.items : [
     {
       quote: 'I landed the role I was dreaming of and finally built a routine I can stick to.',
       name: 'Sara P.',
@@ -44,8 +44,8 @@ export function Testimonials({ t }: TestimonialsProps) {
   ];
 
   return (
-    <section 
-      id="testimonials" 
+    <section
+      id="testimonials"
       className="py-20 lg:py-24 bg-gradient-to-b from-[var(--surface)] to-[color:var(--tint-1)/0.4] border-y border-[var(--border)]"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -54,7 +54,7 @@ export function Testimonials({ t }: TestimonialsProps) {
           <p className="mt-2 text-[var(--muted)]">{t.testimonials.sub}</p>
         </div>
         <div className="mt-10 grid md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, i) => (
+          {items.map((testimonial, i) => (
             <TestimonialCard key={i} {...testimonial} />
           ))}
         </div>

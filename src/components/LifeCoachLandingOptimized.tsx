@@ -17,13 +17,10 @@ import { Footer } from './sections/Footer';
 
 export default function LifeCoachLandingOptimized() {
   const [lang, setLang] = useState<Lang>('en');
-  const [isInitialized, setIsInitialized] = useState(false);
-
   // Enhanced language detection on first load
   useEffect(() => {
     const detectedLang = detectUserLanguage();
     setLang(detectedLang);
-    setIsInitialized(true);
   }, []);
 
   // Persist language choice when user manually changes it

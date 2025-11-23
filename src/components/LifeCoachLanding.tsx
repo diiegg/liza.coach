@@ -579,72 +579,38 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 }
 
 /* --- Minimal inline icons (no external deps) --- */
-function CheckIcon(props: any) {
+function CheckIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={props.className}><path d="m5 13 4 4L19 7" /></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><path d="m5 13 4 4L19 7" /></svg>
   )
 }
-function StarIcon(props: any) {
+function StarIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={props.className}><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
   )
 }
-function ShieldIcon(props: any) {
+function ShieldIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={props.className}><path d="M12 2 4 5v6c0 5 3.4 9.74 8 11 4.6-1.26 8-6 8-11V5l-8-3z" /></svg>
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M12 2 4 5v6c0 5 3.4 9.74 8 11 4.6-1.26 8-6 8-11V5l-8-3z" /></svg>
   )
 }
-function MailIcon(props: any) {
+function MailIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={props.className}><path d="M4 4h16v16H4z" /><path d="m22 6-10 7L2 6" /></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><path d="M4 4h16v16H4z" /><path d="m22 6-10 7L2 6" /></svg>
   )
 }
-function GlobeIcon(props: any) {
+function GlobeIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={props.className}><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20" /></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20" /></svg>
   )
 }
-function CalendarIcon(props: any) {
+function CalendarIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={props.className}><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
   )
 }
-function QuoteIcon(props: any) {
+function QuoteIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={props.className}><path d="M7 7h5v5H9v5H4v-5h3V7zm10 0h5v5h-3v5h-5v-5h3V7z" /></svg>
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M7 7h5v5H9v5H4v-5h3V7zm10 0h5v5h-3v5h-5v-5h3V7z" /></svg>
   )
-}
-
-/* Simple illustration placeholder (reads CSS vars) */
-function HeroIllustration() {
-  return (
-    <svg viewBox="0 0 320 320" className="w-full h-full">
-      <defs>
-        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--grad-start)" />
-          <stop offset="100%" stopColor="var(--grad-end)" />
-        </linearGradient>
-      </defs>
-      <rect x="0" y="0" width="320" height="320" fill="url(#g1)" />
-      <circle cx="80" cy="90" r="22" fill="var(--brand)" />
-      <rect x="140" y="70" width="120" height="16" rx="8" fill="var(--text)" />
-      <rect x="140" y="100" width="96" height="12" rx="6" fill="var(--muted)" />
-      <rect x="60" y="150" width="200" height="120" rx="16" fill="var(--surface)" stroke="var(--border)" />
-      <rect x="80" y="170" width="160" height="12" rx="6" fill="var(--text)" />
-      <rect x="80" y="190" width="140" height="8" rx="4" fill="var(--muted)" />
-      <rect x="80" y="206" width="120" height="8" rx="4" fill="var(--muted)" />
-      <rect x="80" y="222" width="80" height="8" rx="4" fill="var(--muted)" />
-      <rect x="80" y="250" width="60" height="18" rx="9" fill="var(--brand)" />
-    </svg>
-  );
-}
-
-function PortraitPlaceholder() {
-  return (
-    <svg viewBox="0 0 320 400" className="w-full h-full">
-      <rect x="0" y="0" width="320" height="400" fill="var(--tint-1)" />
-      <circle cx="160" cy="140" r="56" fill="var(--tint-1)" />
-      <rect x="70" y="220" width="180" height="120" rx="20" fill="var(--tint-1)" />
-    </svg>
-  );
 }

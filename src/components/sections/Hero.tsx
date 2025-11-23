@@ -8,7 +8,7 @@ interface HeroProps {
   lang: Lang;
 }
 
-export function Hero({ t, lang }: HeroProps) {
+export function Hero({ t }: HeroProps) {
   return (
     <section className="relative overflow-clip">
       <div className="noise-overlay" />
