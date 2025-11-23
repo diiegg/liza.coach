@@ -139,7 +139,8 @@ export const translations = {
       terms: 'Terms of Service',
       contact: 'Contact',
       support: 'Support',
-      rights: (y: number) => `© ${y} Liza Coaching. All rights reserved.`
+      rights: (y: number) => `© ${y} Liza Coaching. All rights reserved.`,
+      tagline: 'Empowering you to find clarity, build systems, and achieve your true potential through the CALM method.'
     },
     langLabel: 'Language',
     videoInfo: '20-sec intro · sound off · captions on',
@@ -335,7 +336,8 @@ export const translations = {
       terms: 'Условия предоставления услуг',
       contact: 'Контакты',
       support: 'Поддержка',
-      rights: (y: number) => `© ${y} Liza Coaching. Все права защищены.`
+      rights: (y: number) => `© ${y} Liza Coaching. Все права защищены.`,
+      tagline: 'Помогаю обрести ясность, выстроить системы и раскрыть ваш истинный потенциал с помощью метода ОПОРА.'
     },
     langLabel: 'Язык',
     videoInfo: '20 сек. интро · без звука · с субтитрами',

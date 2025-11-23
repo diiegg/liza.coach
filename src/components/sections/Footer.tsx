@@ -239,7 +239,7 @@ export function Footer({ t }: FooterProps) {
               LIZA
             </div>
             <p className="text-[var(--muted)] max-w-xs leading-relaxed">
-              Empowering you to find clarity, build systems, and achieve your true potential through the CALM method.
+              {t.footer.tagline}
             </p>
             <div>
               <a href="mailto:hello@liza.coach" className="text-[var(--text)] font-medium hover:text-[var(--brand)] transition-colors">
