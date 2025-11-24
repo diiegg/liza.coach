@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
+import { MethodStepCard } from './ui/MethodStepCard';
 
 type Lang = 'en' | 'ru';
 
@@ -34,9 +35,9 @@ const copy = {
       title: 'Coaching offers',
       sub: 'Flexible formats designed around your goals and schedule.',
       cards: [
-        { title: '1:1 Deep-Dive', price: '€149 / session', bullets: ['60-min on Zoom','Personal roadmap','Voxer support 5 days'], badge: 'Most popular' },
-        { title: 'Momentum Pack', price: '€799 / 6 weeks', bullets: ['Weekly 50-min','Habit tracker','Accountability notes'] },
-        { title: 'Clarity Day', price: '€950 / day', bullets: ['Half-day intensive','Values & vision map','90-day action plan'] },
+        { title: '1:1 Deep-Dive', price: '€149 / session', bullets: ['60-min on Zoom', 'Personal roadmap', 'Voxer support 5 days'], badge: 'Most popular' },
+        { title: 'Momentum Pack', price: '€799 / 6 weeks', bullets: ['Weekly 50-min', 'Habit tracker', 'Accountability notes'] },
+        { title: 'Clarity Day', price: '€950 / day', bullets: ['Half-day intensive', 'Values & vision map', '90-day action plan'] },
       ],
       choose: 'Choose',
     },
@@ -56,10 +57,10 @@ const copy = {
       title: 'The CALM Framework',
       sub: 'A simple path we’ll follow together.',
       steps: [
-        { k: 'C', t: 'Clarify', d: 'Define what you really want and why it matters.' },
-        { k: 'A', t: 'Align', d: 'Map goals to values and constraints.' },
-        { k: 'L', t: 'Leverage', d: 'Design tiny, repeatable systems that compound.' },
-        { k: 'M', t: 'Measure', d: 'Track progress, review, and adjust with support.' },
+        { k: 'C', t: 'Clarify', d: 'Define what you really want and why it matters.', subtitle: 'Define what you really want.' },
+        { k: 'A', t: 'Align', d: 'Map goals to values and constraints.', subtitle: 'Align goals with values.' },
+        { k: 'L', t: 'Leverage', d: 'Design tiny, repeatable systems that compound.', subtitle: 'Build repeatable systems.' },
+        { k: 'M', t: 'Measure', d: 'Track progress, review, and adjust with support.', subtitle: 'Track and adjust.' },
       ],
     },
     testimonials: { title: 'Client results', sub: 'Real stories from coaching engagements.' },
@@ -90,7 +91,7 @@ const copy = {
       hours: 'Mon–Fri · 9:00–17:00',
       site: 'lizacoaching.com',
     },
-    footer: { privacy: 'Privacy', terms: 'Terms', imprint: 'Imprint', rights: (y:number)=>`© ${y} Liza Coaching. All rights reserved.` },
+    footer: { privacy: 'Privacy', terms: 'Terms', imprint: 'Imprint', rights: (y: number) => `© ${y} Liza Coaching. All rights reserved.` },
     langLabel: 'Language',
   },
 
@@ -103,28 +104,28 @@ const copy = {
       sub: 'Помогаю амбициозным преподавателям и помогающим практикам развиваться в своем деле в согласии со своими внутренними ценностями.',
       ctaPrimary: 'Получить предварительную консультацию',
       ctaSecondary: 'Посмотреть программы',
-      rating: '4.9/5 у 120+ клиентов',
+      rating: '4.9/5 у 200+ клиентов',
       ethics: 'Этика в соответствии с ICF',
       cohort: 'Следующий поток',
-      cohortDate: '3 ноя',
+      cohortDate: '3 Ноября',
     },
     proof: {
       feat: 'Публикации',
-      founders: 'Нам доверяют',
-      foundersWho: 'основатели стартапов',
-      roi: 'Средний результат',
-      weeks: '6–12 недель',
+      founders: 'Мне доверяют',
+      foundersWho: 'предприниматели',
+      roi: 'Получи результат',
+      weeks: 'за 7-14 недель',
       sessions: 'Проведено сессий',
-      sessionsCount: '2k+',
+      sessionsCount: '750+',
       mindful: 'Mindful Weekly',
     },
     services: {
       title: 'Коучинговые предложения',
       sub: 'Гибкие форматы, ориентированные на ваши цели и расписание.',
       cards: [
-        { title: 'Индивидуальная глубинная сессия', price: '€149 / сессия', bullets: ['60 минут в Zoom','Личный роадмап','Поддержка в Voxer 5 дней'], badge: 'Самое популярное' },
-        { title: 'Пакет «Импульс»', price: '€799 / 6 недель', bullets: ['Еженедельно по 50 минут','Трекер привычек','Заметки-подотчётность'] },
-        { title: 'День ясности', price: '€950 / день', bullets: ['Полудневный интенсив','Карта ценностей и видения','План действий на 90 дней'] },
+        { title: 'Индивидуальная глубинная сессия', price: '€149 / сессия', bullets: ['60 минут в Zoom', 'Личный роадмап', 'Поддержка в Voxer 5 дней'], badge: 'Самое популярное' },
+        { title: 'Пакет «Импульс»', price: '€799 / 6 недель', bullets: ['Еженедельно по 50 минут', 'Трекер привычек', 'Заметки-подотчётность'] },
+        { title: 'День ясности', price: '€950 / день', bullets: ['Полудневный интенсив', 'Карта ценностей и видения', 'План действий на 90 дней'] },
       ],
       choose: 'Выбрать',
     },
@@ -141,18 +142,44 @@ const copy = {
       stat: 'Клиенты из 12+ стран',
     },
     method: {
-      title: 'Методика CALM',
+      title: 'Методика ОПОРА',
       sub: 'Простой путь, по которому мы пойдём вместе.',
       steps: [
-        { k: 'C', t: 'Clarify', d: 'Определить, чего вы действительно хотите и зачем.' },
-        { k: 'A', t: 'Align', d: 'Согласовать цели с ценностями и ограничениями.' },
-        { k: 'L', t: 'Leverage', d: 'Спроектировать маленькие повторяемые системы, которые накапливают эффект.' },
-        { k: 'M', t: 'Measure', d: 'Отслеживать прогресс, делать обзоры и корректировки с поддержкой.' },
+        {
+          k: 'О',
+          t: 'Определить',
+          subtitle: 'Определить, чего вы действительно хотите и зачем.',
+          d: 'Мы начинаем с того, что выявляем вашу настоящую цель — не ту, которую "надо", а ту, которая зажигает изнутри. Вы поймёте, к чему действительно стремитесь, и перестанете распыляться.'
+        },
+        {
+          k: 'П',
+          t: 'Проверить',
+          subtitle: 'Согласовать цели с ценностями и ограничениями.',
+          d: 'Проверяем, совпадает ли ваша цель с тем, что для вас по-настоящему важно. Убираем внутренние противоречия, которые тормозят движение. Вы перестанете бояться и начнёте действовать.'
+        },
+        {
+          k: 'О',
+          t: 'Организовать',
+          subtitle: 'Спроектировать маленькие повторяемые системы, которые накапливают эффект.',
+          d: 'Создаём простые привычки и действия, которые работают на автомате и ведут к результату без насилия над собой. Вы получите план, который реально работает.'
+        },
+        {
+          k: 'Р',
+          t: 'Результат',
+          subtitle: 'Отслеживать прогресс, делать обзоры и корректировки с поддержкой.',
+          d: 'Регулярно смотрим на результаты, празднуем успехи и корректируем курс, если нужно. Вы не остаётесь одни — я с вами на каждом шаге.'
+        },
+        {
+          k: 'А',
+          t: 'Адаптировать',
+          subtitle: 'Гибко менять подход под ваши потребности.',
+          d: 'Жизнь меняется, и план тоже может меняться. Мы адаптируем стратегию под новые обстоятельства, сохраняя движение к цели без стресса и перегрузки.'
+        },
       ],
     },
     testimonials: { title: 'Результаты клиентов', sub: 'Реальные истории сотрудничества.' },
     booking: {
-      title: 'Готовы выбраться из застоя?',
+      title: 'СДВИНУТЬСЯ С МЕРТВОЙ ТОЧКИ',
       sub: 'Запишитесь на бесплатную 20-минутную встречу-знакомство. Обсудим цели и поймём, подходим ли мы друг другу — без обязательств.',
       cta1: 'Оставить заявку',
       cta2: 'Смотреть вопросы',
@@ -160,9 +187,9 @@ const copy = {
     faq: {
       title: 'Вопросы и ответы',
       items: [
-        { q: 'Какой у вас стиль коучинга?', a: 'Поддерживающий, но прямой. Я задаю сильные вопросы, отражаю паттерны и вместе с вами проектирую простые эксперименты, которые двигают вперёд.' },
+        { q: 'Какой у вас стиль коучинга?', a: 'Поддерживающий партнёрский коучинг: сильные вопросы + работа с телом, эмоциями и мыслями. Движение к жизни, где работа на себя радует и приносит доход?' },
         { q: 'Проводите ли вы дистанционные сессии?', a: 'Да — все встречи проходят онлайн. Я работаю с клиентами из разных часовых поясов.' },
-        { q: 'Какое обязательство по времени?', a: 'Можно разово; чаще всего выбирают 6–12 недель для набора импульса.' },
+        { q: 'Какое обязательство по времени?', a: 'Эффект будет даже после одной сессии; для более системного результата при поддержке выбирают 7–14 недель.' },
       ],
     },
     contact: {
@@ -178,7 +205,7 @@ const copy = {
       hours: 'Пн–Пт · 9:00–17:00',
       site: 'lizacoaching.com',
     },
-    footer: { privacy: 'Конфиденциальность', terms: 'Условия', imprint: 'Реквизиты', rights: (y:number)=>`© ${y} Liza Coaching. Все права защищены.` },
+    footer: { privacy: 'Конфиденциальность', terms: 'Условия', imprint: 'Реквизиты', rights: (y: number) => `© ${y} Liza Coaching. Все права защищены.` },
     langLabel: 'Язык',
   },
 } as const;
@@ -233,7 +260,7 @@ export default function LifeCoachLanding() {
                 id="lang-select"
                 className="rounded-lg border border-[var(--border)] bg-[var(--surface)] px-2.5 py-1.5 text-sm hover:bg-[color:var(--surface)/0.95] focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.25]"
                 value={lang}
-                onChange={(e)=>setLang(e.target.value as Lang)}
+                onChange={(e) => setLang(e.target.value as Lang)}
               >
                 <option value="en">English</option>
                 <option value="ru">Русский</option>
@@ -274,8 +301,8 @@ export default function LifeCoachLanding() {
               </a>
             </div>
             <div className="mt-8 flex items-center gap-6 text-sm text-[var(--muted)]">
-              <div className="flex items-center gap-2"><StarIcon className="h-5 w-5 text-[var(--brand-ink)]"/>{' '}{t.hero.rating}</div>
-              <div className="flex items-center gap-2"><ShieldIcon className="h-5 w-5 text-[var(--brand-ink)]"/>{' '}{t.hero.ethics}</div>
+              <div className="flex items-center gap-2"><StarIcon className="h-5 w-5 text-[var(--brand-ink)]" />{' '}{t.hero.rating}</div>
+              <div className="flex items-center gap-2"><ShieldIcon className="h-5 w-5 text-[var(--brand-ink)]" />{' '}{t.hero.ethics}</div>
             </div>
           </div>
           {/* Right panel: autoplay intro video (centered) */}
@@ -315,7 +342,7 @@ export default function LifeCoachLanding() {
                 {/* Soft info pill */}
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3">
                   <div className="mx-auto max-w-sm rounded-xl bg-[color:var(--surface)/0.75] backdrop-blur border border-[var(--border)] px-3 py-2 text-xs text-[var(--muted)]">
-                    {lang==='ru' ? '20 сек. интро · без звука · с субтитрами' : '20-sec intro · sound off · captions on'}
+                    {lang === 'ru' ? '20 сек. интро · без звука · с субтитрами' : '20-sec intro · sound off · captions on'}
                   </div>
                 </div>
               </div>
@@ -350,7 +377,7 @@ export default function LifeCoachLanding() {
           </div>
           <div className="mt-10 grid md:grid-cols-3 gap-6">
             {t.services.cards.map((c, i) => (
-              <ServiceCard key={i} title={c.title} price={c.price} bullet={c.bullets} badge={'badge' in c ? c.badge : undefined} chooseLabel={t.services.choose}/>
+              <ServiceCard key={i} title={c.title} price={c.price} bullet={c.bullets} badge={'badge' in c ? c.badge : undefined} chooseLabel={t.services.choose} />
             ))}
           </div>
         </div>
@@ -365,7 +392,7 @@ export default function LifeCoachLanding() {
             <ul className="mt-6 space-y-3 text-[var(--muted)]">
               {t.about.bullets.map((b, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <CheckIcon className="mt-1 h-5 w-5 text-[var(--brand-ink)]"/>{b}
+                  <CheckIcon className="mt-1 h-5 w-5 text-[var(--brand-ink)]" />{b}
                 </li>
               ))}
             </ul>
@@ -405,13 +432,9 @@ export default function LifeCoachLanding() {
             <h2 className="text-3xl font-semibold tracking-tight">{t.method.title}</h2>
             <p className="mt-2 text-[var(--muted)]">{t.method.sub}</p>
           </div>
-          <div className="mt-10 grid md:grid-cols-4 gap-6">
+          <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {t.method.steps.map((s, i) => (
-              <div key={i} className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm">
-                <div className="h-10 w-10 rounded-xl bg-[var(--brand)] text-white grid place-items-center font-semibold">{s.k}</div>
-                <h3 className="mt-4 font-semibold">{s.t}</h3>
-                <p className="mt-2 text-sm text-[var(--muted)]">{s.d}</p>
-              </div>
+              <MethodStepCard key={i} k={s.k} t={s.t} subtitle={s.subtitle} d={s.d} />
             ))}
           </div>
         </div>
@@ -425,9 +448,9 @@ export default function LifeCoachLanding() {
             <p className="mt-2 text-[var(--muted)]">{t.testimonials.sub}</p>
           </div>
           <div className="mt-10 grid md:grid-cols-3 gap-6">
-            <TestimonialCard quote="I landed the role I was dreaming of and finally built a routine I can stick to." name="Sara P." role="Product Manager"/>
-            <TestimonialCard quote="Weekly sessions kept me accountable — I shipped my app in 6 weeks." name="Jonas K." role="Founder"/>
-            <TestimonialCard quote="I stopped second-guessing and started executing with ease." name="Anya R." role="Designer"/>
+            <TestimonialCard quote="I landed the role I was dreaming of and finally built a routine I can stick to." name="Sara P." role="Product Manager" />
+            <TestimonialCard quote="Weekly sessions kept me accountable — I shipped my app in 6 weeks." name="Jonas K." role="Founder" />
+            <TestimonialCard quote="I stopped second-guessing and started executing with ease." name="Anya R." role="Designer" />
           </div>
         </div>
       </section>
@@ -461,28 +484,28 @@ export default function LifeCoachLanding() {
             <h2 className="text-3xl font-semibold tracking-tight">{t.contact.title}</h2>
             <p className="mt-3 text-[var(--muted)]">{t.contact.sub}</p>
             <div className="mt-6 space-y-3 text-[var(--muted)]">
-              <div className="flex items-center gap-3"><MailIcon className="h-5 w-5 text-[var(--brand-ink)]"/> hello@lizacoaching.com</div>
-              <div className="flex items-center gap-3"><GlobeIcon className="h-5 w-5 text-[var(--brand-ink)]"/> {t.contact.site}</div>
-              <div className="flex items-center gap-3"><CalendarIcon className="h-5 w-5 text-[var(--brand-ink)]"/> {t.contact.hours}</div>
+              <div className="flex items-center gap-3"><MailIcon className="h-5 w-5 text-[var(--brand-ink)]" /> hello@lizacoaching.com</div>
+              <div className="flex items-center gap-3"><GlobeIcon className="h-5 w-5 text-[var(--brand-ink)]" /> {t.contact.site}</div>
+              <div className="flex items-center gap-3"><CalendarIcon className="h-5 w-5 text-[var(--brand-ink)]" /> {t.contact.hours}</div>
             </div>
           </div>
           <form className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="text-sm font-medium">{t.contact.first}</label>
-                <input className="mt-1 w-full rounded-lg border border-[var(--border)] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3]" placeholder={lang==='ru'?'Анна':'Jane'}/>
+                <input className="mt-1 w-full rounded-lg border border-[var(--border)] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3]" placeholder={lang === 'ru' ? 'Анна' : 'Jane'} />
               </div>
               <div>
                 <label className="text-sm font-medium">{t.contact.last}</label>
-                <input className="mt-1 w-full rounded-lg border border-[var(--border)] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3]" placeholder={lang==='ru'?'Иванова':'Doe'}/>
+                <input className="mt-1 w-full rounded-lg border border-[var(--border)] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3]" placeholder={lang === 'ru' ? 'Иванова' : 'Doe'} />
               </div>
               <div className="sm:col-span-2">
                 <label className="text-sm font-medium">{t.contact.email}</label>
-                <input type="email" className="mt-1 w-full rounded-lg border border-[var(--border)] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3]" placeholder="you@example.com"/>
+                <input type="email" className="mt-1 w-full rounded-lg border border-[var(--border)] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3]" placeholder="you@example.com" />
               </div>
               <div className="sm:col-span-2">
                 <label className="text-sm font-medium">{t.contact.message}</label>
-                <textarea rows={4} className="mt-1 w-full rounded-lg border border-[var(--border)] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3]" placeholder={t.contact.placeholder}/>
+                <textarea rows={4} className="mt-1 w-full rounded-lg border border-[var(--border)] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3]" placeholder={t.contact.placeholder} />
               </div>
             </div>
             <button type="button" className="mt-4 inline-flex items-center rounded-xl bg-[var(--brand)] px-5 py-2.5 text-white font-medium hover:bg-[var(--brand-hover)]">{t.contact.send}</button>
@@ -510,7 +533,7 @@ export default function LifeCoachLanding() {
 
 function ServiceCard({
   title, price, bullet, badge, chooseLabel = 'Choose',
-}: { title:string; price:string; bullet: readonly string[]; badge?:string; chooseLabel?: string }) {
+}: { title: string; price: string; bullet: readonly string[]; badge?: string; chooseLabel?: string }) {
   return (
     <div className="relative rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm">
       {badge && (
@@ -521,9 +544,9 @@ function ServiceCard({
       <h3 className="text-lg font-semibold">{title}</h3>
       <p className="mt-1 text-[var(--muted)]">{price}</p>
       <ul className="mt-4 space-y-2 text-sm text-[var(--muted)]">
-        {bullet.map((b,i)=> (
+        {bullet.map((b, i) => (
           <li key={i} className="flex items-start gap-2">
-            <CheckIcon className="mt-0.5 h-4 w-4 text-[var(--brand-ink)]"/>{b}
+            <CheckIcon className="mt-0.5 h-4 w-4 text-[var(--brand-ink)]" />{b}
           </li>
         ))}
       </ul>
@@ -534,11 +557,11 @@ function ServiceCard({
   );
 }
 
-function TestimonialCard({ quote, name, role }: {quote:string; name:string; role:string}) {
+function TestimonialCard({ quote, name, role }: { quote: string; name: string; role: string }) {
   return (
     <figure className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm">
       <div className="flex gap-2 text-[var(--brand-ink)]">
-        <QuoteIcon className="h-5 w-5"/><QuoteIcon className="h-5 w-5 -scale-x-100"/>
+        <QuoteIcon className="h-5 w-5" /><QuoteIcon className="h-5 w-5 -scale-x-100" />
       </div>
       <blockquote className="mt-3 text-[var(--text)]">“{quote}”</blockquote>
       <figcaption className="mt-4 text-sm text-[var(--muted)]">{name} · {role}</figcaption>
@@ -546,7 +569,7 @@ function TestimonialCard({ quote, name, role }: {quote:string; name:string; role
   );
 }
 
-function FaqItem({ q, a }: {q:string; a:string}) {
+function FaqItem({ q, a }: { q: string; a: string }) {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm">
       <div className="font-medium">{q}</div>
@@ -556,58 +579,38 @@ function FaqItem({ q, a }: {q:string; a:string}) {
 }
 
 /* --- Minimal inline icons (no external deps) --- */
-function CheckIcon(props:any){return(
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={props.className}><path d="m5 13 4 4L19 7"/></svg>
-)}
-function StarIcon(props:any){return(
-  <svg viewBox="0 0 24 24" fill="currentColor" className={props.className}><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-)}
-function ShieldIcon(props:any){return(
-  <svg viewBox="0 0 24 24" fill="currentColor" className={props.className}><path d="M12 2 4 5v6c0 5 3.4 9.74 8 11 4.6-1.26 8-6 8-11V5l-8-3z"/></svg>
-)}
-function MailIcon(props:any){return(
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={props.className}><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
-)}
-function GlobeIcon(props:any){return(
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={props.className}><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
-)}
-function CalendarIcon(props:any){return(
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={props.className}><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-)}
-function QuoteIcon(props:any){return(
-  <svg viewBox="0 0 24 24" fill="currentColor" className={props.className}><path d="M7 7h5v5H9v5H4v-5h3V7zm10 0h5v5h-3v5h-5v-5h3V7z"/></svg>
-)}
-
-/* Simple illustration placeholder (reads CSS vars) */
-function HeroIllustration(){
+function CheckIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 320 320" className="w-full h-full">
-      <defs>
-        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--grad-start)"/>
-          <stop offset="100%" stopColor="var(--grad-end)"/>
-        </linearGradient>
-      </defs>
-      <rect x="0" y="0" width="320" height="320" fill="url(#g1)"/>
-      <circle cx="80" cy="90" r="22" fill="var(--brand)"/>
-      <rect x="140" y="70" width="120" height="16" rx="8" fill="var(--text)"/>
-      <rect x="140" y="100" width="96" height="12" rx="6" fill="var(--muted)"/>
-      <rect x="60" y="150" width="200" height="120" rx="16" fill="var(--surface)" stroke="var(--border)"/>
-      <rect x="80" y="170" width="160" height="12" rx="6" fill="var(--text)"/>
-      <rect x="80" y="190" width="140" height="8" rx="4" fill="var(--muted)"/>
-      <rect x="80" y="206" width="120" height="8" rx="4" fill="var(--muted)"/>
-      <rect x="80" y="222" width="80" height="8" rx="4" fill="var(--muted)"/>
-      <rect x="80" y="250" width="60" height="18" rx="9" fill="var(--brand)"/>
-    </svg>
-  );
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><path d="m5 13 4 4L19 7" /></svg>
+  )
 }
-
-function PortraitPlaceholder(){
+function StarIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 320 400" className="w-full h-full">
-      <rect x="0" y="0" width="320" height="400" fill="var(--tint-1)"/>
-      <circle cx="160" cy="140" r="56" fill="var(--tint-1)"/>
-      <rect x="70" y="220" width="180" height="120" rx="20" fill="var(--tint-1)"/>
-    </svg>
-  );
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+  )
+}
+function ShieldIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M12 2 4 5v6c0 5 3.4 9.74 8 11 4.6-1.26 8-6 8-11V5l-8-3z" /></svg>
+  )
+}
+function MailIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><path d="M4 4h16v16H4z" /><path d="m22 6-10 7L2 6" /></svg>
+  )
+}
+function GlobeIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20" /></svg>
+  )
+}
+function CalendarIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
+  )
+}
+function QuoteIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M7 7h5v5H9v5H4v-5h3V7zm10 0h5v5h-3v5h-5v-5h3V7z" /></svg>
+  )
 }

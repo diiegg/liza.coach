@@ -1,17 +1,17 @@
 'use client';
 
 import { useEffect } from 'react';
-import { onCLS, onINP, onFCP, onLCP, onTTFB } from 'web-vitals';
+import { onCLS, onINP, onFCP, onLCP, onTTFB, Metric } from 'web-vitals';
 
-function sendToAnalytics(metric: any) {
+function sendToAnalytics(metric: Metric) {
   // Log to console in development
   if (process.env.NODE_ENV === 'development') {
     console.log('[Web Vitals]', metric);
   }
-  
+
   // Send to Google Analytics
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', metric.name, {
+  if (typeof window !== 'undefined' && (window as unknown as { gtag: (command: string, target: string, params: unknown) => void }).gtag) {
+    (window as unknown as { gtag: (command: string, target: string, params: unknown) => void }).gtag('event', metric.name, {
       event_category: 'Web Vitals',
       value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
       event_label: metric.id,

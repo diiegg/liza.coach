@@ -1,0 +1,35 @@
+
+> lifecoach-site@0.1.0 lint
+> eslint
+
+
+/Users/diegoquiroga/MEGAsync Downloads/lifecoach-site/public/video/postcss.config.js
+  1:1  warning  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+/Users/diegoquiroga/MEGAsync Downloads/lifecoach-site/src/components/LifeCoachLanding.tsx
+  619:10  warning  'HeroIllustration' is defined but never used     @typescript-eslint/no-unused-vars
+  642:10  warning  'PortraitPlaceholder' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/diegoquiroga/MEGAsync Downloads/lifecoach-site/src/components/LifeCoachLandingOptimized.tsx
+  20:10  warning  'isInitialized' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/diegoquiroga/MEGAsync Downloads/lifecoach-site/src/components/WebVitals.tsx
+  13:51  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  14:16  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/diegoquiroga/MEGAsync Downloads/lifecoach-site/src/components/sections/Contact.tsx
+   5:10  warning  'MailIcon' is defined but never used   @typescript-eslint/no-unused-vars
+   5:20  warning  'GlobeIcon' is defined but never used  @typescript-eslint/no-unused-vars
+  85:14  warning  'error' is defined but never used      @typescript-eslint/no-unused-vars
+
+/Users/diegoquiroga/MEGAsync Downloads/lifecoach-site/src/components/sections/Hero.tsx
+  11:27  warning  'lang' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/diegoquiroga/MEGAsync Downloads/lifecoach-site/src/components/sections/Testimonials.tsx
+  8:7  warning  'testimonials' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/diegoquiroga/MEGAsync Downloads/lifecoach-site/src/components/ui/MobileMenu.tsx
+  3:10  warning  'useState' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 12 problems (2 errors, 10 warnings)
+

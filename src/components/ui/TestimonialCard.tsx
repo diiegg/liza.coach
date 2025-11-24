@@ -13,7 +13,7 @@ export function TestimonialCard({ quote, name, role }: TestimonialCardProps) {
         <QuoteIcon className="h-5 w-5" />
         <QuoteIcon className="h-5 w-5 -scale-x-100" />
       </div>
-      <blockquote className="mt-3 text-[var(--text)]">"{quote}"</blockquote>
+      <blockquote className="mt-3 text-[var(--text)]">&quot;{quote}&quot;</blockquote>
       <figcaption className="mt-4 text-sm text-[var(--muted)]">
         {name} · {role}
       </figcaption>

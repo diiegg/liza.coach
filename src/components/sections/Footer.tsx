@@ -1,24 +1,341 @@
+'use client';
+
 import { Translations } from '@/lib/i18n';
+import { useEffect, useRef, useState } from 'react';
 
 interface FooterProps {
   t: Translations;
 }
 
 export function Footer({ t }: FooterProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isHovering, setIsHovering] = useState(false); // Start with no effect
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Set canvas size
+    let canvasWidth = 0;
+    let canvasHeight = 0;
+    // resizeCanvas definition moved below to access updateHeartPosition
+
+    // Particle class
+    class Particle {
+      x: number;
+      y: number;
+      targetX: number;
+      targetY: number;
+      vx: number;
+      vy: number;
+      size: number;
+      color: string;
+      baseAlpha: number;
+      currentAlpha: number;
+      randomX: number;
+      randomY: number;
+
+      constructor(canvasW: number, canvasH: number) {
+        // Start at random position (scattered)
+        this.randomX = Math.random() * canvasW;
+        this.randomY = Math.random() * canvasH;
+
+        this.x = this.randomX;
+        this.y = this.randomY;
+
+        this.targetX = 0;
+        this.targetY = 0;
+        this.vx = 0;
+        this.vy = 0;
+
+        this.size = Math.random() * 3 + 2;
+        const colors = ['255, 182, 193', '255, 160, 122', '255, 105, 180'];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        this.baseAlpha = Math.random() * 0.5 + 0.5;
+        this.currentAlpha = 0; // Start invisible
+        this.color = color;
+      }
+
+      update(isHovering: boolean) {
+        const target = isHovering ? { x: this.targetX, y: this.targetY } : { x: this.randomX, y: this.randomY };
+
+        const dx = target.x - this.x;
+        const dy = target.y - this.y;
+
+        // Smooth movement
+        this.vx += dx * 0.05;
+        this.vy += dy * 0.05;
+        this.vx *= 0.9;
+        this.vy *= 0.9;
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Fade in/out
+        if (isHovering) {
+          if (this.currentAlpha < this.baseAlpha) this.currentAlpha += 0.02;
+        } else {
+          if (this.currentAlpha > 0) this.currentAlpha -= 0.02;
+        }
+      }
+
+      draw(ctx: CanvasRenderingContext2D) {
+        if (this.currentAlpha <= 0) return;
+
+        ctx.save();
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = `rgba(${this.color}, ${this.currentAlpha})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${this.color}, ${this.currentAlpha})`;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // Create heart shape points
+    const createHeartPoints = (centerX: number, centerY: number, size: number) => {
+      const points: { x: number; y: number }[] = [];
+      for (let t = 0; t < Math.PI * 2; t += 0.1) {
+        const x = size * 16 * Math.pow(Math.sin(t), 3);
+        const y = -size * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+        points.push({
+          x: centerX + x,
+          y: centerY + y
+        });
+      }
+      return points;
+    };
+
+    // Initialize particles
+    const particleCount = 200;
+    const particles: Particle[] = [];
+    const heartSize = 4.5;
+
+    // Helper to get target position
+    const getTargetPosition = () => {
+      const targetP = document.getElementById('target-p');
+      if (targetP && canvas) {
+        const pRect = targetP.getBoundingClientRect();
+        const parent = canvas.parentElement;
+        const canvasRect = parent ? parent.getBoundingClientRect() : canvas.getBoundingClientRect();
+
+        return {
+          x: (pRect.left - canvasRect.left) + (pRect.width / 2),
+          y: (pRect.top - canvasRect.top) + (pRect.height / 2)
+        };
+      }
+      return { x: canvasWidth / 2, y: canvasHeight / 2 };
+    };
+
+    // Initial population - random positions
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle(canvasWidth, canvasHeight));
+    }
+
+    const updateHeartPosition = () => {
+      const pos = getTargetPosition();
+      const heartPoints = createHeartPoints(pos.x, pos.y, heartSize);
+
+      particles.forEach((particle, i) => {
+        const pointIndex = Math.floor((i / particleCount) * heartPoints.length);
+        if (heartPoints[pointIndex]) {
+          particle.targetX = heartPoints[pointIndex].x;
+          particle.targetY = heartPoints[pointIndex].y;
+        }
+
+        // CRITICAL FIX: Re-distribute random targets to fill the NEW canvas size
+        // We want them scattered across the whole footer
+        particle.randomX = Math.random() * canvasWidth;
+        particle.randomY = Math.random() * canvasHeight;
+
+        // If particle is at 0,0 (initial init), snap it to its random position
+        // so it doesn't fly in from the top-left corner
+        if (particle.x === 0 && particle.y === 0) {
+          particle.x = particle.randomX;
+          particle.y = particle.randomY;
+        }
+      });
+    };
+
+    const resizeCanvas = () => {
+      const parent = canvas.parentElement;
+      if (!parent) return;
+
+      const rect = parent.getBoundingClientRect();
+
+      canvasWidth = rect.width;
+      canvasHeight = rect.height;
+
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+
+      updateHeartPosition();
+    };
+
+    // Initial resize
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Add ResizeObserver to watch for layout changes
+    let observer: ResizeObserver | null = null;
+    const targetP = document.getElementById('target-p');
+    if (targetP) {
+      observer = new ResizeObserver(() => {
+        updateHeartPosition();
+      });
+      observer.observe(targetP);
+    }
+
+    // Animation loop
+    let animationId: number;
+    const animate = () => {
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+      // Global glow (optional, but per-particle glow is better)
+      // ctx.shadowBlur = 20;
+      // ctx.shadowColor = 'rgba(255, 182, 193, 0.6)';
+
+      particles.forEach(particle => {
+        particle.update(isHovering);
+        particle.draw(ctx);
+      });
+
+      animationId = requestAnimationFrame(animate);
+    };
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      cancelAnimationFrame(animationId);
+      if (observer) {
+        observer.disconnect();
+      }
+    };
+  }, [isHovering]); // Need isHovering in deps so animation sees state changes
+
   return (
-    <footer className="border-t border-[var(--border)]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-[var(--muted)]">
-        <p>{t.footer.rights(new Date().getFullYear())}</p>
-        <div className="flex items-center gap-4">
-          <a href="#" className="hover:text-[var(--text)] transition-colors">
-            {t.footer.privacy}
-          </a>
-          <a href="#" className="hover:text-[var(--text)] transition-colors">
-            {t.footer.terms}
-          </a>
-          <a href="#" className="hover:text-[var(--text)] transition-colors">
-            {t.footer.imprint}
-          </a>
+    <footer
+      className="bg-[var(--surface)] border-t border-[var(--border)] relative overflow-hidden"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
+      {/* Canvas for particle effect - High Z-index */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 pointer-events-none z-50"
+      />
+
+      {/* Main Footer Content */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-20 lg:py-24 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-8">
+
+          {/* Brand Column (Wider) */}
+          <div className="lg:col-span-4 space-y-3">
+            <div className="text-2xl font-bold tracking-tight text-[var(--text)]">
+              LIZA
+            </div>
+            <p className="text-[var(--muted)] max-w-xs leading-relaxed">
+              {t.footer.tagline}
+            </p>
+            <div>
+              <a href="mailto:hello@liza.coach" className="text-[var(--text)] font-medium hover:text-[var(--brand)] transition-colors">
+                hello@liza.coach
+              </a>
+            </div>
+          </div>
+
+          {/* Navigation Columns */}
+          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
+
+            {/* Resources */}
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text)] mb-6">
+                {t.footer.resources}
+              </h3>
+              <nav className="flex flex-col space-y-4">
+                <a href="#services" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
+                  {t.nav.services}
+                </a>
+                <a href="#method" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
+                  {t.nav.method}
+                </a>
+                <a href="#results" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
+                  {t.nav.results}
+                </a>
+                <a href="#about" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
+                  {t.nav.about}
+                </a>
+              </nav>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text)] mb-6">
+                {t.footer.legal}
+              </h3>
+              <nav className="flex flex-col space-y-4">
+
+                <a href="/cookie-policy" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
+                  {t.footer.cookiePolicy}
+                </a>
+                <a href="/privacy-policy" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
+                  {t.footer.privacy}
+                </a>
+                <a href="/terms" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors">
+                  {t.footer.terms}
+                </a>
+              </nav>
+            </div>
+
+            {/* Connect */}
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text)] mb-6">
+                Connect
+              </h3>
+              <nav className="flex flex-col space-y-4">
+                <a href="https://t.me/lizadirect" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--muted)] hover:text-[var(--brand)] transition-colors flex items-center gap-2">
+                  <span>Telegram</span>
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </a>
+                <div className="text-sm text-[var(--muted)]">
+                  @lizadirect
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        {/* Giant LIZA Text Below with P anchor */}
+        <div className="flex items-baseline gap-32 md:gap-48 lg:gap-64 -mt-12 lg:-mt-20">
+          <div
+            id="liza-text"
+            className="w-fit text-[clamp(5rem,20vw,18rem)] font-black leading-[0.8] tracking-tighter text-[var(--text)] opacity-10 select-none pointer-events-none"
+          >
+            LIZA
+          </div>
+          {/* Anchor P element (Visible for verification) */}
+          <div
+            id="target-p"
+            className="text-[clamp(5rem,20vw,18rem)] font-black text-[var(--brand)] opacity-0 select-none pointer-events-none"
+          >
+            P
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="border-t border-[var(--border)]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-[var(--muted)]">
+            {t.footer.rights(new Date().getFullYear())}
+          </p>
+          <p className="text-xs text-[var(--muted)]">
+            Designed with care.
+          </p>
         </div>
       </div>
     </footer>

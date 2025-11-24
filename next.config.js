@@ -1,15 +1,14 @@
-import type { NextConfig } from 'next';
-
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   // Performance optimizations
   experimental: {
     optimizePackageImports: ['react-icons'],
   },
-  
+
   // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
@@ -20,7 +19,7 @@ const nextConfig: NextConfig = {
 
   // Compression
   compress: true,
-  
+
   // Headers for SEO and security
   async headers() {
     return [
@@ -65,7 +64,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  
+
   // Bundle optimization
   webpack: (config, { isServer }) => {
     if (!isServer) {
@@ -82,4 +81,4 @@ const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: true },
 };
 
-export default withBundleAnalyzer(nextConfig);
+module.exports = withBundleAnalyzer(nextConfig);
