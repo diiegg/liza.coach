@@ -1,0 +1,12 @@
+/Users/diegoquiroga/MEGAsync Downloads/lifecoach-site/node_modules/.pnpm/next@15.5.4_@babel+core@7.28.5_@opentelemetry+api@1.9.0_@playwright+test@1.56.1_react-d_6848c2cecba695bd88908cd96d702dc3/node_modules/next/dist/server/next.js:218
+                        throw Object.defineProperty(new Error(`"next start" does not work with "output: export" configuration. Use "npx serve@latest out" instead.`), "__NEXT_ERROR_CODE", {
+                                                    ^
+
+Error: "next start" does not work with "output: export" configuration. Use "npx serve@latest out" instead.
+    at /Users/diegoquiroga/MEGAsync Downloads/lifecoach-site/node_modules/.pnpm/next@15.5.4_@babel+core@7.28.5_@opentelemetry+api@1.9.0_@playwright+test@1.56.1_react-d_6848c2cecba695bd88908cd96d702dc3/node_modules/next/dist/server/next.js:218:53
+    at async NextServer.prepare (/Users/diegoquiroga/MEGAsync Downloads/lifecoach-site/node_modules/.pnpm/next@15.5.4_@babel+core@7.28.5_@opentelemetry+api@1.9.0_@playwright+test@1.56.1_react-d_6848c2cecba695bd88908cd96d702dc3/node_modules/next/dist/server/next.js:165:24)
+    at async initializeImpl (/Users/diegoquiroga/MEGAsync Downloads/lifecoach-site/node_modules/.pnpm/next@15.5.4_@babel+core@7.28.5_@opentelemetry+api@1.9.0_@playwright+test@1.56.1_react-d_6848c2cecba695bd88908cd96d702dc3/node_modules/next/dist/server/lib/render-server.js:105:5)
+    at async initialize (/Users/diegoquiroga/MEGAsync Downloads/lifecoach-site/node_modules/.pnpm/next@15.5.4_@babel+core@7.28.5_@opentelemetry+api@1.9.0_@playwright+test@1.56.1_react-d_6848c2cecba695bd88908cd96d702dc3/node_modules/next/dist/server/lib/router-server.js:538:22)
+    at async NextCustomServer.prepare (/Users/diegoquiroga/MEGAsync Downloads/lifecoach-site/node_modules/.pnpm/next@15.5.4_@babel+core@7.28.5_@opentelemetry+api@1.9.0_@playwright+test@1.56.1_react-d_6848c2cecba695bd88908cd96d702dc3/node_modules/next/dist/server/next.js:287:28)
+
+Node.js v24.8.0

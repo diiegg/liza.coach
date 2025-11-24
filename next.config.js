@@ -1,12 +1,10 @@
-import type { NextConfig } from 'next';
-
-import withBundleAnalyzerPkg from '@next/bundle-analyzer';
-
-const withBundleAnalyzer = withBundleAnalyzerPkg({
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'standalone',
   // Performance optimizations
   experimental: {
     optimizePackageImports: ['react-icons'],
@@ -84,4 +82,4 @@ const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: true },
 };
 
-export default withBundleAnalyzer(nextConfig);
+module.exports = withBundleAnalyzer(nextConfig);

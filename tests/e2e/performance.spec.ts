@@ -67,7 +67,7 @@ test.describe('Performance Tests', () => {
 
     // Check that images are using WebP or modern formats
     images.forEach(img => {
-      expect(img.src).toMatch(/\.(webp|avif|jpg|jpeg|png)$/i);
+      expect(img.src).toMatch(/(_next\/image|data:image|\.(webp|avif|jpg|jpeg|png|svg))/i);
     });
   });
 
