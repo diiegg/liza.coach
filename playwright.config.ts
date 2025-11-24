@@ -37,9 +37,15 @@ export default defineConfig({
     },
   ],
 
+  timeout: 60000, // 60s per test
+  expect: {
+    timeout: 10000, // 10s for expect matchers
+  },
+
   webServer: {
-    command: 'npm run dev',
+    command: process.env.CI ? 'npm run build && npm run start' : 'npm run dev',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
+    timeout: 120 * 1000, // 2 minutes for build + start
   },
 });
