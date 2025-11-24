@@ -11,3 +11,7 @@ out/
 # misc
 .DS_Store
 .env
+
+# test artifacts
+playwright-report/
+test-results/

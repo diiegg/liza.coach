@@ -7,9 +7,9 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
-  
+
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://127.0.0.1:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
@@ -37,9 +37,15 @@ export default defineConfig({
     },
   ],
 
+  timeout: 60000, // 60s per test
+  expect: {
+    timeout: 10000, // 10s for expect matchers
+  },
+
   webServer: {
-    command: 'pnpm dev',
-    url: 'http://localhost:3000',
+    command: process.env.CI ? 'pnpm build && pnpm start' : 'pnpm dev',
+    url: 'http://127.0.0.1:3000',
     reuseExistingServer: !process.env.CI,
+    timeout: 300 * 1000, // 5 minutes for build + start
   },
 });

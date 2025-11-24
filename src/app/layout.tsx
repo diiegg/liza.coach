@@ -2,6 +2,22 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { WebVitals } from '@/components/WebVitals';
+import { CookieConsent } from '@/components/CookieConsent';
+import { ConditionalAnalytics } from '@/components/ConditionalAnalytics';
+
+import { Playfair_Display, Inter } from 'next/font/google';
+
+const playfair = Playfair_Display({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-playfair',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Liza Coaching – Сертифицированный Life-коуч ICF | Лайф-коучинг для предпринимателей',
@@ -70,7 +86,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru">
+    <html lang="ru" className={`${playfair.variable} ${inter.variable}`}>
       <head>
         <link rel="canonical" href="https://liza.coach" />
         <link rel="author" href="/humans.txt" />
@@ -78,20 +94,9 @@ export default function RootLayout({
         <meta name="geo.placename" content="Москва" />
         <meta name="geo.position" content="55.751244;37.618423" />
         <meta name="ICBM" content="55.751244, 37.618423" />
-        
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-LG9ST0FWMZ"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-LG9ST0FWMZ');
-            `,
-          }}
-        />
-        
+
+        {/* Analytics loaded conditionally via ConditionalAnalytics component based on cookie consent */}
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -241,7 +246,7 @@ export default function RootLayout({
                       name: 'Какой у вас стиль коучинга?',
                       acceptedAnswer: {
                         '@type': 'Answer',
-                        text: 'Поддерживающий, но прямой. Я задаю сильные вопросы, отражаю паттерны и вместе с вами проектирую простые эксперименты, которые двигают вперёд.',
+                        text: 'Поддерживающий партнёрский коучинг: сильные вопросы + работа с телом, эмоциями и мыслями. Движение к жизни, где работа на себя радует и приносит доход?',
                       },
                     },
                     {
@@ -257,7 +262,7 @@ export default function RootLayout({
                       name: 'Какие обязательства требуются?',
                       acceptedAnswer: {
                         '@type': 'Answer',
-                        text: 'Доступны разовые сессии; большинство клиентов выбирают программы на 4–8 недель для устойчивых результатов.',
+                        text: 'Эффект будет даже после одной сессии; для более системного результата при поддержке выбирают 7–14 недель.',
                       },
                     },
                   ],
@@ -268,11 +273,13 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <ConditionalAnalytics />
         <WebVitals />
         <a href="#main-content" className="skip-to-content">
           Skip to main content
         </a>
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

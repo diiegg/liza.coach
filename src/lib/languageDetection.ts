@@ -99,7 +99,7 @@ export function detectUserLanguage(): Lang {
  */
 export function getCountryFromTimezone(): string | null {
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  
+
   const timezoneToCountry: Record<string, string> = {
     'Europe/Moscow': 'RU',
     'Europe/Kaliningrad': 'RU',
@@ -147,6 +147,7 @@ export function isRussianSpeakingRegion(): boolean {
 export function saveLanguagePreference(lang: Lang): void {
   if (typeof window !== 'undefined') {
     window.localStorage.setItem('lang', lang);
+    window.dispatchEvent(new CustomEvent('languageChange', { detail: lang }));
     console.log('💾 Language preference saved:', lang);
   }
 }

@@ -72,17 +72,17 @@ export function Contact({ t, lang }: ContactProps) {
     // Simulate API call
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       // Here you would send the data to your backend
       console.log('Form submitted:', formData);
-      
+
       setSubmitStatus('success');
       setFormData({ name: '', email: '', message: '' });
       setErrors({});
-      
+
       // Reset success message after 5 seconds
       setTimeout(() => setSubmitStatus('idle'), 5000);
-    } catch (error) {
+
       setSubmitStatus('error');
       setTimeout(() => setSubmitStatus('idle'), 5000);
     } finally {
@@ -107,7 +107,7 @@ export function Contact({ t, lang }: ContactProps) {
           <div className="mt-6 space-y-3 text-[var(--muted)]">
             <div className="flex items-center gap-3">
               <TelegramIcon className="h-5 w-5 text-[var(--brand-ink)] flex-shrink-0" />
-              <a 
+              <a
                 href={'emailLink' in t.contact ? t.contact.emailLink : `mailto:${t.contact.emailAddress}`}
                 target={'emailLink' in t.contact ? '_blank' : undefined}
                 rel={'emailLink' in t.contact ? 'noopener noreferrer' : undefined}
@@ -118,7 +118,7 @@ export function Contact({ t, lang }: ContactProps) {
             </div>
             <div className="flex items-center gap-3">
               <TelegramIcon className="h-5 w-5 text-[var(--brand-ink)] flex-shrink-0" />
-              <a 
+              <a
                 href={`https://t.me/${t.contact.site.split('@')[1]}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -133,7 +133,7 @@ export function Contact({ t, lang }: ContactProps) {
             </div>
           </div>
         </div>
-        
+
         <form onSubmit={handleSubmit} className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm" noValidate>
           <div className="space-y-4">
             <div>
@@ -145,9 +145,8 @@ export function Contact({ t, lang }: ContactProps) {
                 type="text"
                 value={formData.name}
                 onChange={(e) => handleChange('name', e.target.value)}
-                className={`mt-1 w-full rounded-lg border ${
-                  errors.name ? 'border-red-500' : 'border-[var(--border)]'
-                } px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3] transition-shadow`}
+                className={`mt-1 w-full rounded-lg border ${errors.name ? 'border-red-500' : 'border-[var(--border)]'
+                  } px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3] transition-shadow`}
                 placeholder={lang === 'ru' ? 'Анна Иванова' : 'Jane Doe'}
                 aria-invalid={!!errors.name}
                 aria-describedby={errors.name ? 'name-error' : undefined}
@@ -167,9 +166,8 @@ export function Contact({ t, lang }: ContactProps) {
                 type="email"
                 value={formData.email}
                 onChange={(e) => handleChange('email', e.target.value)}
-                className={`mt-1 w-full rounded-lg border ${
-                  errors.email ? 'border-red-500' : 'border-[var(--border)]'
-                } px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3] transition-shadow`}
+                className={`mt-1 w-full rounded-lg border ${errors.email ? 'border-red-500' : 'border-[var(--border)]'
+                  } px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3] transition-shadow`}
                 placeholder="you@example.com"
                 aria-invalid={!!errors.email}
                 aria-describedby={errors.email ? 'email-error' : undefined}
@@ -189,9 +187,8 @@ export function Contact({ t, lang }: ContactProps) {
                 rows={4}
                 value={formData.message}
                 onChange={(e) => handleChange('message', e.target.value)}
-                className={`mt-1 w-full rounded-lg border ${
-                  errors.message ? 'border-red-500' : 'border-[var(--border)]'
-                } px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3] transition-shadow`}
+                className={`mt-1 w-full rounded-lg border ${errors.message ? 'border-red-500' : 'border-[var(--border)]'
+                  } px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand)/0.3] transition-shadow`}
                 placeholder={t.contact.placeholder}
                 aria-invalid={!!errors.message}
                 aria-describedby={errors.message ? 'message-error' : undefined}
@@ -203,7 +200,7 @@ export function Contact({ t, lang }: ContactProps) {
               )}
             </div>
           </div>
-          
+
           <button
             type="submit"
             disabled={isSubmitting}
@@ -221,27 +218,27 @@ export function Contact({ t, lang }: ContactProps) {
               t.contact.send
             )}
           </button>
-          
+
           {submitStatus === 'success' && (
             <div className="mt-4 p-3 rounded-lg bg-green-50 border border-green-200" role="status">
               <p className="text-sm text-green-800">
-                {lang === 'ru' 
+                {lang === 'ru'
                   ? '✓ Сообщение успешно отправлено! Мы свяжемся с вами в ближайшее время.'
                   : '✓ Message sent successfully! We\'ll get back to you soon.'}
               </p>
             </div>
           )}
-          
+
           {submitStatus === 'error' && (
             <div className="mt-4 p-3 rounded-lg bg-red-50 border border-red-200" role="alert">
               <p className="text-sm text-red-800">
-                {lang === 'ru' 
+                {lang === 'ru'
                   ? '✗ Произошла ошибка. Пожалуйста, попробуйте еще раз.'
                   : '✗ An error occurred. Please try again.'}
               </p>
             </div>
           )}
-          
+
           <p className="mt-3 text-xs text-[var(--muted)]">{t.contact.policy}</p>
         </form>
       </div>

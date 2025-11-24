@@ -39,18 +39,18 @@ export const translations = {
         {
           title: '1:1 Deep-Dive',
           price: '€149 / session',
-          bullets: ['60-min on Zoom','Personal roadmap','Voxer support 5 days'],
+          bullets: ['60-min on Zoom', 'Personal roadmap', 'Voxer support 5 days'],
           badge: 'Most popular'
         },
         {
           title: 'Momentum Pack',
           price: '€799 / 6 weeks',
-          bullets: ['Weekly 50-min','Habit tracker','Accountability notes']
+          bullets: ['Weekly 50-min', 'Habit tracker', 'Accountability notes']
         },
         {
           title: 'Clarity Day',
           price: '€950 / day',
-          bullets: ['Half-day intensive','Values & vision map','90-day action plan']
+          bullets: ['Half-day intensive', 'Values & vision map', '90-day action plan']
         },
       ],
       choose: 'Choose',
@@ -78,10 +78,10 @@ export const translations = {
       title: 'The CALM Framework',
       sub: "A simple path we'll follow together.",
       steps: [
-        { k: 'C', t: 'Clarify', d: 'Define what you really want and why it matters.' },
-        { k: 'A', t: 'Align', d: 'Map goals to values and constraints.' },
-        { k: 'L', t: 'Leverage', d: 'Design tiny, repeatable systems that compound.' },
-        { k: 'M', t: 'Measure', d: 'Track progress, review, and adjust with support.' },
+        { k: 'C', t: 'Clarify', d: 'Define what you really want and why it matters.', subtitle: 'Define what you really want.' },
+        { k: 'A', t: 'Align', d: 'Map goals to values and constraints.', subtitle: 'Align goals with values.' },
+        { k: 'L', t: 'Leverage', d: 'Design tiny, repeatable systems that compound.', subtitle: 'Build repeatable systems.' },
+        { k: 'M', t: 'Measure', d: 'Track progress, review, and adjust with support.', subtitle: 'Track and adjust.' },
       ],
     },
     testimonials: {
@@ -130,10 +130,17 @@ export const translations = {
       emailAddress: 'hello@lizacoaching.com',
     },
     footer: {
-      privacy: 'Privacy',
-      terms: 'Terms',
-      imprint: 'Imprint',
-      rights: (y: number) => `© ${y} Liza Coaching. All rights reserved.`
+      resources: 'Resources',
+      legal: 'Legal',
+      help: 'Help',
+      acceptableUse: 'Acceptable Use',
+      cookiePolicy: 'Cookie Policy',
+      privacy: 'Privacy Policy',
+      terms: 'Terms of Service',
+      contact: 'Contact',
+      support: 'Support',
+      rights: (y: number) => `© ${y} Liza Coaching. All rights reserved.`,
+      tagline: 'Empowering you to find clarity, build systems, and achieve your true potential through the CALM method.'
     },
     langLabel: 'Language',
     videoInfo: '20-sec intro · sound off · captions on',
@@ -157,19 +164,19 @@ export const translations = {
       sub: 'Помогаю экспертам и самозанятым, которые устали распыляться и откладывать, найти фокус, вернуть энергию и начать уверенно зарабатывать от 50 000₽ в месяц — за 8 недель, без выгорания и перфекционизма.',
       ctaPrimary: 'Связаться в Telegram',
       ctaSecondary: 'Посмотреть программы',
-      rating: '4.9/5 у 120+ клиентов',
+      rating: '4.9/5 у 200+ клиентов',
       ethics: 'Этика в соответствии с ICF',
       cohort: 'Следующий поток',
-      cohortDate: '3 ноя',
+      cohortDate: '3 Ноября',
     },
     proof: {
       feat: 'Публикации',
-      founders: 'Нам доверяют',
-      foundersWho: 'основатели стартапов',
-      roi: 'Средний результат',
-      weeks: '6–12 недель',
+      founders: 'Мне доверяют',
+      foundersWho: 'предприниматели',
+      roi: 'Получи результат',
+      weeks: 'за 7-14 недель',
       sessions: 'Проведено сессий',
-      sessionsCount: '2k+',
+      sessionsCount: '750+',
       mindful: 'Mindful Weekly',
     },
     services: {
@@ -180,14 +187,14 @@ export const translations = {
           title: 'Диагностическая сессия',
           price: '5 000₽',
           duration: 'Длительность: 60 минут',
-          bullets: ['Глубокий разбор текущей ситуации','Определение точки входа: с чего начать движение к доходу','Конкретный план первых шагов без перегрузки'],
+          bullets: ['Глубокий разбор текущей ситуации', 'Определение точки входа: с чего начать движение к доходу', 'Конкретный план первых шагов без перегрузки'],
           chooseLabel: 'Записаться'
         },
         {
           title: 'Глубинная стратегическая сессия',
           price: '7 500₽',
           duration: 'Длительность: 90 минут',
-          bullets: ['Формируем образ будущего и понимаем, к чему вы идёте','Определяем шаги, которые реально дадут результат','Работа с сопротивлением и страхами на глубинном уровне','Запись сессии и заметки после встречи'],
+          bullets: ['Формируем образ будущего и понимаем, к чему вы идёте', 'Определяем шаги, которые реально дадут результат', 'Работа с сопротивлением и страхами на глубинном уровне', 'Запись сессии и заметки после встречи'],
           badge: 'Самое популярное',
           chooseLabel: 'Выбрать'
         },
@@ -195,7 +202,7 @@ export const translations = {
           title: 'Глубокое сопровождение (8 недель)',
           price: '50 000₽',
           duration: 'Длительность: 8 недель',
-          bullets: ['Индивидуальная работа: разбираем сопротивление, страхи, ценности','Создаём работающий план действий и внедряем его без выгорания','Поддержка в Telegram между сессиями','Заметки и записи после каждой встречи','Результат: первые клиенты, увеличение дохода, уверенность в себе'],
+          bullets: ['Индивидуальная работа: разбираем сопротивление, страхи, ценности', 'Создаём работающий план действий и внедряем его без выгорания', 'Поддержка в Telegram между сессиями', 'Заметки и записи после каждой встречи', 'Результат: первые клиенты, увеличение дохода, уверенность в себе'],
           chooseLabel: 'Записаться на программу'
         },
       ],
@@ -224,33 +231,33 @@ export const translations = {
       title: 'Методика ОПОРА',
       sub: 'Простой путь, по которому мы пойдём вместе.',
       steps: [
-        { 
-          k: 'О', 
-          t: 'Определить', 
+        {
+          k: 'О',
+          t: 'Определить',
           d: 'Мы начинаем с того, что выявляем вашу настоящую цель — не ту, которую "надо", а ту, которая зажигает изнутри. Вы поймёте, к чему действительно стремитесь, и перестанете распыляться.',
           subtitle: 'Определить, чего вы действительно хотите и зачем.'
         },
-        { 
-          k: 'П', 
-          t: 'Проверить', 
+        {
+          k: 'П',
+          t: 'Проверить',
           d: 'Проверяем, совпадает ли ваша цель с тем, что для вас по-настоящему важно. Убираем внутренние противоречия, которые тормозят движение. Вы перестанете бояться и начнёте действовать.',
           subtitle: 'Согласовать цели с ценностями и ограничениями.'
         },
-        { 
-          k: 'О', 
-          t: 'Организовать', 
+        {
+          k: 'О',
+          t: 'Организовать',
           d: 'Создаём простые привычки и действия, которые работают на автомате и ведут к результату без насилия над собой. Вы получите план, который реально работает.',
           subtitle: 'Спроектировать маленькие повторяемые системы, которые накапливают эффект.'
         },
-        { 
-          k: 'Р', 
-          t: 'Результат', 
+        {
+          k: 'Р',
+          t: 'Результат',
           d: 'Регулярно смотрим на результаты, празднуем успехи и корректируем курс, если нужно. Вы не остаётесь одни — я с вами на каждом шаге.',
           subtitle: 'Отслеживать прогресс, делать обзоры и корректировки с поддержкой.'
         },
-        { 
-          k: 'А', 
-          t: 'Адаптировать', 
+        {
+          k: 'А',
+          t: 'Адаптировать',
           d: 'Жизнь меняется, и план тоже может меняться. Мы адаптируем стратегию под новые обстоятельства, сохраняя движение к цели без стресса и перегрузки.',
           subtitle: 'Гибко менять подход под ваши потребности.'
         },
@@ -278,21 +285,21 @@ export const translations = {
       ]
     },
     booking: {
-      title: 'Готовы выбраться из застоя?',
+      title: 'СДВИНУТЬСЯ С МЕРТВОЙ ТОЧКИ',
       sub: 'Запишитесь на бесплатную 20-минутную встречу-знакомство. Обсудим цели и поймём, подходим ли мы друг другу — без обязательств.',
       urgency: '⚡ Ограниченное количество мест в этом месяце',
       cta1: 'Оставить заявку',
       cta2: 'Смотреть вопросы',
       clientsHelped: 'клиентов помогли',
       rating: 'рейтинг',
-      trustIndicators: '✓ Бесплатная 30-минутная консультация • ✓ Без кредитной карты • ✓ Отмена в любое время'
+      trustIndicators: '✓ Бесплатная 30-минутная консультация • ✓ Оплата в рассрочку'
     },
     faq: {
       title: 'Вопросы и ответы',
       items: [
         {
           q: 'Какой у вас стиль коучинга?',
-          a: 'Поддерживающий, но прямой. Я задаю сильные вопросы, отражаю паттерны и вместе с вами проектирую простые эксперименты, которые двигают вперёд.'
+          a: 'Поддерживающий партнёрский коучинг: сильные вопросы + работа с телом, эмоциями и мыслями. Движение к жизни, где работа на себя радует и приносит доход?'
         },
         {
           q: 'Проводите ли вы дистанционные сессии?',
@@ -300,7 +307,7 @@ export const translations = {
         },
         {
           q: 'Какое обязательство по времени?',
-          a: 'Можно разово; чаще всего выбирают 6–12 недель для набора импульса.'
+          a: 'Эффект будет даже после одной сессии; для более системного результата при поддержке выбирают 7–14 недель.'
         },
       ],
     },
@@ -314,16 +321,23 @@ export const translations = {
       placeholder: 'Чем я могу помочь?',
       send: 'Отправить сообщение',
       policy: 'Отправляя форму, вы соглашаетесь с политикой конфиденциальности.',
-      hours: 'Часы работы: Пн–Пт • 10:00–19:00 (МСК)',
+      hours: 'Часы работы: Вт-Сб 10:00–19:00 (по Москве)',
       site: 'Telegram: @lizadirect',
       emailAddress: 'Канал в Telegram',
       emailLink: 'https://t.me/calmpro',
     },
     footer: {
-      privacy: 'Конфиденциальность',
-      terms: 'Условия',
-      imprint: 'Реквизиты',
-      rights: (y: number) => `© ${y} Liza Coaching. Все права защищены.`
+      resources: 'Ресурсы',
+      legal: 'Правовая информация',
+      help: 'Помощь',
+      acceptableUse: 'Допустимое использование',
+      cookiePolicy: 'Политика cookie',
+      privacy: 'Политика конфиденциальности',
+      terms: 'Условия предоставления услуг',
+      contact: 'Контакты',
+      support: 'Поддержка',
+      rights: (y: number) => `© ${y} Liza Coaching. Все права защищены.`,
+      tagline: 'Помогаю обрести ясность, выстроить системы и раскрыть ваш истинный потенциал с помощью метода ОПОРА.'
     },
     langLabel: 'Язык',
     videoInfo: '20 сек. интро · без звука · с субтитрами',

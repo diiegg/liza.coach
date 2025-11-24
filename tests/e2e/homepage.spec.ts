@@ -14,13 +14,20 @@ test.describe('Homepage E2E Tests', () => {
     await expect(page.locator('h1')).toContainText(/Clarity\. Confidence\. Consistent Action\./);
   });
 
-  test('should navigate to services section', async ({ page }) => {
-    await page.click('a[href="#services"]');
+  test('should navigate to services section', async ({ page, isMobile }) => {
+    if (isMobile) {
+      await page.getByLabel('Open menu').click();
+      const mobileNav = page.getByLabel('Mobile navigation');
+      await expect(mobileNav).toBeVisible();
+      await mobileNav.locator('a[href="#services"]').click();
+    } else {
+      await page.click('a[href="#services"]');
+    }
     await expect(page.locator('#services')).toBeInViewport();
   });
 
   test('should display all three service cards', async ({ page }) => {
-    const serviceCards = page.locator('#services .rounded-2xl');
+    const serviceCards = page.locator('[data-testid="service-card"]');
     await expect(serviceCards).toHaveCount(3);
   });
 
@@ -88,11 +95,11 @@ test.describe('Mobile Responsiveness', () => {
 
   test('should be mobile responsive', async ({ page }) => {
     await page.goto('/');
-    
+
     const hero = page.locator('section').first();
     await expect(hero).toBeVisible();
-    
-    const serviceCards = page.locator('#services .rounded-2xl');
+
+    const serviceCards = page.locator('[data-testid="service-card"]');
     await expect(serviceCards).toHaveCount(3);
   });
 });
@@ -100,17 +107,17 @@ test.describe('Mobile Responsiveness', () => {
 test.describe('Accessibility', () => {
   test('should have skip to content link', async ({ page }) => {
     await page.goto('/');
-    
+
     const skipLink = page.locator('a:has-text("Skip to main content")');
     await expect(skipLink).toHaveCount(1);
   });
 
   test('should have proper heading hierarchy', async ({ page }) => {
     await page.goto('/');
-    
+
     const h1 = page.locator('h1');
     await expect(h1).toHaveCount(1);
-    
+
     const h2 = page.locator('h2');
     await expect(h2.first()).toBeVisible();
   });

@@ -1,4 +1,5 @@
 import { Translations } from '@/lib/i18n';
+import { MethodStepCard } from '../ui/MethodStepCard';
 
 interface MethodProps {
   t: Translations;
@@ -12,16 +13,15 @@ export function Method({ t }: MethodProps) {
           <h2 className="text-3xl font-semibold tracking-tight">{t.method.title}</h2>
           <p className="mt-2 text-[var(--muted)]">{t.method.sub}</p>
         </div>
-        <div className="mt-10 grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="mt-10 grid md:grid-cols-3 lg:grid-cols-5 gap-6 items-start">
           {t.method.steps.map((step, i) => (
-            <div key={i} className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm">
-              <div className="h-10 w-10 rounded-xl bg-[var(--brand)] text-white grid place-items-center font-semibold">
-                {step.k}
-              </div>
-              <h3 className="mt-4 font-semibold">{step.t}</h3>
-              {'subtitle' in step && <p className="mt-1 text-xs text-[var(--muted)] font-medium">{step.subtitle}</p>}
-              <p className="mt-2 text-sm text-[var(--muted)]">{step.d}</p>
-            </div>
+            <MethodStepCard
+              key={i}
+              k={step.k}
+              t={step.t}
+              subtitle={step.subtitle}
+              d={step.d}
+            />
           ))}
         </div>
       </div>
