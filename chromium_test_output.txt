@@ -1,8 +1,0 @@
-
-> lifecoach-site@0.1.0 test:e2e /Users/diegoquiroga/MEGAsync Downloads/lifecoach-site
-> playwright test --project=chromium
-
-
-Running 27 tests using 1 worker
-···························
-  27 passed (54.8s)
