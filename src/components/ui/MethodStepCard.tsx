@@ -45,7 +45,7 @@ export function MethodStepCard({ k, t, subtitle, d }: MethodStepCardProps) {
         <div className="h-12 w-12 rounded-xl bg-[var(--brand)] text-white grid place-items-center font-bold text-lg shadow-sm">
           {k}
         </div>
-        <h3 className="mt-4 font-semibold text-[13px] tracking-tight leading-tight">{t}</h3>
+        <h3 className="mt-4 font-semibold text-[10px] tracking-tight leading-tight">{t}</h3>
         <p className="mt-3 text-[var(--muted)] leading-relaxed text-sm">{subtitle}</p>
       </div>
 
