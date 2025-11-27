@@ -34,48 +34,48 @@ export function MethodStepCard({ k, t, subtitle, d }: MethodStepCardProps) {
 
   return (
     <div
-      className={`glass-card rounded-2xl p-6 flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 ${isExpanded ? 'h-[480px]' : 'h-[280px]'
-        }`}
+      className={`glass-card rounded-3xl p-7 flex flex-col transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-0.5 ${
+        isExpanded ? 'min-h-[460px]' : 'min-h-[340px]'
+      }`}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
+      {/* Icon and Title */}
       <div className="flex-shrink-0">
-        <div className="h-10 w-10 rounded-xl bg-[var(--brand)] text-white grid place-items-center font-semibold">
+        <div className="h-14 w-14 rounded-2xl bg-[var(--brand)] text-white grid place-items-center font-bold text-xl shadow-sm">
           {k}
         </div>
-        <h3 className="mt-4 font-semibold">{t}</h3>
-        <p className="mt-2 text-sm text-[var(--muted)]">{subtitle}</p>
+        <h3 className="mt-5 font-semibold text-xl tracking-tight leading-tight">{t}</h3>
+        <p className="mt-3 text-[var(--muted)] leading-relaxed text-[15px]">{subtitle}</p>
       </div>
 
       {/* Expandable content */}
-      <div className="flex-shrink-0">
-        {isExpanded && (
-          <div className="mt-3">
-            <p className="text-sm text-[var(--muted)] leading-relaxed">{d}</p>
-          </div>
-        )}
-      </div>
+      {isExpanded && (
+        <div className="flex-shrink-0 mt-5 pt-5 border-t border-[var(--border)]/30">
+          <p className="text-[var(--muted)] leading-relaxed text-[15px]">{d}</p>
+        </div>
+      )}
 
       {/* Spacer */}
-      <div className="flex-grow min-h-[1rem]"></div>
+      <div className="flex-grow min-h-[2rem]"></div>
 
       {/* Learn more button */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex-shrink-0 text-sm text-[var(--brand)] hover:text-[var(--brand-hover)] font-medium flex items-center gap-1 transition-colors"
+        className="flex-shrink-0 text-[13px] text-[var(--brand)] hover:text-[var(--brand-hover)] font-semibold flex items-center gap-1.5 transition-all hover:gap-2 tracking-wide uppercase"
       >
         {isExpanded ? (
           <>
             {hideText}
-            <svg className="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+            <svg className="w-3.5 h-3.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
             </svg>
           </>
         ) : (
           <>
             {learnMoreText}
-            <svg className="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            <svg className="w-3.5 h-3.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </>
         )}

@@ -6,8 +6,8 @@ interface SocialProofProps {
 
 export function SocialProof({ t }: SocialProofProps) {
   return (
-    <section className="py-8 border-y border-[var(--border)]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-sm text-[var(--muted)]">
+    <section className="py-12 border-y border-[var(--border)]">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-sm text-[var(--muted)]">
         <div>
           {t.proof.feat} <span className="font-medium text-[var(--text)]">{t.proof.mindful}</span>
         </div>

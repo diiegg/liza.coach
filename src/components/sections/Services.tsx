@@ -7,13 +7,13 @@ interface ServicesProps {
 
 export function Services({ t }: ServicesProps) {
   return (
-    <section id="services" className="py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="services" className="py-[var(--space-section-sm)] lg:py-[var(--space-section)]">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         <div className="max-w-2xl">
-          <h2 className="text-3xl font-semibold tracking-tight">{t.services.title}</h2>
-          <p className="mt-2 text-[var(--muted)]">{t.services.sub}</p>
+          <h2 className="text-4xl md:text-5xl font-semibold tracking-tight">{t.services.title}</h2>
+          <p className="mt-6 text-[var(--muted)] text-lg leading-relaxed">{t.services.sub}</p>
         </div>
-        <div className="mt-10 grid md:grid-cols-3 gap-6 items-stretch">
+        <div className="mt-16 grid md:grid-cols-3 gap-8 items-stretch">
           {t.services.cards.map((card, i) => (
             <ServiceCard
               key={i}
