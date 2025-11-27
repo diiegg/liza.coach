@@ -7,10 +7,10 @@ interface FaqProps {
 
 export function Faq({ t }: FaqProps) {
   return (
-    <section id="faq" className="py-20 lg:py-24 bg-[var(--surface)] border-y border-[var(--border)]">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-semibold tracking-tight text-center">{t.faq.title}</h2>
-        <dl className="mt-10 space-y-6">
+    <section id="faq" className="py-[var(--space-section-sm)] lg:py-[var(--space-section)] bg-[var(--surface)] border-y border-[var(--border)]">
+      <div className="mx-auto max-w-4xl px-6 sm:px-8 lg:px-12">
+        <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-center">{t.faq.title}</h2>
+        <dl className="mt-16 space-y-6">
           {t.faq.items.map((item, i) => (
             <FaqItem key={i} question={item.q} answer={item.a} />
           ))}

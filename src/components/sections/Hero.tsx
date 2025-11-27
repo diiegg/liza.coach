@@ -16,17 +16,17 @@ export function Hero({ t }: HeroProps) {
         <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[var(--tint-1)] blur-3xl opacity-60 animate-blob" />
         <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[var(--accent)] blur-3xl opacity-60 animate-blob animation-delay-2000" />
       </div>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28 grid lg:grid-cols-2 gap-10 items-center relative z-10">
-        <div>
-          <p className="inline-flex items-center gap-2 rounded-full border border-[var(--tint-2)] bg-[var(--surface)] px-3 py-1 text-xs text-[var(--brand-ink)] mb-5 shadow-sm">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 py-[var(--space-section-sm)] lg:py-[var(--space-section)] grid lg:grid-cols-2 gap-16 lg:gap-20 items-center relative z-10">
+        <div className="max-w-xl">
+          <p className="inline-flex items-center gap-2 rounded-full border border-[var(--tint-2)] bg-[var(--surface)] px-4 py-1.5 text-xs font-medium text-[var(--brand-ink)] mb-8 shadow-sm tracking-wide uppercase">
             <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
             {t.hero.chip}
           </p>
-          <h1 className="text-4xl/tight md:text-5xl font-semibold tracking-tight">
+          <h1 className="text-5xl/tight md:text-6xl/tight lg:text-7xl/tight font-semibold tracking-tight">
             {t.hero.h1}
           </h1>
-          <p className="mt-4 text-[var(--muted)] text-lg">{t.hero.sub}</p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <p className="mt-8 text-[var(--muted)] text-xl leading-relaxed">{t.hero.sub}</p>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
               href="https://calendly.com/meitol0407/30min?month=2025-10"
               target="_blank"
@@ -42,12 +42,14 @@ export function Hero({ t }: HeroProps) {
               {t.hero.ctaSecondary}
             </a>
           </div>
-          <div className="mt-8 flex items-center gap-6 text-sm text-[var(--muted)]">
-            <div className="flex items-center gap-2">
-              <StarIcon className="h-5 w-5 text-yellow-500" /> {t.hero.rating}
+          <div className="mt-12 flex items-center gap-8 text-sm text-[var(--muted)]">
+            <div className="flex items-center gap-2.5">
+              <StarIcon className="h-5 w-5 text-yellow-500" /> 
+              <span className="font-medium">{t.hero.rating}</span>
             </div>
-            <div className="flex items-center gap-2">
-              <ShieldIcon className="h-5 w-5 text-[var(--brand-ink)]" /> {t.hero.ethics}
+            <div className="flex items-center gap-2.5">
+              <ShieldIcon className="h-5 w-5 text-[var(--brand-ink)]" /> 
+              <span className="font-medium">{t.hero.ethics}</span>
             </div>
           </div>
         </div>
@@ -88,13 +90,6 @@ export function Hero({ t }: HeroProps) {
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="glass-card absolute -bottom-6 -right-6 rounded-2xl px-4 py-3">
-            <p className="text-sm">
-              <strong>{t.hero.cohort}</strong> {t.cohortStarts}{' '}
-              <span className="text-[var(--brand-ink)]">{t.hero.cohortDate}</span>
-            </p>
           </div>
         </div>
       </div>
