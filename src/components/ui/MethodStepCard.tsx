@@ -42,10 +42,10 @@ export function MethodStepCard({ k, t, subtitle, d }: MethodStepCardProps) {
     >
       {/* Icon and Title */}
       <div className="flex-shrink-0">
-        <div className="h-12 w-12 rounded-xl bg-[var(--brand)] text-white grid place-items-center font-bold text-lg shadow-sm">
+        <div className="h-14 w-14 rounded-2xl bg-[var(--brand)] text-white grid place-items-center font-bold text-xl shadow-sm">
           {k}
         </div>
-        <h3 className="mt-4 font-semibold text-[10px] tracking-tight leading-tight">{t}</h3>
+        <h3 className="mt-5 font-semibold text-[10px] tracking-tight leading-tight">{t}</h3>
         <p className="mt-3 text-[var(--muted)] leading-relaxed text-sm">{subtitle}</p>
       </div>
 
