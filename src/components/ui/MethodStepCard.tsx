@@ -45,8 +45,8 @@ export function MethodStepCard({ k, t, subtitle, d }: MethodStepCardProps) {
         <div className="h-14 w-14 rounded-2xl bg-[var(--brand)] text-white grid place-items-center font-bold text-xl shadow-sm">
           {k}
         </div>
-        <h3 className="mt-5 font-semibold text-sm tracking-tight leading-tight">{t}</h3>
-        <p className="mt-3 text-[var(--muted)] leading-relaxed text-xs">{subtitle}</p>
+        <h3 className="mt-5 font-semibold text-xs tracking-tight leading-tight">{t}</h3>
+        <p className="mt-3 text-[var(--muted)] leading-relaxed text-[11px]">{subtitle}</p>
       </div>
 
       {/* Expandable content */}
