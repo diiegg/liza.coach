@@ -13,7 +13,7 @@ export function Method({ t }: MethodProps) {
           <h2 className="text-4xl md:text-5xl font-semibold tracking-tight">{t.method.title}</h2>
           <p className="mt-6 text-[var(--muted)] text-lg leading-relaxed">{t.method.sub}</p>
         </div>
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 items-stretch">
+        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 items-start">
           {t.method.steps.map((step, i) => (
             <MethodStepCard
               key={i}
