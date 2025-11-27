@@ -1,5 +1,3 @@
-import { QuoteIcon } from '../icons';
-
 interface TestimonialCardProps {
   quote: string;
   name: string;
@@ -8,14 +6,16 @@ interface TestimonialCardProps {
 
 export function TestimonialCard({ quote, name, role }: TestimonialCardProps) {
   return (
-    <figure className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm">
-      <div className="flex gap-2 text-[var(--brand-ink)]">
-        <QuoteIcon className="h-5 w-5" />
-        <QuoteIcon className="h-5 w-5 -scale-x-100" />
+    <figure className="group rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-8 shadow-sm hover:shadow-md transition-all duration-300 hover:border-[var(--brand-ink)]/20 relative overflow-hidden">
+      <div className="absolute top-4 left-4 text-6xl leading-none text-[var(--brand-ink)]/10 font-serif select-none">
+        &ldquo;
       </div>
-      <blockquote className="mt-3 text-[var(--text)]">&quot;{quote}&quot;</blockquote>
-      <figcaption className="mt-4 text-sm text-[var(--muted)]">
-        {name} · {role}
+      <blockquote className="relative text-[var(--text)] text-base leading-relaxed pt-4">
+        {quote}
+      </blockquote>
+      <figcaption className="mt-6 pt-4 border-t border-[var(--border)]/50">
+        <div className="font-medium text-[var(--text)]">{name}</div>
+        <div className="text-sm text-[var(--muted)] mt-1">{role}</div>
       </figcaption>
     </figure>
   );
