@@ -89,13 +89,6 @@ export function Hero({ t }: HeroProps) {
               </div>
             </div>
           </div>
-
-          <div className="glass-card absolute -bottom-6 -right-6 rounded-2xl px-4 py-3">
-            <p className="text-sm">
-              <strong>{t.hero.cohort}</strong> {t.cohortStarts}{' '}
-              <span className="text-[var(--brand-ink)]">{t.hero.cohortDate}</span>
-            </p>
-          </div>
         </div>
       </div>
     </section>

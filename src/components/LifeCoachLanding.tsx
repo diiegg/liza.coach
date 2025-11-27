@@ -347,13 +347,6 @@ export default function LifeCoachLanding() {
                 </div>
               </div>
             </div>
-
-            <div className="absolute -bottom-6 -right-6 bg-[color:var(--surface)/0.9] backdrop-blur rounded-2xl shadow-md border border-[var(--border)] px-4 py-3">
-              <p className="text-sm">
-                <strong>{t.hero.cohort}</strong> {lang === 'ru' ? 'стартует' : 'starts'}{' '}
-                <span className="text-[var(--brand-ink)]">{t.hero.cohortDate}</span>
-              </p>
-            </div>
           </div>
         </div>
       </section>
