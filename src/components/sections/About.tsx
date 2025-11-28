@@ -8,12 +8,12 @@ interface AboutProps {
 
 export function About({ t }: AboutProps) {
   return (
-    <section id="about" className="py-20 lg:py-24 bg-[var(--surface)] border-y border-[var(--border)]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-[1.2fr_.8fr] gap-12 items-center">
-        <div>
-          <h2 className="text-3xl font-semibold tracking-tight">{t.about.title}</h2>
-          <p className="mt-4 text-[var(--muted)]">{t.about.body}</p>
-          <ul className="mt-6 space-y-3 text-[var(--muted)]">
+    <section id="about" className="py-[var(--space-section-sm)] lg:py-[var(--space-section)] bg-[var(--surface)] border-y border-[var(--border)]">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 grid lg:grid-cols-[1.2fr_.8fr] gap-16 lg:gap-20 items-center">
+        <div className="max-w-2xl">
+          <h2 className="text-4xl md:text-5xl font-semibold tracking-tight">{t.about.title}</h2>
+          <p className="mt-8 text-[var(--muted)] text-lg leading-relaxed">{t.about.body}</p>
+          <ul className="mt-10 space-y-4 text-[var(--muted)] text-base">
             {t.about.bullets.map((bullet, i) => (
               <li key={i} className="flex items-start gap-3">
                 <CheckIcon className="mt-1 h-5 w-5 text-[var(--brand-ink)] flex-shrink-0" />
@@ -21,26 +21,26 @@ export function About({ t }: AboutProps) {
               </li>
             ))}
           </ul>
-          <div className="mt-8 flex gap-3">
+          <div className="mt-12 flex gap-4">
             <a 
               href="https://calendly.com/meitol0407/30min?month=2025-10"
               target="_blank"
               rel="noopener noreferrer" 
-              className="inline-flex items-center rounded-xl bg-[var(--brand)] px-6 py-3 text-white font-medium shadow hover:bg-[var(--brand-hover)] transition-colors"
+              className="inline-flex items-center rounded-xl bg-[var(--brand)] px-8 py-3.5 text-white font-medium shadow hover:bg-[var(--brand-hover)] transition-all hover:scale-[1.02]"
             >
               {t.about.cta1}
             </a>
             <a 
               href="#method" 
-              className="inline-flex items-center rounded-xl border px-6 py-3 font-medium border-[var(--border)] bg-[var(--surface)] hover:bg-[color:var(--surface)/0.9] transition-colors"
+              className="inline-flex items-center rounded-xl border px-8 py-3.5 font-medium border-[var(--border)] bg-[var(--surface)] hover:bg-[color:var(--surface)/0.9] transition-colors"
             >
               {t.about.cta2}
             </a>
           </div>
           {t.about.credentials && (
-            <div className="mt-8 pt-6 border-t border-[var(--border)]">
-              <h3 className="text-sm font-semibold text-[var(--text)] mb-3">{t.about.credentialsTitle}</h3>
-              <ul className="space-y-2 text-sm text-[var(--muted)]">
+            <div className="mt-12 pt-8 border-t border-[var(--border)]">
+              <h3 className="text-sm font-semibold text-[var(--text)] mb-4 tracking-wide uppercase">{t.about.credentialsTitle}</h3>
+              <ul className="space-y-3 text-sm text-[var(--muted)]">
                 {t.about.credentials.map((credential, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <CheckIcon className="mt-0.5 h-4 w-4 text-[var(--brand-ink)] flex-shrink-0" />

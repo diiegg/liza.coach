@@ -20,16 +20,54 @@
   /* Optional: hero gradient endpoints (only used if you later switch the SVG to vars) */
   --grad-start: var(--bg);
   --grad-end: var(--accent);
+  
+  /* === Editorial Spacing System === */
+  --space-section: 7rem;        /* 112px - Between major sections */
+  --space-section-sm: 5rem;     /* 80px - Mobile section spacing */
+  --space-content: 3.5rem;      /* 56px - Between content blocks */
+  --space-element: 2rem;        /* 32px - Between related elements */
+  --space-compact: 1.5rem;      /* 24px - Compact spacing */
+  --space-tight: 1rem;          /* 16px - Tight spacing */
 }
 
 html, body { 
   background: var(--bg); 
   color: var(--text); 
   font-family: var(--font-inter), system-ui, sans-serif;
+  line-height: 1.7;
+  letter-spacing: -0.011em;
 }
 
+/* === Editorial Typography === */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-playfair), serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 0.75rem;
+}
+
+p {
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
 }
 
 /* === Visual Enhancements === */
