@@ -16,7 +16,65 @@ permissions:
   statuses: write
 
 jobs:
-  # Job 1: Lint, Type Check & Security
+  # Job 1: Security Scanning
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run pnpm audit (production dependencies)
+        run: |
+          echo "🔍 Scanning production dependencies for vulnerabilities..."
+          pnpm audit --prod --audit-level=moderate || echo "::warning::Vulnerabilities found in production dependencies"
+
+      - name: Run pnpm audit (all dependencies)
+        run: |
+          echo "🔍 Scanning all dependencies including dev..."
+          pnpm audit --audit-level=high
+        continue-on-error: true
+
+      - name: Check for known security issues in package.json
+        run: |
+          echo "🔍 Checking for outdated packages with known vulnerabilities..."
+          pnpm outdated || true
+
+      - name: Generate security report
+        if: always()
+        run: |
+          echo "# Security Scan Report" > security-report.md
+          echo "" >> security-report.md
+          echo "## Production Dependencies Audit" >> security-report.md
+          pnpm audit --prod --json > audit-prod.json || true
+          echo "\`\`\`json" >> security-report.md
+          cat audit-prod.json >> security-report.md
+          echo "\`\`\`" >> security-report.md
+
+      - name: Upload security report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-report
+          path: |
+            security-report.md
+            audit-prod.json
+          retention-days: 30
+
+  # Job 2: Lint & Type Check
   lint-and-typecheck:
     name: Lint & Type Check
     runs-on: ubuntu-latest
@@ -36,10 +94,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Security Audit
-        run: pnpm audit --prod
-        continue-on-error: true # Warn but don't fail for now (can be strict later)
 
       - name: Run ESLint
         run: pnpm lint
@@ -253,6 +307,7 @@ jobs:
   all-tests-passed:
     name: All Checks Passed ✓
     needs:
+      - security-scan
       - lint-and-typecheck
       - unit-tests
       - e2e-tests
@@ -264,7 +319,8 @@ jobs:
     steps:
       - name: Check all jobs status
         run: |
-          if [ "${{ needs.lint-and-typecheck.result }}" != "success" ] || \
+          if [ "${{ needs.security-scan.result }}" != "success" ] || \
+             [ "${{ needs.lint-and-typecheck.result }}" != "success" ] || \
              [ "${{ needs.unit-tests.result }}" != "success" ] || \
              [ "${{ needs.e2e-tests.result }}" != "success" ] || \
              [ "${{ needs.accessibility-tests.result }}" != "success" ] || \
