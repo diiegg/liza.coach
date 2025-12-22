@@ -53,16 +53,56 @@ jobs:
           echo "🔍 Checking for outdated packages with known vulnerabilities..."
           pnpm outdated || true
 
+      - name: Run Gitleaks - Secret Detection
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+
+      - name: Run Trivy vulnerability scanner (filesystem)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+          exit-code: '0'
+
+      - name: Upload Trivy results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+      - name: Run Trivy vulnerability scanner (dependencies)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'json'
+          output: 'trivy-deps.json'
+          scanners: 'vuln'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+          exit-code: '0'
+
       - name: Generate security report
         if: always()
         run: |
           echo "# Security Scan Report" > security-report.md
           echo "" >> security-report.md
-          echo "## Production Dependencies Audit" >> security-report.md
+          echo "## pnpm Audit - Production Dependencies" >> security-report.md
           pnpm audit --prod --json > audit-prod.json || true
           echo "\`\`\`json" >> security-report.md
           cat audit-prod.json >> security-report.md
           echo "\`\`\`" >> security-report.md
+          echo "" >> security-report.md
+          echo "## Trivy - Dependency Vulnerabilities" >> security-report.md
+          if [ -f trivy-deps.json ]; then
+            echo "\`\`\`json" >> security-report.md
+            cat trivy-deps.json >> security-report.md
+            echo "\`\`\`" >> security-report.md
+          fi
 
       - name: Upload security report
         if: always()
@@ -72,6 +112,8 @@ jobs:
           path: |
             security-report.md
             audit-prod.json
+            trivy-results.sarif
+            trivy-deps.json
           retention-days: 30
 
   # Job 2: Lint & Type Check
