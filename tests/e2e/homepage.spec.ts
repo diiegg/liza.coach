@@ -21,7 +21,10 @@ test.describe('Homepage E2E Tests', () => {
       await expect(mobileNav).toBeVisible();
       await mobileNav.locator('a[href="#services"]').click();
     } else {
-      await page.click('a[href="#services"]');
+      // Wait for navigation to be visible and stable
+      const servicesLink = page.locator('nav a[href="#services"]').first();
+      await expect(servicesLink).toBeVisible({ timeout: 10000 });
+      await servicesLink.click();
     }
     await expect(page.locator('#services')).toBeInViewport();
   });
