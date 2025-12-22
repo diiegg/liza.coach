@@ -65,7 +65,10 @@ const nextConfig = {
     ];
   },
 
-  // Bundle optimization
+  // Next.js 16+ Turbopack is default - add empty turbopack config to silence webpack warning
+  turbopack: {},
+  
+  // Bundle optimization - only for webpack mode
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
@@ -76,8 +79,7 @@ const nextConfig = {
     return config;
   },
 
-  // You can keep these two lines on to bypass lint/types during prod builds:
-  eslint: { ignoreDuringBuilds: true },
+  // TypeScript config (eslint removed in Next.js 16)
   typescript: { ignoreBuildErrors: true },
 };
 
