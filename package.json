@@ -20,9 +20,9 @@
     "test:all": "pnpm test && pnpm test:e2e"
   },
   "dependencies": {
-    "next": "15.5.4",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "next": "16.1.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",

@@ -14,9 +14,145 @@ permissions:
   contents: read
   pull-requests: write
   statuses: write
+  security-events: write
 
 jobs:
-  # Job 1: Lint, Type Check & Security
+  # Job 1: Security Scanning
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run pnpm audit (production dependencies)
+        run: |
+          echo "🔍 Scanning production dependencies for vulnerabilities..."
+          pnpm audit --prod --audit-level=moderate || echo "::warning::Vulnerabilities found in production dependencies"
+
+      - name: Run pnpm audit (all dependencies)
+        run: |
+          echo "🔍 Scanning all dependencies including dev..."
+          pnpm audit --audit-level=high
+        continue-on-error: true
+
+      - name: Check for known security issues in package.json
+        run: |
+          echo "🔍 Checking for outdated packages with known vulnerabilities..."
+          pnpm outdated || true
+
+      - name: Run Gitleaks - Secret Detection
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Run Trivy vulnerability scanner (filesystem)
+        uses: aquasecurity/trivy-action@0.29.0
+        continue-on-error: true
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+          exit-code: '0'
+
+      - name: Upload Trivy results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always() && hashFiles('trivy-results.sarif') != ''
+        continue-on-error: true
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+      - name: Run Trivy vulnerability scanner (dependencies)
+        uses: aquasecurity/trivy-action@0.29.0
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'json'
+          output: 'trivy-deps.json'
+          scanners: 'vuln'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+          exit-code: '0'
+
+      - name: Run OWASP Dependency-Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: 'liza.coach'
+          path: '.'
+          format: 'HTML'
+          args: >
+            --scan ./package.json
+            --scan ./pnpm-lock.yaml
+            --enableExperimental
+            --nvdApiKey ${{ secrets.NVD_API_KEY }}
+        continue-on-error: true
+
+      - name: Upload OWASP Dependency-Check results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: owasp-dependency-check-report
+          path: reports/
+          retention-days: 30
+
+      - name: Generate security report
+        if: always()
+        run: |
+          echo "# Security Scan Report" > security-report.md
+          echo "" >> security-report.md
+          echo "Generated: $(date)" >> security-report.md
+          echo "" >> security-report.md
+          echo "## 🔐 Gitleaks - Secret Detection" >> security-report.md
+          echo "Status: Checked for hardcoded secrets, API keys, tokens" >> security-report.md
+          echo "" >> security-report.md
+          echo "## 📦 pnpm Audit - Production Dependencies" >> security-report.md
+          pnpm audit --prod --json > audit-prod.json || true
+          echo "\`\`\`json" >> security-report.md
+          cat audit-prod.json >> security-report.md
+          echo "\`\`\`" >> security-report.md
+          echo "" >> security-report.md
+          echo "## 🛡️ Trivy - Dependency Vulnerabilities" >> security-report.md
+          if [ -f trivy-deps.json ]; then
+            echo "\`\`\`json" >> security-report.md
+            cat trivy-deps.json >> security-report.md
+            echo "\`\`\`" >> security-report.md
+          fi
+          echo "" >> security-report.md
+          echo "## 🔍 OWASP Dependency-Check - NVD Database" >> security-report.md
+          if [ -d reports ]; then
+            echo "Report generated. See OWASP Dependency-Check artifact for details." >> security-report.md
+          else
+            echo "No OWASP report generated." >> security-report.md
+          fi
+
+      - name: Upload security report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-report
+          path: |
+            security-report.md
+            audit-prod.json
+            trivy-results.sarif
+            trivy-deps.json
+          retention-days: 30
+
+  # Job 2: Lint & Type Check
   lint-and-typecheck:
     name: Lint & Type Check
     runs-on: ubuntu-latest
@@ -36,10 +172,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Security Audit
-        run: pnpm audit --prod
-        continue-on-error: true # Warn but don't fail for now (can be strict later)
 
       - name: Run ESLint
         run: pnpm lint
@@ -253,6 +385,7 @@ jobs:
   all-tests-passed:
     name: All Checks Passed ✓
     needs:
+      - security-scan
       - lint-and-typecheck
       - unit-tests
       - e2e-tests
@@ -264,7 +397,8 @@ jobs:
     steps:
       - name: Check all jobs status
         run: |
-          if [ "${{ needs.lint-and-typecheck.result }}" != "success" ] || \
+          if [ "${{ needs.security-scan.result }}" != "success" ] || \
+             [ "${{ needs.lint-and-typecheck.result }}" != "success" ] || \
              [ "${{ needs.unit-tests.result }}" != "success" ] || \
              [ "${{ needs.e2e-tests.result }}" != "success" ] || \
              [ "${{ needs.accessibility-tests.result }}" != "success" ] || \

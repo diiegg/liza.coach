@@ -14,7 +14,7 @@ test.describe('Homepage E2E Tests', () => {
     await expect(page.locator('h1')).toContainText(/Clarity\. Confidence\. Consistent Action\./);
   });
 
-  test('should navigate to services section', async ({ page, isMobile, viewport }) => {
+  test('should navigate to services section', async ({ page, isMobile }) => {
     if (isMobile) {
       await page.getByLabel('Open menu').click();
       const mobileNav = page.getByLabel('Mobile navigation');
