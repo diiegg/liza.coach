@@ -86,22 +86,55 @@ jobs:
           severity: 'CRITICAL,HIGH,MEDIUM'
           exit-code: '0'
 
+      - name: Run OWASP Dependency-Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: 'liza.coach'
+          path: '.'
+          format: 'HTML'
+          args: >
+            --scan ./package.json
+            --scan ./pnpm-lock.yaml
+            --enableExperimental
+            --nvdApiKey ${{ secrets.NVD_API_KEY }}
+        continue-on-error: true
+
+      - name: Upload OWASP Dependency-Check results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: owasp-dependency-check-report
+          path: reports/
+          retention-days: 30
+
       - name: Generate security report
         if: always()
         run: |
           echo "# Security Scan Report" > security-report.md
           echo "" >> security-report.md
-          echo "## pnpm Audit - Production Dependencies" >> security-report.md
+          echo "Generated: $(date)" >> security-report.md
+          echo "" >> security-report.md
+          echo "## 🔐 Gitleaks - Secret Detection" >> security-report.md
+          echo "Status: Checked for hardcoded secrets, API keys, tokens" >> security-report.md
+          echo "" >> security-report.md
+          echo "## 📦 pnpm Audit - Production Dependencies" >> security-report.md
           pnpm audit --prod --json > audit-prod.json || true
           echo "\`\`\`json" >> security-report.md
           cat audit-prod.json >> security-report.md
           echo "\`\`\`" >> security-report.md
           echo "" >> security-report.md
-          echo "## Trivy - Dependency Vulnerabilities" >> security-report.md
+          echo "## 🛡️ Trivy - Dependency Vulnerabilities" >> security-report.md
           if [ -f trivy-deps.json ]; then
             echo "\`\`\`json" >> security-report.md
             cat trivy-deps.json >> security-report.md
             echo "\`\`\`" >> security-report.md
+          fi
+          echo "" >> security-report.md
+          echo "## 🔍 OWASP Dependency-Check - NVD Database" >> security-report.md
+          if [ -d reports ]; then
+            echo "Report generated. See OWASP Dependency-Check artifact for details." >> security-report.md
+          else
+            echo "No OWASP report generated." >> security-report.md
           fi
 
       - name: Upload security report
