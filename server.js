@@ -1,7 +1,6 @@
 // server.js — Next.js SSR under cPanel/Passenger
-/* eslint-disable @typescript-eslint/no-require-imports */
-const { createServer } = require('http');
-const next = require('next');
+import { createServer } from 'http';
+import next from 'next';
 
 const port = process.env.PORT || 3000;
 const app = next({ dev: false, conf: { distDir: '.next' } });
