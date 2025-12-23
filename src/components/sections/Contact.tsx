@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { Lang, Translations } from '@/lib/i18n';
-import { MailIcon, GlobeIcon, CalendarIcon, TelegramIcon } from '../icons';
+import { CalendarIcon, TelegramIcon } from '../icons';
 
 interface ContactProps {
   t: Translations;
