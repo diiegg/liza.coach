@@ -1,0 +1,43 @@
+# Netlify configuration for liza.coach
+# =====================================
+
+[build]
+  command = "pnpm run build"
+  publish = ".next"
+
+# Next.js plugin for Netlify
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Security Headers
+# ================
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # HSTS - Force HTTPS for 1 year, include subdomains, and allow preload list inclusion
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    
+    # Prevent clickjacking attacks
+    X-Frame-Options = "SAMEORIGIN"
+    
+    # Prevent MIME type sniffing
+    X-Content-Type-Options = "nosniff"
+    
+    # Control referrer information
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Upgrade HTTP requests to HTTPS
+    Content-Security-Policy = "upgrade-insecure-requests"
+
+# Redirect Rules
+# ==============
+# Note: HTTP-to-HTTPS redirects should be enabled via Netlify site settings
+# under "Domain management" → "HTTPS" → "Force HTTPS" instead of here,
+# as Netlify redirects don't match on protocol in the 'from' field.
+
+# www to non-www redirect (HTTPS)
+[[redirects]]
+  from = "https://www.liza.coach/*"
+  to = "https://liza.coach/:splat"
+  status = 301
+  force = true
