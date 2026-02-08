@@ -14,9 +14,9 @@ test.describe('Homepage E2E Tests', () => {
     await expect(page.locator('h1')).toContainText(/Clarity\. Confidence\. Consistent Action\./);
   });
 
-  // Skip webkit due to known flaky smooth scroll behavior in headless webkit
+  // Skip webkit in local/headless mode due to flaky smooth scroll; runs in CI
   test('should navigate to services section', async ({ page, isMobile, browserName }) => {
-    test.skip(browserName === 'webkit', 'Webkit has flaky smooth scroll behavior in headless mode');
+    test.skip(browserName === 'webkit' && !process.env.CI, 'Webkit has flaky smooth scroll behavior in local headless mode');
 
     if (isMobile) {
       await page.getByLabel('Open menu').click();
@@ -33,9 +33,8 @@ test.describe('Homepage E2E Tests', () => {
         await page.locator('#services').scrollIntoViewIfNeeded();
       }
     }
-    // Wait for scroll animation to complete
-    await page.waitForTimeout(500);
-    await expect(page.locator('#services')).toBeInViewport();
+    // Wait for section to be in viewport (replaces fixed sleep)
+    await expect(page.locator('#services')).toBeInViewport({ timeout: 5000 });
   });
 
   test('should display all three service cards', async ({ page }) => {
@@ -72,9 +71,9 @@ test.describe('Homepage E2E Tests', () => {
     expect(description).toContain('коуч');
   });
 
-  // Skip webkit due to known lazy loading timing issues in headless webkit
+  // Skip webkit in local/headless mode due to flaky lazy loading; runs in CI
   test('should load images properly', async ({ page, browserName }) => {
-    test.skip(browserName === 'webkit', 'Webkit has flaky lazy image loading in headless mode');
+    test.skip(browserName === 'webkit' && !process.env.CI, 'Webkit has flaky lazy image loading in local headless mode');
 
     const images = page.locator('img');
     const count = await images.count();
@@ -85,19 +84,13 @@ test.describe('Homepage E2E Tests', () => {
       await img.scrollIntoViewIfNeeded();
       // Wait for image to be visible first
       await expect(img).toBeVisible();
-      // Wait for the image to actually load by waiting for naturalWidth > 0
-      const timeout = 10000;
-      await img.evaluate((el: HTMLImageElement, timeoutMs: number) => {
-        return new Promise<void>((resolve, reject) => {
-          if (el.complete && el.naturalWidth > 0) {
-            resolve();
-          } else {
-            el.onload = () => resolve();
-            el.onerror = () => reject(new Error('Image failed to load'));
-            setTimeout(() => reject(new Error('Image load timeout')), timeoutMs);
-          }
-        });
-      }, timeout);
+      // Use expect.poll to wait for image to load (replaces manual Promise/setTimeout)
+      await expect.poll(
+        async () => {
+          return await img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0);
+        },
+        { timeout: 10000, message: 'Image did not load within timeout' }
+      ).toBe(true);
       // Verify the image loaded successfully
       const naturalWidth = await img.evaluate((el: HTMLImageElement) => el.naturalWidth);
       expect(naturalWidth).toBeGreaterThan(0);

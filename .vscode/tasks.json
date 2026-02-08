@@ -17,7 +17,7 @@
         "background": {
           "activeOnStart": true,
           "beginsPattern": ".",
-          "endsPattern": "Local:.*http://localhost:3000"
+          "endsPattern": "(http://localhost:\\d+|ready|started server|Ready in)"
         }
       }
     }

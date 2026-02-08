@@ -14,8 +14,9 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    # HSTS - Force HTTPS for 1 year, include subdomains, and allow preload list inclusion
-    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # HSTS - Force HTTPS for 1 year, include subdomains
+    # Note: 'preload' intentionally omitted until all subdomains are audited for HTTPS readiness
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
     
     # Prevent clickjacking attacks
     X-Frame-Options = "SAMEORIGIN"

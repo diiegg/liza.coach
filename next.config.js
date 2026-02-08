@@ -44,13 +44,16 @@ const nextConfig = {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin'
           },
+          // NOTE: The following security headers are duplicated at the Netlify edge level
+          // in netlify.toml for defense-in-depth. Update both locations when changing values.
+          // Canonical values are defined in netlify.toml [[headers]] section.
           {
             key: 'Strict-Transport-Security',
-            value: 'max-age=31536000; includeSubDomains; preload'
+            value: 'max-age=31536000; includeSubDomains'  // Match netlify.toml
           },
           {
             key: 'Content-Security-Policy',
-            value: 'upgrade-insecure-requests'
+            value: 'upgrade-insecure-requests'  // Match netlify.toml
           },
         ],
       },
