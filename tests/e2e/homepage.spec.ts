@@ -17,7 +17,7 @@ test.describe('Homepage E2E Tests', () => {
   // Skip webkit due to known flaky smooth scroll behavior in headless webkit
   test('should navigate to services section', async ({ page, isMobile, browserName }) => {
     test.skip(browserName === 'webkit', 'Webkit has flaky smooth scroll behavior in headless mode');
-    
+
     if (isMobile) {
       await page.getByLabel('Open menu').click();
       const mobileNav = page.getByLabel('Mobile navigation');
@@ -75,7 +75,7 @@ test.describe('Homepage E2E Tests', () => {
   // Skip webkit due to known lazy loading timing issues in headless webkit
   test('should load images properly', async ({ page, browserName }) => {
     test.skip(browserName === 'webkit', 'Webkit has flaky lazy image loading in headless mode');
-    
+
     const images = page.locator('img');
     const count = await images.count();
 
@@ -86,8 +86,7 @@ test.describe('Homepage E2E Tests', () => {
       // Wait for image to be visible first
       await expect(img).toBeVisible();
       // Wait for the image to actually load by waiting for naturalWidth > 0
-      // Use longer timeout for webkit which can be slower with images
-      const timeout = browserName === 'webkit' ? 30000 : 10000;
+      const timeout = 10000;
       await img.evaluate((el: HTMLImageElement, timeoutMs: number) => {
         return new Promise<void>((resolve, reject) => {
           if (el.complete && el.naturalWidth > 0) {
