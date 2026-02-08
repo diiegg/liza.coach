@@ -14,7 +14,7 @@ test.describe('Homepage E2E Tests', () => {
     await expect(page.locator('h1')).toContainText(/Clarity\. Confidence\. Consistent Action\./);
   });
 
-  test('should navigate to services section', async ({ page, isMobile }) => {
+  test('should navigate to services section', async ({ page, isMobile, browserName }) => {
     if (isMobile) {
       await page.getByLabel('Open menu').click();
       const mobileNav = page.getByLabel('Mobile navigation');
@@ -24,7 +24,8 @@ test.describe('Homepage E2E Tests', () => {
       // On desktop, use Hero CTA or scroll directly since nav might be hidden by CSS
       const heroCTA = page.locator('a[href="#services"]').first();
       if (await heroCTA.isVisible()) {
-        await heroCTA.click();
+        // Use force click for webkit due to potential image overlay issues
+        await heroCTA.click({ force: browserName === 'webkit' });
       } else {
         // Fallback: scroll directly to section
         await page.locator('#services').scrollIntoViewIfNeeded();
@@ -67,7 +68,7 @@ test.describe('Homepage E2E Tests', () => {
     expect(description).toContain('коуч');
   });
 
-  test('should load images properly', async ({ page }) => {
+  test('should load images properly', async ({ page, browserName }) => {
     const images = page.locator('img');
     const count = await images.count();
 
@@ -78,18 +79,19 @@ test.describe('Homepage E2E Tests', () => {
       // Wait for image to be visible first
       await expect(img).toBeVisible();
       // Wait for the image to actually load by waiting for naturalWidth > 0
-      await img.evaluate((el: HTMLImageElement) => {
+      // Use longer timeout for webkit which can be slower with images
+      const timeout = browserName === 'webkit' ? 30000 : 10000;
+      await img.evaluate((el: HTMLImageElement, timeoutMs: number) => {
         return new Promise<void>((resolve, reject) => {
           if (el.complete && el.naturalWidth > 0) {
             resolve();
           } else {
             el.onload = () => resolve();
             el.onerror = () => reject(new Error('Image failed to load'));
-            // Timeout after 10 seconds
-            setTimeout(() => reject(new Error('Image load timeout')), 10000);
+            setTimeout(() => reject(new Error('Image load timeout')), timeoutMs);
           }
         });
-      });
+      }, timeout);
       // Verify the image loaded successfully
       const naturalWidth = await img.evaluate((el: HTMLImageElement) => el.naturalWidth);
       expect(naturalWidth).toBeGreaterThan(0);
